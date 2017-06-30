@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ele.mapper.ShopMapper">
+    <select id="findById" parameterType="int" resultType="com.ele.pojo.Shop">
+        select * from shop where id = #{id}
+    </select>
+
+    <select id="findDiscountDescById" parameterType="int" resultType="com.ele.dto.DtoDiscountDesc">
+        select shop_discount.id id,shop_discount_desc.shop_discount_desc discountDesc
+        from shop_discount,shop_discount_desc
+        where shop_discount.id = shop_discount_desc.shop_discount_id
+        and shop_discount_desc.shop_id = #{id};
+
+    </select>
+
+    <select id="findShopImgById" parameterType="int" resultType="com.ele.pojo.ShopImg">
+        select img.shop_id,img.shop_img from shop_img img where img.shop_id = #{id};
+    </select>
+
+    <resultMap id="goodsList" type="com.ele.dto.Goods">
+        <id property="type" column="iconId"/>
+        <result property="name" column="name"/>
+        <collection property="foodList" column="id" select="findFoodByFoodId" />
+    </resultMap>
+
+
+    <select id="findFoodByFoodId" parameterType="int" resultType="com.ele.pojo.ShopFood">
+        select * from shop_food where id = #{id}
+    </select>
+
+    <select id="findShopGoodsById" parameterType="int" resultMap="goodsList">
+        select food_type_id id,shop_food_type name,icon_id iconId from food_type where shop_id = #{id}
+    </select>
+
+    <sql id="food_column">
+        id,food_name,shop_food_type,shop_id,price,old_price,monthly_counts,food_img,info,description,grade
+    </sql>
+
+</mapper>
