@@ -3,16 +3,18 @@ package com.ele.pojo;
 /**
  * Created by yanfeng-mac on 2017/6/27.
  */
-public class Reward {
+public class FoodReward {
     private Integer id;
     private Integer shopFoodId;
     private Integer shopId;
     private Integer userId;
+    private String username;
+    private String avatar;
     private String rewardMsg;
-    private Boolean cool;
-    private Boolean good;
-    private Boolean bad;
     private Integer orderId;
+    private String rewardTime;
+    private Integer rewardType;
+    private Integer grade;
 
     public Integer getId() {
         return id;
@@ -46,36 +48,28 @@ public class Reward {
         this.userId = userId;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
     public String getRewardMsg() {
         return rewardMsg;
     }
 
     public void setRewardMsg(String rewardMsg) {
         this.rewardMsg = rewardMsg;
-    }
-
-    public Boolean getCool() {
-        return cool;
-    }
-
-    public void setCool(Boolean cool) {
-        this.cool = cool;
-    }
-
-    public Boolean getGood() {
-        return good;
-    }
-
-    public void setGood(Boolean good) {
-        this.good = good;
-    }
-
-    public Boolean getBad() {
-        return bad;
-    }
-
-    public void setBad(Boolean bad) {
-        this.bad = bad;
     }
 
     public Integer getOrderId() {
@@ -86,18 +80,44 @@ public class Reward {
         this.orderId = orderId;
     }
 
+    public String getRewardTime() {
+        return rewardTime;
+    }
+
+    public void setRewardTime(String rewardTime) {
+        this.rewardTime = rewardTime;
+    }
+
+    public Integer getRewardType() {
+        return rewardType;
+    }
+
+    public void setRewardType(Integer rewardType) {
+        this.rewardType = rewardType;
+    }
+
+    public Integer getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Integer grade) {
+        this.grade = grade;
+    }
+
     @Override
     public String toString() {
-        return "Reward{" +
+        return "FoodReward{" +
                 "id=" + id +
                 ", shopFoodId=" + shopFoodId +
                 ", shopId=" + shopId +
                 ", userId=" + userId +
+                ", username='" + username + '\'' +
+                ", avatar='" + avatar + '\'' +
                 ", rewardMsg='" + rewardMsg + '\'' +
-                ", cool=" + cool +
-                ", good=" + good +
-                ", bad=" + bad +
                 ", orderId=" + orderId +
+                ", rewardTime='" + rewardTime + '\'' +
+                ", rewardType=" + rewardType +
+                ", grade=" + grade +
                 '}';
     }
 }

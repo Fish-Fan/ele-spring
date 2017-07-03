@@ -2,9 +2,7 @@ package com.ele.mapper;
 
 import com.ele.dto.DtoDiscountDesc;
 import com.ele.dto.Goods;
-import com.ele.pojo.Shop;
-import com.ele.pojo.ShopFood;
-import com.ele.pojo.ShopImg;
+import com.ele.pojo.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -48,4 +46,6 @@ public interface ShopMapper {
      * @return
      */
     ShopFood findFoodByFoodId(Integer foodId);
+
+
 }

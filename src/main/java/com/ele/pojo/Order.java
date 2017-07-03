@@ -11,6 +11,8 @@ public class Order {
     private String orderRemark;
     private Double sumMoney;
     private Integer userId;
+    private String deliveryTime;
+    private Integer grade;
 
     public Integer getId() {
         return id;
@@ -68,6 +70,22 @@ public class Order {
         this.userId = userId;
     }
 
+    public String getDeliveryTime() {
+        return deliveryTime;
+    }
+
+    public void setDeliveryTime(String deliveryTime) {
+        this.deliveryTime = deliveryTime;
+    }
+
+    public Integer getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Integer grade) {
+        this.grade = grade;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -78,6 +96,8 @@ public class Order {
                 ", orderRemark='" + orderRemark + '\'' +
                 ", sumMoney=" + sumMoney +
                 ", userId=" + userId +
+                ", deliveryTime='" + deliveryTime + '\'' +
+                ", grade=" + grade +
                 '}';
     }
 }

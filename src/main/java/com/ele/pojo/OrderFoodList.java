@@ -6,6 +6,7 @@ package com.ele.pojo;
 public class OrderFoodList {
     private Integer id;
     private Integer foodId;
+    private String foodName;
     private Integer orderId;
 
     public Integer getId() {
@@ -24,6 +25,14 @@ public class OrderFoodList {
         this.foodId = foodId;
     }
 
+    public String getFoodName() {
+        return foodName;
+    }
+
+    public void setFoodName(String foodName) {
+        this.foodName = foodName;
+    }
+
     public Integer getOrderId() {
         return orderId;
     }
@@ -37,6 +46,7 @@ public class OrderFoodList {
         return "OrderFoodList{" +
                 "id=" + id +
                 ", foodId=" + foodId +
+                ", foodName='" + foodName + '\'' +
                 ", orderId=" + orderId +
                 '}';
     }

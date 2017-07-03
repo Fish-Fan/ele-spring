@@ -14,7 +14,8 @@ public class Shop {
     private Integer id;
     private String name;
     private String avatar;
-    private String grade;
+    private Double gradeCook;
+    private Double gradeServer;
     private Integer monthlyCounts;
     private String introduce;
     private Integer deliveryTime;
@@ -24,10 +25,14 @@ public class Shop {
     private String openTime;
     private Integer reportCount;
     private Integer minPrice;
+    private Integer likeCount;
+    private Double deliveryMoney;
+    private Double ranke;
 
     private List<DtoDiscountDesc> discountDescList;
     private List<ShopImg> imgList;
-    private List<Goods> goods;
+
+
 
     public Integer getId() {
         return id;
@@ -53,12 +58,20 @@ public class Shop {
         this.avatar = avatar;
     }
 
-    public String getGrade() {
-        return grade;
+    public Double getGradeCook() {
+        return gradeCook;
     }
 
-    public void setGrade(String grade) {
-        this.grade = grade;
+    public void setGradeCook(Double gradeCook) {
+        this.gradeCook = gradeCook;
+    }
+
+    public Double getGradeServer() {
+        return gradeServer;
+    }
+
+    public void setGradeServer(Double gradeServer) {
+        this.gradeServer = gradeServer;
     }
 
     public Integer getMonthlyCounts() {
@@ -149,12 +162,28 @@ public class Shop {
         this.imgList = imgList;
     }
 
-    public List<Goods> getGoods() {
-        return goods;
+    public Integer getLikeCount() {
+        return likeCount;
     }
 
-    public void setGoods(List<Goods> goods) {
-        this.goods = goods;
+    public void setLikeCount(Integer likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public Double getDeliveryMoney() {
+        return deliveryMoney;
+    }
+
+    public void setDeliveryMoney(Double deliveryMoney) {
+        this.deliveryMoney = deliveryMoney;
+    }
+
+    public Double getRanke() {
+        return ranke;
+    }
+
+    public void setRanke(Double ranke) {
+        this.ranke = ranke;
     }
 
     @Override
@@ -163,7 +192,8 @@ public class Shop {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", avatar='" + avatar + '\'' +
-                ", grade='" + grade + '\'' +
+                ", gradeCook=" + gradeCook +
+                ", gradeServer=" + gradeServer +
                 ", monthlyCounts=" + monthlyCounts +
                 ", introduce='" + introduce + '\'' +
                 ", deliveryTime=" + deliveryTime +
@@ -173,9 +203,11 @@ public class Shop {
                 ", openTime='" + openTime + '\'' +
                 ", reportCount=" + reportCount +
                 ", minPrice=" + minPrice +
+                ", likeCount=" + likeCount +
+                ", deliveryMoney=" + deliveryMoney +
+                ", ranke=" + ranke +
                 ", discountDescList=" + discountDescList +
                 ", imgList=" + imgList +
-                ", goods=" + goods +
                 '}';
     }
 }

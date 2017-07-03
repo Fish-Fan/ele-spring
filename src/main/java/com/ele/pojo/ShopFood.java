@@ -1,5 +1,7 @@
 package com.ele.pojo;
 
+import java.util.List;
+
 /**
  * Created by yanfeng-mac on 2017/6/27.
  */
@@ -15,6 +17,8 @@ public class ShopFood {
     private String info;
     private String description;
     private Double grade;
+
+    private List<FoodReward> foodRewardList;
 
     public Integer getId() {
         return id;
@@ -104,6 +108,14 @@ public class ShopFood {
         this.grade = grade;
     }
 
+    public List<FoodReward> getFoodRewardList() {
+        return foodRewardList;
+    }
+
+    public void setFoodRewardList(List<FoodReward> foodRewardList) {
+        this.foodRewardList = foodRewardList;
+    }
+
     @Override
     public String toString() {
         return "ShopFood{" +
@@ -118,6 +130,7 @@ public class ShopFood {
                 ", info='" + info + '\'' +
                 ", description='" + description + '\'' +
                 ", grade=" + grade +
+                ", rewardList=" + foodRewardList +
                 '}';
     }
 }

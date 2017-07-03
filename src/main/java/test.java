@@ -1,7 +1,10 @@
 import com.ele.dto.Goods;
+import com.ele.mapper.RewardMapper;
 import com.ele.mapper.ShopMapper;
 import com.ele.mapper.UserMapper;
+import com.ele.pojo.ShopReward;
 import com.ele.pojo.User;
+import com.ele.service.ShopService;
 import com.ele.util.SqlSessionFactoryUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -23,9 +26,14 @@ public class test {
 
 //        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
         ShopMapper shopMapper = sqlSession.getMapper(ShopMapper.class);
+        RewardMapper rewardMapper = sqlSession.getMapper(RewardMapper.class);
 //        User user = userMapper.findById(1);
-        List<Goods> goods = shopMapper.findShopGoodsById(1);
-        System.out.println(goods);
+//        List<Goods> goods = shopMapper.findShopGoodsById(1);
+
+        ShopService shopService = new ShopService();
+
+        List<ShopReward> rewardList = shopService.findShopRewardByShopId(1);
+        System.out.println(rewardList);
 
 
 //        User user = new User();

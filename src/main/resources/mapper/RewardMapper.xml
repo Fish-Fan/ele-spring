@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ele.mapper.RewardMapper">
+
+
+
+    <!--查找商家所有的评论-->
+    <resultMap id="shopReward" type="com.ele.pojo.ShopReward">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="username" column="username"/>
+        <result property="avatar" column="avatar"/>
+        <result property="rewardMsg" column="reward_msg"/>
+        <result property="shopId" column="shop_id"/>
+        <result property="orderId" column="order_id"/>
+        <result property="rewardType" column="reward_type"/>
+        <result property="grade" column="grade"/>
+
+        <collection property="foodList" column="order_id" select="findOrderFoodByOrderId"/>
+    </resultMap>
+
+    <!--根据OrderID查找OrderFoodList-->
+    <select id="findOrderFoodByOrderId" parameterType="int" resultType="com.ele.pojo.OrderFoodList">
+        select * from order_food_list where order_id = #{order_id}
+    </select>
+
+    <select id="findShopRewardByShopId" parameterType="int" resultMap="shopReward">
+        select id,user_id,username,avatar,reward_msg,shop_id,order_id,reward_type,grade
+        from shop_reward
+        where shop_id = #{shop_id}
+    </select>
+
+</mapper>

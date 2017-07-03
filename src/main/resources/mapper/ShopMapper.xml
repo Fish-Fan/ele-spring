@@ -17,20 +17,50 @@
         select img.shop_id,img.shop_img from shop_img img where img.shop_id = #{id};
     </select>
 
+
+    <!--构建goodsList-->
     <resultMap id="goodsList" type="com.ele.dto.Goods">
         <id property="type" column="iconId"/>
         <result property="name" column="name"/>
+
         <collection property="foodList" column="id" select="findFoodByFoodId" />
     </resultMap>
 
+    <!--构建ShopFood-->
+    <resultMap id="shopFood" type="com.ele.pojo.ShopFood">
+        <id property="id" column="id"/>
+        <result property="foodName" column="food_name"/>
+        <result property="shopFoodType" column="shop_food_type"/>
+        <result property="shopId" column="shop_id"/>
+        <result property="price" column="price"/>
+        <result property="oldPrice" column="old_price"/>
+        <result property="monthlyCounts" column="monthly_counts"/>
+        <result property="foodImg" column="food_img"/>
+        <result property="info" column="info"/>
+        <result property="description" column="description"/>
+        <result property="grade" column="grade"/>
 
-    <select id="findFoodByFoodId" parameterType="int" resultType="com.ele.pojo.ShopFood">
-        select * from shop_food where id = #{id}
+        <collection property="foodRewardList" column="id" select="findFoodRewardByFoodId"/>
+    </resultMap>
+
+
+    <select id="findFoodRewardByFoodId" parameterType="int" resultType="com.ele.pojo.FoodReward">
+        select id,shop_food_id,shop_id,user_id,username,avatar,reward_msg,order_id,reward_time,reward_type,grade
+        from food_reward
+        where shop_food_id = #{id}
+    </select>
+
+    <select id="findFoodByFoodId" parameterType="int" resultMap="shopFood">
+        select id,food_name,shop_food_type,shop_id,price,old_price,monthly_counts,food_img,info,description,grade
+        from shop_food
+        where id = #{id}
     </select>
 
     <select id="findShopGoodsById" parameterType="int" resultMap="goodsList">
         select food_type_id id,shop_food_type name,icon_id iconId from food_type where shop_id = #{id}
     </select>
+
+
 
     <sql id="food_column">
         id,food_name,shop_food_type,shop_id,price,old_price,monthly_counts,food_img,info,description,grade

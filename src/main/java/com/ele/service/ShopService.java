@@ -2,9 +2,11 @@ package com.ele.service;
 
 import com.ele.dto.DtoDiscountDesc;
 import com.ele.dto.Goods;
+import com.ele.mapper.RewardMapper;
 import com.ele.mapper.ShopMapper;
 import com.ele.pojo.Shop;
 import com.ele.pojo.ShopImg;
+import com.ele.pojo.ShopReward;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,8 @@ import java.util.List;
 public class ShopService {
     @Autowired
     private ShopMapper shopMapper;
+    @Autowired
+    private RewardMapper rewardMapper;
 
     /**
      * 根据商家ID查找商家
@@ -54,5 +58,14 @@ public class ShopService {
      */
     public List<Goods> findShopGoodsById(Integer id) {
         return shopMapper.findShopGoodsById(id);
+    }
+
+    /**
+     * 根据商家ID查找评论
+     * @param shopId
+     * @return
+     */
+    public  List<ShopReward> findShopRewardByShopId(Integer shopId) {
+        return rewardMapper.findShopRewardByShopId(shopId);
     }
 }
