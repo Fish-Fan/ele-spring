@@ -47,5 +47,9 @@ public interface ShopMapper {
      */
     ShopFood findFoodByFoodId(Integer foodId);
 
-
+    /**
+     * APP首页，展示前十名商家(按照服务评分进行排名)
+     * @return
+     */
+    List<Shop> findBasicShopMsgOrderByServer();
 }

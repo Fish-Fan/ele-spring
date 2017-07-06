@@ -5,9 +5,7 @@ import com.ele.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by yanfeng-mac on 2017/6/27.
@@ -23,6 +21,16 @@ public class UserController {
         User user = userService.findById(id);
         model.addAttribute(user);
         return "user";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/register",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+    public String registerUser(User user) {
+        if(userService.registUser(user)) {
+            return "success";
+        } else {
+            return "error";
+        }
     }
 
 }

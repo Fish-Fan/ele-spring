@@ -60,6 +60,36 @@
         select food_type_id id,shop_food_type name,icon_id iconId from food_type where shop_id = #{id}
     </select>
 
+    <!--首页信息>>>商家基本信息-->
+    <resultMap id="shopBasic" type="com.ele.pojo.Shop">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="avatar" column="avatar"/>
+        <result property="gradeCook" column="grade_cook"/>
+        <result property="gradeServer" column="grade_server"/>
+        <result property="monthlyCounts" column="monthly_counts"/>
+        <result property="introduce" column="introduce"/>
+        <result property="deliveryTime" column="delivery_time"/>
+        <result property="specialMsg" column="special_msg"/>
+        <result property="contact" column="contact"/>
+        <result property="address" column="address"/>
+        <result property="openTime" column="open_time"/>
+        <result property="reportCount" column="report_count"/>
+        <result property="distance" column="distance"/>
+        <result property="minPrice" column="min_price"/>
+        <result property="likeCount" column="like_count"/>
+        <result property="deliveryMoney" column="delivery_money"/>
+        <result property="ranke" column="ranke"/>
+
+        <collection property="discountDescList" column="id" select="findDiscountDescById"/>
+    </resultMap>
+
+
+    <select id="findBasicShopMsgOrderByServer" resultMap="shopBasic">
+        select id,name,avatar,grade_cook,grade_server,monthly_counts,introduce,delivery_time,special_msg,contact,address,open_time,report_count,distance,min_price,like_count,delivery_money,ranke
+        from shop order by grade_server desc limit 10;
+    </select>
+
 
 
     <sql id="food_column">

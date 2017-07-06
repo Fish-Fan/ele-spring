@@ -68,4 +68,12 @@ public class ShopService {
     public  List<ShopReward> findShopRewardByShopId(Integer shopId) {
         return rewardMapper.findShopRewardByShopId(shopId);
     }
+
+    /**
+     * APP首页，展示前十名商家(按照服务评分进行排名)
+     * @return
+     */
+    public List<Shop> findBasicShopMsgOrderByServer() {
+        return shopMapper.findBasicShopMsgOrderByServer();
+    }
 }

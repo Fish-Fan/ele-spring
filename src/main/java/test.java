@@ -2,10 +2,13 @@ import com.ele.dto.Goods;
 import com.ele.mapper.RewardMapper;
 import com.ele.mapper.ShopMapper;
 import com.ele.mapper.UserMapper;
+import com.ele.pojo.Shop;
 import com.ele.pojo.ShopReward;
 import com.ele.pojo.User;
+import com.ele.pojo.wechat.AccessToken;
 import com.ele.service.ShopService;
 import com.ele.util.SqlSessionFactoryUtil;
+import com.ele.util.WeChatUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -32,9 +35,8 @@ public class test {
 
         ShopService shopService = new ShopService();
 
-        List<ShopReward> rewardList = shopService.findShopRewardByShopId(1);
-        System.out.println(rewardList);
-
+        List<Shop> shopList = shopMapper.findBasicShopMsgOrderByServer();
+        System.out.println(shopList);
 
 //        User user = new User();
 //        user.setUsername("swift");
@@ -43,5 +45,10 @@ public class test {
 
 //        sqlSession.commit();
         sqlSession.close();
+
+
+
+
+
     }
 }

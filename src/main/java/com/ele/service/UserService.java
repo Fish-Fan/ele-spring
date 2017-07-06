@@ -18,4 +18,15 @@ public class UserService {
     public User findById(Integer id) {
         return userMapper.findById(id);
     }
+
+    public boolean registUser(User user) {
+        User checkUser = userMapper.findByEmail(user.getEmail());
+
+        if(checkUser != null) {
+            return false;
+        } else {
+            userMapper.insertUser(user);
+            return true;
+        }
+    }
 }

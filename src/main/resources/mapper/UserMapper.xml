@@ -5,4 +5,13 @@
         select * from user where id = #{id}
     </select>
 
+    <select id="insertUser" parameterType="com.ele.pojo.User">
+        insert into user(username,password,email,avatar,phone_num,weixin)
+        values(#{username},#{password},#{email},#{avatar},#{phone_num},#{weixin})
+    </select>
+
+    <select id="findByEmail" parameterType="string" resultType="com.ele.pojo.User">
+        select * from user where email = #{email}
+    </select>
+
 </mapper>

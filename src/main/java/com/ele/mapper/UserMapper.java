@@ -8,5 +8,23 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public interface UserMapper {
+    /**
+     * 根据ID查找用户
+     * @param id
+     * @return
+     */
     User findById(Integer id);
+
+    /**
+     * 插入新用户
+     * @param user
+     */
+    void insertUser(User user);
+
+    /**
+     * 根据Email查找用户
+     * @param email
+     * @return
+     */
+    User findByEmail(String email);
 }

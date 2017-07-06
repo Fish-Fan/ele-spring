@@ -24,6 +24,7 @@ public class Shop {
     private String address;
     private String openTime;
     private Integer reportCount;
+    private Double distance;
     private Integer minPrice;
     private Integer likeCount;
     private Double deliveryMoney;
@@ -138,6 +139,14 @@ public class Shop {
         this.reportCount = reportCount;
     }
 
+    public Double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Double distance) {
+        this.distance = distance;
+    }
+
     public Integer getMinPrice() {
         return minPrice;
     }
@@ -202,6 +211,7 @@ public class Shop {
                 ", address='" + address + '\'' +
                 ", openTime='" + openTime + '\'' +
                 ", reportCount=" + reportCount +
+                ", distance=" + distance +
                 ", minPrice=" + minPrice +
                 ", likeCount=" + likeCount +
                 ", deliveryMoney=" + deliveryMoney +
