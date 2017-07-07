@@ -2,6 +2,7 @@ package com.ele.controller;
 
 import com.ele.pojo.User;
 import com.ele.service.UserService;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +17,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @ResponseBody
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    public String userMsg(@PathVariable Integer id, Model model) {
+    public String userMsg(@PathVariable Integer id) {
         User user = userService.findById(id);
-        model.addAttribute(user);
-        return "user";
+        Gson gson = new Gson();
+        return gson.toJson(user);
     }
 
     @ResponseBody

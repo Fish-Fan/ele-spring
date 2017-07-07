@@ -1,5 +1,9 @@
 package com.ele.pojo;
 
+import com.ele.dto.BasicFoodDTO;
+
+import java.util.List;
+
 /**
  * Created by yanfeng-mac on 2017/6/27.
  */
@@ -13,6 +17,11 @@ public class Order {
     private Integer userId;
     private String deliveryTime;
     private Integer grade;
+    private String address;
+    private String generateTime;
+
+    private List<BasicFoodDTO> foodList;
+    private User user;
 
     public Integer getId() {
         return id;
@@ -86,6 +95,38 @@ public class Order {
         this.grade = grade;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getGenerateTime() {
+        return generateTime;
+    }
+
+    public void setGenerateTime(String generateTime) {
+        this.generateTime = generateTime;
+    }
+
+    public List<BasicFoodDTO> getFoodList() {
+        return foodList;
+    }
+
+    public void setFoodList(List<BasicFoodDTO> foodList) {
+        this.foodList = foodList;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -98,6 +139,10 @@ public class Order {
                 ", userId=" + userId +
                 ", deliveryTime='" + deliveryTime + '\'' +
                 ", grade=" + grade +
+                ", address='" + address + '\'' +
+                ", generateTime='" + generateTime + '\'' +
+                ", foodList=" + foodList +
+                ", user=" + user +
                 '}';
     }
 }
