@@ -3,12 +3,13 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:websocket="http://www.springframework.org/schema/websocket"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/mvc
-       http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
 
     <!--配置业务控制器的扫描-->
@@ -17,13 +18,7 @@
     <!--控制器基于注解-->
     <!--<mvc:annotation-driven/>-->
 
-    <mvc:annotation-driven>
-        <mvc:message-converters>
-            <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
-            <bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>
-            <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
-        </mvc:message-converters>
-    </mvc:annotation-driven>
+    <mvc:annotation-driven/>
 
     <!--方法1. -->
     <!--<mvc:default-servlet-handler/>-->
@@ -42,6 +37,16 @@
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="100000000000"/>
     </bean>
+
+
+    <bean id="websocket" class="com.ele.socket.SocketHandler"/>
+    <websocket:handlers>
+        <websocket:mapping path="/socketServer" handler="websocket"/>
+        <websocket:handshake-interceptors>
+            <bean class="com.ele.socket.WebSocketInterceptor"/>
+        </websocket:handshake-interceptors>
+    </websocket:handlers>
+
 
 
 

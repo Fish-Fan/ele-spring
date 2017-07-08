@@ -2,6 +2,7 @@ package com.ele.controller;
 
 import com.ele.dto.OrderDetail;
 import com.ele.pojo.Order;
+import com.google.gson.Gson;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,15 +30,16 @@ public class OrderController {
         order.setPhoneNum(orderDetail.getOrderDetail().getUser().getPhoneNum());
         order.setNoName(true);
         order.setSumMoney(orderDetail.getOrderDetail().getTotalPrice());
-        //设置地址(未完成)
-        order.setAddress("111");
+        order.setAddress(orderDetail.getOrderDetail().getUser().getLastAddress());
         order.setGenerateTime(now);
         order.setFoodList(orderDetail.getOrderDetail().getFoodList());
         order.setUser(orderDetail.getOrderDetail().getUser());
+        order.setStatus(1);
 
-
-
-        return "111";
+        Gson gson = new Gson();
+        //暂时返回初始订单JSON数据
+        //此处应为界面跳转
+        return gson.toJson(order);
     }
 
     @RequestMapping(value = "/test",method = RequestMethod.GET)

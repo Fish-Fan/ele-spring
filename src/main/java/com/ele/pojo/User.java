@@ -11,6 +11,7 @@ public class User {
     private String avatar;
     private String phoneNum;
     private String weixin;
+    private String lastAddress;
 
     public Integer getId() {
         return id;
@@ -68,6 +69,14 @@ public class User {
         this.weixin = weixin;
     }
 
+    public String getLastAddress() {
+        return lastAddress;
+    }
+
+    public void setLastAddress(String lastAddress) {
+        this.lastAddress = lastAddress;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -76,8 +85,9 @@ public class User {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", avatar='" + avatar + '\'' +
-                ", phone_num='" + phoneNum + '\'' +
+                ", phoneNum='" + phoneNum + '\'' +
                 ", weixin='" + weixin + '\'' +
+                ", lastAddress='" + lastAddress + '\'' +
                 '}';
     }
 }

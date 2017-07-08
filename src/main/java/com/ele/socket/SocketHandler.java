@@ -1,0 +1,89 @@
+package com.ele.socket;
+
+import com.ele.pojo.User;
+import org.springframework.stereotype.Service;
+import org.springframework.web.socket.*;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+/**
+ * Created by yanfeng-mac on 2017/7/6.
+ */
+@Service
+public class SocketHandler implements WebSocketHandler {
+
+    private static final ArrayList<WebSocketSession> users = new ArrayList<>();
+
+    @Override
+    public void afterConnectionEstablished(WebSocketSession webSocketSession) throws Exception {
+        System.out.println("成功建立起socket链接");
+        users.add(webSocketSession);
+
+        String username = webSocketSession.getAttributes().get("user").toString();
+        if(username != null) {
+            webSocketSession.sendMessage(new TextMessage("我们已经建立起websocket通信啦"));
+        }
+
+    }
+
+    @Override
+    public void handleMessage(WebSocketSession webSocketSession, WebSocketMessage<?> webSocketMessage) throws Exception {
+
+    }
+
+    @Override
+    public void handleTransportError(WebSocketSession webSocketSession, Throwable throwable) throws Exception {
+        if(webSocketSession.isOpen()) {
+            webSocketSession.close();
+        }
+
+        users.remove(webSocketSession);
+    }
+
+    @Override
+    public void afterConnectionClosed(WebSocketSession webSocketSession, CloseStatus closeStatus) throws Exception {
+        users.remove(webSocketSession);
+    }
+
+    @Override
+    public boolean supportsPartialMessages() {
+        return false;
+    }
+
+    /**
+     * 跟在线的所用用户发送消息
+     * @param textMessage
+     */
+    public void sendMessageToAllUsers(TextMessage textMessage) {
+        for(WebSocketSession webSocketSession : users) {
+            if(webSocketSession.isOpen()) {
+                try {
+                    webSocketSession.sendMessage(textMessage);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * 给指定用户发送消息
+     * @param username
+     * @param textMessage
+     */
+    public void sendMessageToUser(String username, TextMessage textMessage) {
+        for (WebSocketSession webSocketSession : users) {
+            User user = (User) webSocketSession.getAttributes().get("user");
+            if(user.getUsername().equals(username)) {
+                try {
+                    webSocketSession.sendMessage(textMessage);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            break;
+        }
+    }
+}

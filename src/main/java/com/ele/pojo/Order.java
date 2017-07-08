@@ -19,9 +19,11 @@ public class Order {
     private Integer grade;
     private String address;
     private String generateTime;
+    private Integer status;
 
     private List<BasicFoodDTO> foodList;
     private User user;
+
 
     public Integer getId() {
         return id;
@@ -127,6 +129,14 @@ public class Order {
         this.user = user;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -141,6 +151,7 @@ public class Order {
                 ", grade=" + grade +
                 ", address='" + address + '\'' +
                 ", generateTime='" + generateTime + '\'' +
+                ", status='" + status + '\'' +
                 ", foodList=" + foodList +
                 ", user=" + user +
                 '}';
