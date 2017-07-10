@@ -1,7 +1,5 @@
 package com.ele.pojo;
 
-import com.ele.dto.BasicFoodDTO;
-
 import java.util.List;
 
 /**
@@ -20,9 +18,11 @@ public class Order {
     private String address;
     private String generateTime;
     private Integer status;
+    private Integer shopId;
 
-    private List<BasicFoodDTO> foodList;
+    private List<OrderFood> foodList;
     private User user;
+    private Shop shop;
 
 
     public Integer getId() {
@@ -113,11 +113,11 @@ public class Order {
         this.generateTime = generateTime;
     }
 
-    public List<BasicFoodDTO> getFoodList() {
+    public List<OrderFood> getFoodList() {
         return foodList;
     }
 
-    public void setFoodList(List<BasicFoodDTO> foodList) {
+    public void setFoodList(List<OrderFood> foodList) {
         this.foodList = foodList;
     }
 
@@ -137,6 +137,22 @@ public class Order {
         this.status = status;
     }
 
+    public Integer getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(Integer shopId) {
+        this.shopId = shopId;
+    }
+
+    public Shop getShop() {
+        return shop;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -151,9 +167,11 @@ public class Order {
                 ", grade=" + grade +
                 ", address='" + address + '\'' +
                 ", generateTime='" + generateTime + '\'' +
-                ", status='" + status + '\'' +
+                ", status=" + status +
+                ", shopId=" + shopId +
                 ", foodList=" + foodList +
                 ", user=" + user +
+                ", shop=" + shop +
                 '}';
     }
 }

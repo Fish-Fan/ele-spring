@@ -18,13 +18,17 @@ import java.util.List;
  * Created by yanfeng-mac on 2017/6/28.
  */
 @Controller
-@RequestMapping("/api/shop")
 public class ShopController {
     @Autowired
     private ShopService shopService;
 
+    /**
+     * 返回商家信息
+     * @param id
+     * @return
+     */
     @ResponseBody
-    @RequestMapping(value = "/{id:\\d+}",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "/api/shop/{id:\\d+}",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
     public String getShopDetails(@PathVariable Integer id) {
         Shop shop = shopService.findById(id);
         shop.setDiscountDescList(shopService.findDiscountDescById(id));
@@ -34,8 +38,13 @@ public class ShopController {
         return gson.toJson(shop);
     }
 
+    /**
+     * 返回商家商品信息
+     * @param id
+     * @return
+     */
     @ResponseBody
-    @RequestMapping(value = "/{id:\\d+}/goods",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "/api/shop/{id:\\d+}/goods",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
     public String getShopGoods(@PathVariable Integer id) {
         List<Goods> goodsList = shopService.findShopGoodsById(id);
 
@@ -43,12 +52,23 @@ public class ShopController {
         return gson.toJson(goodsList);
     }
 
+    /**
+     * 返回商家评论信息
+     * @param id
+     * @return
+     */
     @ResponseBody
-    @RequestMapping(value = "/{id:\\d+}/reward",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "/api/shop/{id:\\d+}/reward",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
     public String getShopRewards(@PathVariable Integer id) {
         List<ShopReward> rewardList = shopService.findShopRewardByShopId(id);
 
         Gson gson = new Gson();
         return gson.toJson(rewardList);
+    }
+
+
+    @RequestMapping(value = "/shop/{id:\\d+}",method = RequestMethod.GET)
+    public String demo() {
+        return "server/shop/shop";
     }
 }

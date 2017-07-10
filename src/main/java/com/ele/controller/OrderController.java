@@ -2,14 +2,20 @@ package com.ele.controller;
 
 import com.ele.dto.OrderDetail;
 import com.ele.pojo.Order;
+import com.ele.pojo.User;
+import com.ele.service.OrderService;
+import com.ele.service.UserService;
 import com.google.gson.Gson;
 import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -18,33 +24,100 @@ import java.util.List;
 @Controller
 @RequestMapping("/api/order")
 public class OrderController {
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private OrderService orderService;
 
-    @ResponseBody
+    /**
+     * 接受购物车提交的信息，并将页面跳转至下单界面
+     * @param orderDetail
+     * @param req
+     * @return
+     */
     @RequestMapping(value = "/pay",method = RequestMethod.POST)
-    public String getOrderDetail(@RequestBody OrderDetail orderDetail) {
-        //MM大写区分时间和月份,HH大写是24小时制，hh小写是12小时制
-        String now = DateTime.now().toString("yyyy-MM-dd HH:mm:ss");
-        Order order = new Order();
+    public String getOrderDetail(@RequestBody OrderDetail orderDetail, HttpServletRequest req) {
 
-        order.setUsername(orderDetail.getOrderDetail().getUser().getUsername());
-        order.setPhoneNum(orderDetail.getOrderDetail().getUser().getPhoneNum());
-        order.setNoName(true);
-        order.setSumMoney(orderDetail.getOrderDetail().getTotalPrice());
-        order.setAddress(orderDetail.getOrderDetail().getUser().getLastAddress());
-        order.setGenerateTime(now);
-        order.setFoodList(orderDetail.getOrderDetail().getFoodList());
-        order.setUser(orderDetail.getOrderDetail().getUser());
-        order.setStatus(1);
+        HttpSession session = req.getSession();
+//        User user = (User) session.getAttribute("user");
+        User user = userService.findById(1);
+
+        Integer orderId = orderService.insertShopCartData(orderDetail,user);
+        session.setAttribute("curr_order_id",orderId);
+        return "server/user/order";
+
+    }
+
+    /**
+     * 返回下单界面的数据
+     * @param req
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/pay",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+    public String returnOrderDetail(HttpServletRequest req) {
+        HttpSession session = req.getSession();
+//        Integer orderId = (Integer) session.getAttribute("curr_order_id");
+        Integer orderId = 13;
+
+        Order order = orderService.findOrderById(orderId);
 
         Gson gson = new Gson();
-        //暂时返回初始订单JSON数据
-        //此处应为界面跳转
         return gson.toJson(order);
     }
 
-    @RequestMapping(value = "/test",method = RequestMethod.GET)
-    public String test() {
-        return "test";
+    /**
+     * 接受下单界面的数据,并将页面跳转至确认支付的界面
+     * @param order
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/pay/confirm",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+    public String confirmOrder(@RequestBody Order order) {
+        orderService.orderChanged(order);
+        //confirmPay未完成
+        return "server/user/confirmPay";
+    }
+
+    @RequestMapping(value = "/pay/wait",method = RequestMethod.GET)
+    public String getWaitPay() {
+        //跳转至waitPay界面(未完成)
+        return "server/user/waitPay";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/pay/wait",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+    public String waitPay(HttpServletRequest req) {
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        Integer orderId = (Integer) session.getAttribute("curr_order_id");
+
+        String result = req.getParameter("result");
+        if(result.equals("true")) {
+            orderService.orderPaid(orderService.findOrderById(orderId));
+        } else {
+            return "error";
+        }
+
+        return "success";
+    }
+
+
+    /**
+     * 返回用户的历史订单
+     * @param req
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/history",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+    public String ReturnHistoryOrder(HttpServletRequest req) {
+        HttpSession session = req.getSession();
+//        User user = (User) session.getAttribute("user");
+        User user = userService.findById(1);
+        List<Order> orderList = orderService.findHistoryOrderByUserId(user.getId());
+
+        Gson gson = new Gson();
+        return gson.toJson(orderList);
     }
 
 

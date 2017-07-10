@@ -19,6 +19,7 @@ public class ShopFood {
     private Double grade;
 
     private List<FoodReward> foodRewardList;
+    private Integer count;
 
     public Integer getId() {
         return id;
@@ -116,6 +117,14 @@ public class ShopFood {
         this.foodRewardList = foodRewardList;
     }
 
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
     @Override
     public String toString() {
         return "ShopFood{" +
@@ -130,7 +139,8 @@ public class ShopFood {
                 ", info='" + info + '\'' +
                 ", description='" + description + '\'' +
                 ", grade=" + grade +
-                ", rewardList=" + foodRewardList +
+                ", foodRewardList=" + foodRewardList +
+                ", count=" + count +
                 '}';
     }
 }

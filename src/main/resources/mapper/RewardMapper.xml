@@ -20,7 +20,7 @@
     </resultMap>
 
     <!--根据OrderID查找OrderFoodList-->
-    <select id="findOrderFoodByOrderId" parameterType="int" resultType="com.ele.pojo.OrderFoodList">
+    <select id="findOrderFoodByOrderId" parameterType="int" resultType="com.ele.pojo.OrderFood">
         select * from order_food_list where order_id = #{order_id}
     </select>
 

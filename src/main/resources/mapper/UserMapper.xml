@@ -10,8 +10,20 @@
         values(#{username},#{password},#{email},#{avatar},#{phone_num},#{weixin})
     </select>
 
+
+    <!--根据email查找用户-->
     <select id="findByEmail" parameterType="string" resultType="com.ele.pojo.User">
         select * from user where email = #{email}
     </select>
+
+    <!--根据用户ID查找地址-->
+    <select id="getUserAddress" resultType="com.ele.pojo.UserAddress" parameterType="int">
+        select * from user_address where user_id = #{userId}
+    </select>
+
+    <!--更新用户地址-->
+    <update id="updateUserAddress" parameterType="com.ele.pojo.UserAddress">
+        update user_address set user_address = #{userAddress} where id = #{id}
+    </update>
 
 </mapper>

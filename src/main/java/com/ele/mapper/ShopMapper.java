@@ -52,4 +52,18 @@ public interface ShopMapper {
      * @return
      */
     List<Shop> findBasicShopMsgOrderByServer();
+
+    /**
+     * 根据搜索内容查找名字类似的商家
+     * @param searchValue
+     * @return
+     */
+    List<Shop> findShopByLikeName(String searchValue);
+
+    /**
+     * 根据搜索内容查找商品
+     * @param searchValue
+     * @return
+     */
+    List<ShopFood> findFoodByLikeName(String searchValue);
 }

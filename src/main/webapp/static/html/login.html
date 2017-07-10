@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title></title>
+	<link href="css/mui.min.css" rel="stylesheet" />
+	<link href="css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+	<link href="css/style.css" rel="stylesheet" />
+	<header class="mui-bar mui-bar-nav" style="background-image: linear-gradient(90deg,#0af,#0085ff);">
+		<a class="mui-icon mui-icon-back" href="index.html" style="color:white"></a>
+		<h1 class="mui-title" id="msg" style="color:white">登录</h1>
+	</header>
+	<div class="mui-content">
+		<form id='login-form' class="mui-input-group" method="post" action="">
+			<div class="mui-input-row">
+				<label>账号</label>
+				<input id='email' type="text" class="mui-input-clear mui-input" name="username" placeholder="请输入邮箱号">
+			</div>
+			<div class="mui-input-row">
+				<label>密码</label>
+				<input id='password' type="password" class="mui-input-clear mui-input" name="password" placeholder="请输入密码">
+			</div>
+		</form>
+		<div class="mui-content-padded">
+			<button id='login' class="mui-btn mui-btn-block mui-btn-primary" onclick="login()">登录</button>
+			<div class="link-area"><a id='reg' href="signup.html">注册账号</a> <span class="spliter">|</span> <a id='forgetPassword' href="forget_password.html">忘记密码</a>
+			</div>
+		</div>
+		<div class="mui-content-padded oauth-area">
+
+		</div>
+	</div>
+	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		function login() {
+			var flag = 1;
+			var name = document.getElementById("email").value;
+			var pwd = document.getElementById("password").value;
+			var name_msg = document.getElementById("email");
+			var pwd_msg = document.getElementById("password");
+			//验证用户名和密码是否为空
+			if (name == null || name == "") {
+				name_msg.setAttribute('placeholder', "账号不能为空");
+			}
+			if (pwd == null || pwd == "") {
+				pwd_msg.setAttribute('placeholder', "密码不能为空");	
+			}
+			else {
+				$.getJSON('api/login.json', {
+					"username": $('input[name="username"]').val(),
+					"password": $('input[name="password"]').val()
+				}, function (data) {
+					$('#msg').text(data.msg)
+					$('input[name="username"]').attr('placeholder', data['msg-username'])
+					$('input[name="password"]').attr('placeholder', data['msg-password'])
+					if (data.status == 1) window.location.href = 'index.html'
+				})
+			}
+		}
+	</script>
+</body>
+
+</html>

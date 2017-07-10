@@ -35,7 +35,7 @@ public class test {
 
         ShopService shopService = new ShopService();
 
-        List<Shop> shopList = shopMapper.findBasicShopMsgOrderByServer();
+        List<Shop> shopList = shopMapper.findShopByLikeName("百");
         System.out.println(shopList);
 
 //        User user = new User();

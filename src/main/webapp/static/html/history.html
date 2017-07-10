@@ -1,0 +1,94 @@
+﻿
+		<header class="mui-bar mui-bar-nav" style='background-image: linear-gradient(90deg,#0af,#0085ff);'>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style='color:white;'></a>
+			<h1 class="mui-title" style='color:white;'>历史订单</h1>
+		</header>
+		
+		<div class="mui-content">
+			<div class="mui-card">
+				<div class="mui-card-header" style='background-image: linear-gradient(90deg,#0af,#0085ff);color:white;'>
+                    未支付订单<p style='color:white;'>January 18, 2016</p>
+                </div>
+				<div class="mui-card-content">
+					<div class="mui-card-content-inner">
+						<div class='mui-row'>
+                            <div class='mui-col-xs-6 mui-text-left'>宫保鸡丁</div>
+                            <div class='mui-col-xs-6 mui-text-right'>8.0 * 1</div>
+						</div>
+						<div class='mui-row'>
+						    <div class='mui-col-xs-6 mui-text-left'>鱼香肉丝</div>
+                            <div class='mui-col-xs-6 mui-text-right'>8.0 * 1</div>
+						</div>
+						<div class='mui-row'>
+						    <div class='mui-col-xs-6 mui-text-left'>米饭</div>
+                            <div class='mui-col-xs-6 mui-text-right'>1.0 * 2</div>
+						</div>
+						<div class='mui-row'>
+						    <div class='mui-col-xs-6 mui-text-left'>合计</div>
+                            <div class='mui-col-xs-6 mui-text-right'>18.0</div>
+						</div>
+					</div>
+				</div>
+				<div class="mui-card-footer">
+					<a class="mui-card-link">催单</a>
+					<a class="mui-card-link" data-target="order.html">详情</a>
+					<a class="mui-card-link">确认收货</a>
+                </div>
+			</div>
+			
+			<div class="mui-card">
+				<div class="mui-card-header">已支付订单<p>January 18, 2016</p></div>
+				<div class="mui-card-content">
+					<div class="mui-card-content-inner">
+						<div class='mui-row'>
+						    <div class='mui-col-xs-6 mui-text-left'>合计</div>
+                            <div class='mui-col-xs-6 mui-text-right'>12.0</div>
+						</div>
+					</div>
+				</div>
+				<div class="mui-card-footer">
+					<a class="mui-card-link">删除</a>
+					<a class="mui-card-link" data-target="order.html">详情</a>
+					<a class="mui-card-link">追加评论</a>
+				</div>
+			</div>
+			<div class="mui-card">
+				<div class="mui-card-header">已支付订单<p>January 18, 2016</p></div>
+				<div class="mui-card-content">
+					<div class="mui-card-content-inner">
+						<div class='mui-row'>
+						    <div class='mui-col-xs-6 mui-text-left'>合计</div>
+                            <div class='mui-col-xs-6 mui-text-right'>10.0</div>
+						</div>
+					</div>
+				</div>
+				<div class="mui-card-footer">
+					<a class="mui-card-link">删除</a>
+					<a class="mui-card-link" data-target="order.html">详情</a>
+					<a class="mui-card-link">追加评论</a>
+				</div>
+			</div>
+		</div>
+
+
+
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item" data-target="homepage.html">
+				外卖
+			</a>
+			<a class="mui-tab-item" data-target="discover.html">
+				发现
+			</a>
+			<a class="mui-tab-item mui-active" data-target="history.html">
+				订单
+			</a>
+			<a class="mui-tab-item" data-target="profile.html">
+				我的
+			</a>
+		</nav>
+		</div>
+		<script>
+            $('a[data-target]').on('click tap',function(){
+                loadWindow($(this).data('target'))
+            })
+		</script>

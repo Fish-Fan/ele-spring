@@ -38,6 +38,12 @@
     </dependency>
 
     <dependency>
+      <groupId>javax.inject</groupId>
+      <artifactId>javax.inject</artifactId>
+      <version>1</version>
+    </dependency>
+
+    <dependency>
       <groupId>jstl</groupId>
       <artifactId>jstl</artifactId>
       <version>${jstl-version}</version>
@@ -225,6 +231,7 @@
         <configuration>
           <port>8080</port>
           <path>/</path>
+          <uriEncoding>UTF-8</uriEncoding>
         </configuration>
       </plugin>
     </plugins>

@@ -96,4 +96,14 @@
         id,food_name,shop_food_type,shop_id,price,old_price,monthly_counts,food_img,info,description,grade
     </sql>
 
+
+    <!--搜索商家-->
+    <select id="findShopByLikeName" parameterType="string" resultType="com.ele.pojo.Shop">
+        select * from shop where shop.`name` like concat('%',#{searchValue},'%')
+    </select>
+
+    <!--搜索食物-->
+    <select id="findFoodByLikeName" parameterType="string" resultType="com.ele.pojo.ShopFood">
+        select * from shop_food where food_name like concat('%',#{searchValue},'%')
+    </select>
 </mapper>

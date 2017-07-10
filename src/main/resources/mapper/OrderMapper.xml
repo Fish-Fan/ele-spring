@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ele.mapper.OrderMapper">
+    <!--订单映射集-->
+    <resultMap id="order" type="com.ele.pojo.Order">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="phoneNum" column="phone_num"/>
+        <result property="isNoName" column="is_no_name"/>
+        <result property="orderRemark" column="order_remark"/>
+        <result property="sumMoney" column="sum_money"/>
+        <result property="userId" column="user_id"/>
+        <result property="deliveryTime" column="delivery_time"/>
+        <result property="grade" column="grade"/>
+        <result property="address" column="address"/>
+        <result property="generateTime" column="generate_time"/>
+        <result property="status" column="status"/>
+
+        <association property="shop" column="shop_id" select="com.ele.mapper.ShopMapper.findById"/>
+        <collection property="foodList" column="id" select="findOrderFoodByOrderId"/>
+    </resultMap>
+
+    <!--根据订单ID查找商品-->
+    <select id="findOrderFoodByOrderId" parameterType="int" resultType="com.ele.pojo.OrderFood">
+        select id,food_id,food_name,order_id,food_count from order_food_list where order_id = #{orderId}
+    </select>
+
+
+    <!--新增订单-->
+    <insert id="insertOrder" parameterType="com.ele.pojo.Order" useGeneratedKeys="true" keyProperty="id">
+        insert into `order`(username,phone_num,is_no_name,sum_money,user_id,address,generate_time,status,shop_id)
+        values(#{username},#{phoneNum},#{isNoName},#{sumMoney},#{userId},#{address},#{generateTime},#{status},#{shopId})
+    </insert>
+    
+    <!--插入该订单商品信息-->
+    <insert id="insertFoodList" parameterType="java.util.List">
+        insert into order_food_list(food_id,food_name,order_id,food_count)
+        values
+        <foreach collection="list" item="food" index="index" separator=",">
+            (
+              #{food.foodId},
+              #{food.foodName},
+              #{food.orderId},
+              #{food.foodCount}
+            )
+        </foreach>
+    </insert>
+
+    <!--根据订单ID查找订单-->
+    <select id="findOrderById" parameterType="int" resultMap="order">
+        select * from `order` where id = #{id}
+    </select>
+
+
+    <!--根据用户ID查找历史订单-->
+    <select id="findHistoryOrderByUserId" parameterType="int" resultMap="order">
+        select * from `order` where user_id = #{userId}
+    </select>
+
+    <!--更新订单信息-->
+    <update id="updateOrder" parameterType="int">
+        update `order` set status = #{status},is_no_name = #{isNoName},order_remark = #{orderRemark},delivery_time = #{deliveryTime},address = #{address}
+        where id = #{id}
+    </update>
+
+
+</mapper>

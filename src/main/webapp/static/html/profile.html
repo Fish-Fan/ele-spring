@@ -1,0 +1,191 @@
+<script>
+    $.getJSON("api/status.json",function(data){
+        if(data.status!=1) loadWindow('login.html')
+    })
+</script>
+
+<header class="mui-bar mui-bar-nav" style='background-image: linear-gradient(90deg,#0af,#0085ff);'>
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style='color:white;'></a>
+    <h1 class="mui-title" style='color:white;'>我的</h1>
+</header>
+
+    <div class="mui-content-padded" style='margin-top:60px;'>
+
+        <div id="segmentedControl" class="mui-segmented-control">
+            <a class="mui-control-item mui-active" href="#item1mobile">
+                设置
+            </a>
+            <a class="mui-control-item" href="#item2mobile">
+                其它
+            </a>
+            <a class="mui-control-item" href="#item3mobile">
+                关于
+            </a>
+        </div>
+        <div class="mui-content-padded">
+            <div id="item1mobile" class="mui-control-content mui-active">
+                    <ul class="mui-table-view">
+                        <li class="mui-table-view-cell mui-collapse">
+                            <a class="mui-navigate-right" href="#">用户名</a>
+                            <div class="mui-collapse-content">
+                                <form class="mui-input-group">
+                                    <div class="mui-input-row">
+                                        <label style='width:40%'>新用户名</label>
+                                        <input style='width:60%' type="text" placeholder="请输入新用户名">
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                        <li class="mui-table-view-cell mui-collapse">
+                            <a class="mui-navigate-right" href="#">我的头像</a>
+                            <div class="mui-collapse-content">
+                                <form class="mui-input-group">
+                                    <div class="mui-input-row">
+                                        <label style='width:40%'>上传头像</label>
+                                        <input style='width:60%' type="text" placeholder="">
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                        <li class="mui-table-view-cell mui-collapse">
+                            <a class="mui-navigate-right" href="#">我的密码</a>
+                            <div class="mui-collapse-content">
+                                <form class="mui-input-group">
+                                    <div class="mui-input-row">
+                                        <label style='width:40%'>修改密码</label>
+                                        <input style='width:60%' type="text" placeholder="请输入新密码">
+                                    </div>
+                                    <div class="mui-input-row">
+                                        <label style='width:40%'>确认密码</label>
+                                        <input style='width:60%' type="text" placeholder="请再次输入新密码">
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                        <li class="mui-table-view-cell mui-collapse">
+                            <a class="mui-navigate-right" href="#">收货地址</a>
+                            <div class="mui-collapse-content">
+                                <form class="mui-input-group">
+                                    <div class="mui-input-row">
+                                        <label style='width:40%'>修改收货地址</label>
+                                        <input style='width:60%' type="text" placeholder="请输入收货地址">
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a class="mui-navigate-right" data-target="history.html">我的订单</a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <div>
+                                <button class="mui-btn mui-btn-negative mui-btn-block" data-target="logout.html">
+                                    退出登录
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+            </div>
+            <div id="item2mobile" class="mui-control-content">
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell">
+                        <div class="mui-row">
+                            <div class='mui-col-xs-6'>绑定手机号</div>
+                            <div class='mui-col-xs-6 mui-text-right'><p>现在就绑定</p></div>
+                        </div>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <div class="mui-row">
+                            <div class='mui-col-xs-6'>绑定QQ</div>
+                            <div class='mui-col-xs-6 mui-text-right'><p>现在就绑定</p></div>
+                        </div>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <div class="mui-row">
+                            <div class='mui-col-xs-6'>绑定邮箱</div>
+                            <div class='mui-col-xs-6 mui-text-right'><p>现在就绑定</p></div>
+                        </div>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <div class="mui-row">
+                            <div class='mui-col-xs-6'>我的积分</div>
+                            <div class='mui-col-xs-6 mui-text-right'><p>如何获得积分</p></div>
+                        </div>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <div class="mui-row">
+                            <div class='mui-col-xs-6'>我的钱包</div>
+                            <div class='mui-col-xs-6 mui-text-right'><p>可用余额 0元</p></div>
+                        </div>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <div class="mui-row">
+                            <div class='mui-col-xs-6'>我的优惠券</div>
+                            <div class='mui-col-xs-6 mui-text-right'><p>暂无可用的优惠券</p></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div id="item3mobile" class="mui-control-content">
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell">
+                        <div class="mui-row">
+                            <div class='mui-col-xs-6'>用户服务协议</div>
+                            <div class='mui-col-xs-6 mui-text-right'>
+                                <p>
+                                    查看
+                                    <span class='mui-badge mui-badge-primary mui-badge-inverted'>妈饿了</span>
+                                    服务条款
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <div class="mui-row">
+                            <div class='mui-col-xs-6'>版本信息</div>
+                            <div class='mui-col-xs-6 mui-text-right'>
+                                <p>
+                                    查看
+                                    <span class='mui-badge mui-badge-primary mui-badge-inverted'>妈饿了</span>
+                                    版本信息
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <div class="mui-row">
+                            <div class='mui-col-xs-6'>关于我们</div>
+                            <div class='mui-col-xs-6 mui-text-right'>
+                                <p>
+                                    关于
+                                    <span class="mui-badge mui-badge-royal mui-badge-inverted">UltraLight</span>
+                                    团队
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+
+        <nav class="mui-bar mui-bar-tab">
+            <a class="mui-tab-item" data-target="homepage.html">
+                外卖
+            </a>
+            <a class="mui-tab-item" data-target="discover.html">
+                发现
+            </a>
+            <a class="mui-tab-item" data-target="history.html">
+                订单
+            </a>
+            <a class="mui-tab-item mui-active" data-target="profile.html">
+                我的
+            </a>
+        </nav>
+    </div>
+    <script>
+        $('[data-target]').on('click tap',function(){
+            loadWindow($(this).data('target'))
+        })
+    </script>

@@ -3,11 +3,12 @@ package com.ele.pojo;
 /**
  * Created by yanfeng-mac on 2017/6/27.
  */
-public class OrderFoodList {
+public class OrderFood {
     private Integer id;
     private Integer foodId;
     private String foodName;
     private Integer orderId;
+    private Integer foodCount;
 
     public Integer getId() {
         return id;
@@ -41,13 +42,22 @@ public class OrderFoodList {
         this.orderId = orderId;
     }
 
+    public Integer getFoodCount() {
+        return foodCount;
+    }
+
+    public void setFoodCount(Integer foodCount) {
+        this.foodCount = foodCount;
+    }
+
     @Override
     public String toString() {
-        return "OrderFoodList{" +
+        return "OrderFood{" +
                 "id=" + id +
                 ", foodId=" + foodId +
                 ", foodName='" + foodName + '\'' +
                 ", orderId=" + orderId +
+                ", foodCount=" + foodCount +
                 '}';
     }
 }

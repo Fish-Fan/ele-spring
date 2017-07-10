@@ -1,5 +1,7 @@
 package com.ele.pojo;
 
+import java.util.List;
+
 /**
  * Created by yanfeng-mac on 2017/6/27.
  */
@@ -12,6 +14,9 @@ public class User {
     private String phoneNum;
     private String weixin;
     private String lastAddress;
+    private Integer status;
+
+    private List<UserAddress> addressList;
 
     public Integer getId() {
         return id;
@@ -77,6 +82,22 @@ public class User {
         this.lastAddress = lastAddress;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public List<UserAddress> getAddressList() {
+        return addressList;
+    }
+
+    public void setAddressList(List<UserAddress> addressList) {
+        this.addressList = addressList;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -88,6 +109,8 @@ public class User {
                 ", phoneNum='" + phoneNum + '\'' +
                 ", weixin='" + weixin + '\'' +
                 ", lastAddress='" + lastAddress + '\'' +
+                ", status=" + status +
+                ", addressList=" + addressList +
                 '}';
     }
 }

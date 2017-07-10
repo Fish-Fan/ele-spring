@@ -19,11 +19,24 @@ public class IndexController {
     @Autowired
     private ShopService shopService;
 
+    /**
+     * 获取首页商家信息及活动信息(未做)
+     * @return
+     */
     @ResponseBody
-    @RequestMapping(value = "/index",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "/index/api",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
     public String getIndex() {
         List<Shop> shopList = shopService.findBasicShopMsgOrderByServer();
         Gson gson = new Gson();
         return gson.toJson(shopList);
+    }
+
+    /**
+     * 跳转至首页
+     * @return
+     */
+    @RequestMapping(value = "/index",method = RequestMethod.GET)
+    public String index() {
+        return "server/user/index";
     }
 }
