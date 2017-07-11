@@ -26,4 +26,14 @@
         update user_address set user_address = #{userAddress} where id = #{id}
     </update>
 
+    <!--登陆-->
+    <select id="loginUser" parameterType="string" resultType="com.ele.pojo.User">
+        SELECT * FROM user WHERE username = #{username} AND password = #{password}
+    </select>
+
+    <!--更新用户状态-->
+    <select id="statusUser" parameterType="com.ele.pojo.User" resultType="int">
+        UPDATE user SET status = #{status} WHERE id = #{id}
+    </select>
+
 </mapper>

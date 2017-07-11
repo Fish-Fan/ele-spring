@@ -1,5 +1,7 @@
 package com.ele.controller;
 
+import com.ele.dto.UserLogin;
+import com.ele.dto.UserRegister;
 import com.ele.pojo.User;
 import com.ele.pojo.UserAddress;
 import com.ele.service.UserService;
@@ -86,12 +88,52 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping(value = "/register",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
-    public String registerUser(@RequestBody User user) {
+    public UserRegister registerUser(@RequestBody User user) {
+        UserRegister userRegister = new UserRegister();
         if(userService.registUser(user)) {
-            return "success";
+            userRegister.setMsgUsername("用户名合法");
+            userRegister.setMsgPassword("成功");
+            userRegister.setMsg("注册成功");
+            return userRegister;
         } else {
-            return "error";
+            userRegister.setMsgUsername("用户名不合法");
+            userRegister.setMsgPassword("不成功");
+            userRegister.setMsg("注册失败");
+            return userRegister;
         }
+    }
+
+    /**
+     * 用户登陆
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/login", method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+    public UserLogin loginUser(HttpServletRequest request){
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        UserLogin userLogin = new UserLogin();
+        User user1 = userService.loginUser(user);
+        if (user1 != null) {
+            HttpSession httpSession = request.getSession();
+            httpSession.setAttribute("user", user1);
+            userLogin.setMsgUsername("用户名正确");
+            userLogin.setMsgPassword("密码正确");
+            userLogin.setMsg("登陆成功");
+            userLogin.setStatus(1);
+            return userLogin;
+        }else {
+            userLogin.setMsgUsername("用户名错误");
+            userLogin.setMsgPassword("密码错误");
+            userLogin.setMsg("登陆失败");
+            userLogin.setStatus(0);
+            return userLogin;
+        }
+
     }
 
 

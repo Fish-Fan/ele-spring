@@ -28,6 +28,23 @@ public class UserService {
     }
 
     /**
+     * 用户登陆
+     * @param user
+     * @return
+     */
+    public User loginUser(User user) {
+
+        User loginuser = userMapper.loginUser(user);
+        if (loginuser != null) {
+            loginuser.setStatus(1);
+            userMapper.statusUser(loginuser);
+            return user;
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * 用户注册
      * @param user
      * @return

@@ -43,4 +43,19 @@ public interface UserMapper {
      * @param userAddress
      */
     void updateUserAddress(UserAddress userAddress);
+
+    /**
+     *
+     * 用户登录
+     * @param user
+     * @return
+     */
+    User loginUser(User user);
+    /**
+     *
+     * 用户登录状态
+     * @param user
+     * @return
+     */
+    User statusUser(User user);
 }

@@ -79,12 +79,21 @@ public class OrderController {
         return "server/user/confirmPay";
     }
 
+    /**
+     * 跳转至等待支付界面
+     * @return
+     */
     @RequestMapping(value = "/pay/wait",method = RequestMethod.GET)
     public String getWaitPay() {
         //跳转至waitPay界面(未完成)
         return "server/user/waitPay";
     }
 
+    /**
+     * 返回支付结果
+     * @param req
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/pay/wait",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
     public String waitPay(HttpServletRequest req) {
