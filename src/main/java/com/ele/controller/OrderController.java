@@ -9,10 +9,7 @@ import com.google.gson.Gson;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -35,7 +32,8 @@ public class OrderController {
      * @param req
      * @return
      */
-    @RequestMapping(value = "/pay",method = RequestMethod.POST)
+    @ResponseBody
+    @RequestMapping(value = "/pay",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
     public String getOrderDetail(@RequestBody OrderDetail orderDetail, HttpServletRequest req) {
 
         HttpSession session = req.getSession();
@@ -43,8 +41,7 @@ public class OrderController {
         User user = userService.findById(1);
 
         Integer orderId = orderService.insertShopCartData(orderDetail,user);
-        session.setAttribute("curr_order_id",orderId);
-        return "server/user/order";
+        return orderId+"";
 
     }
 
@@ -55,9 +52,8 @@ public class OrderController {
      */
     @ResponseBody
     @RequestMapping(value = "/pay",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
-    public String returnOrderDetail(HttpServletRequest req) {
+    public String returnOrderDetail(HttpServletRequest req,@RequestParam("orderId") Integer orderId1) {
         HttpSession session = req.getSession();
-//        Integer orderId = (Integer) session.getAttribute("curr_order_id");
         Integer orderId = 13;
 
         Order order = orderService.findOrderById(orderId);
@@ -110,6 +106,13 @@ public class OrderController {
 
         return "success";
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/finish/{oredrId:\\d+}",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+    public String confirmGetDelivery() {
+        return null;
+    }
+
 
 
     /**

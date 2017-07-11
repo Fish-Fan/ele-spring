@@ -66,4 +66,11 @@ public interface ShopMapper {
      * @return
      */
     List<ShopFood> findFoodByLikeName(String searchValue);
+
+    /**
+     * 获取商家被收藏数量
+     * @param shopId
+     * @return
+     */
+    Integer getShopCollectCount(Integer shopId);
 }

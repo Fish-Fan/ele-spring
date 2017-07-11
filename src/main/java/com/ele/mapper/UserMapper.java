@@ -1,5 +1,7 @@
 package com.ele.mapper;
 
+import com.ele.pojo.Like;
+import com.ele.pojo.Shop;
 import com.ele.pojo.User;
 import com.ele.pojo.UserAddress;
 import org.springframework.stereotype.Component;
@@ -58,4 +60,25 @@ public interface UserMapper {
      * @return
      */
     User statusUser(User user);
+
+    /**
+     * 获取用户收藏商家列表
+     * @param userId
+     * @return
+     */
+    List<Like> getCollectShopByUserId(Integer userId);
+
+    /**
+     * 收藏商家
+     * @param like
+     */
+    void collectShop(Like like);
+
+    /**
+     * 取消收藏商家
+     * @param like
+     */
+    void uncollectShop(Like like);
+
+
 }

@@ -1,12 +1,15 @@
 package com.ele.service;
 
 import com.ele.mapper.UserMapper;
+import com.ele.pojo.Like;
+import com.ele.pojo.Shop;
 import com.ele.pojo.User;
 import com.ele.pojo.UserAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -75,5 +78,29 @@ public class UserService {
      */
     public void updateUserAddress(UserAddress userAddress) {
         userMapper.updateUserAddress(userAddress);
+    }
+
+    /**
+     * 获取用户收藏商家列表
+     * @param userId
+     */
+    public List<Like> getCollectShopByUserId(Integer userId){
+        return userMapper.getCollectShopByUserId(userId);
+    }
+
+    /**
+     * 收藏商家
+     * @param like
+     */
+    public void collectShop(Like like) {
+        userMapper.collectShop(like);
+    }
+
+    /**
+     * 取消收藏商家
+     * @param like
+     */
+    public void unCollectShop(Like like){
+        userMapper.uncollectShop(like);
     }
 }

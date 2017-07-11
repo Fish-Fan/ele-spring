@@ -2,6 +2,8 @@ package com.ele.controller;
 
 import com.ele.dto.UserLogin;
 import com.ele.dto.UserRegister;
+import com.ele.pojo.Like;
+import com.ele.pojo.Shop;
 import com.ele.pojo.User;
 import com.ele.pojo.UserAddress;
 import com.ele.service.UserService;
@@ -110,7 +112,7 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST,produces = "application/json;charset=utf-8")
-    public UserLogin loginUser(HttpServletRequest request){
+    public String loginUser(HttpServletRequest request){
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         User user = new User();
@@ -125,14 +127,20 @@ public class UserController {
             userLogin.setMsgPassword("密码正确");
             userLogin.setMsg("登陆成功");
             userLogin.setStatus(1);
-            return userLogin;
+
+            HttpSession session = request.getSession();
+            session.setAttribute("user",user);
+
         }else {
             userLogin.setMsgUsername("用户名错误");
             userLogin.setMsgPassword("密码错误");
             userLogin.setMsg("登陆失败");
             userLogin.setStatus(0);
-            return userLogin;
+
         }
+
+        Gson gson = new Gson();
+        return gson.toJson(userLogin);
 
     }
 
@@ -148,6 +156,24 @@ public class UserController {
         HttpSession session = req.getSession();
         session.invalidate();
         return "server/user/index";
+    }
+
+    /**
+     * 收藏商家
+     * @param request
+     * @param
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/like",method =RequestMethod.GET,produces ="application/json;charset=utf-8" )
+    public String collect( HttpServletRequest request){
+        HttpSession httpSession = request.getSession();
+        User user = (User) httpSession.getAttribute("user");
+
+        List<Like> shopList = userService.getCollectShopByUserId(user.getId());
+        Gson gson = new Gson();
+        return  gson.toJson(shopList);
+
     }
 
 }

@@ -24,10 +24,46 @@
         select * from order_food_list where order_id = #{order_id}
     </select>
 
+    <!--根据商家ID查找评论-->
     <select id="findShopRewardByShopId" parameterType="int" resultMap="shopReward">
         select id,user_id,username,avatar,reward_msg,shop_id,order_id,reward_type,grade
         from shop_reward
         where shop_id = #{shop_id}
     </select>
+
+    <!--添加商家评论-->
+    <insert id="insertShopReward" parameterType="com.ele.pojo.ShopReward">
+        insert into
+        shop_reward(user_id,username,avatar,reward_msg,shop_id,order_id,reward_type,grade,reward_time)
+        values(#{userId},#{username},#{avatar},#{rewardMsg},#{shopId},#{orderId},#{rewardType},#{grade},#{rewardTime})
+    </insert>
+
+    <!--添加商品评论-->
+    <insert id="insertFoodReward" parameterType="java.util.List">
+        insert into
+        food_reward(shop_food_id,shop_id,user_id,username,avatar,reward_msg,order_id,reward_time,reward_type,grade)
+        values
+        <foreach collection="list" item="reward" index="index" separator=",">
+            (
+              #{reward.shopFoodId},
+              #{reward.shopId},
+              #{reward.userId},
+              #{reward.username},
+              #{reward.avatar},
+              #{reward.rewardMsg},
+              #{reward.orderId},
+              #{reward.rewardTime},
+              #{reward.rewardType},
+              #{reward.grade}
+            )
+        </foreach>
+
+    </insert>
+
+    <!--添加评论图片-->
+    <insert id="insertOrderImg" parameterType="com.ele.pojo.OrderImg">
+        insert into order_img(order_id,order_img)
+        values(#{orderId},#{orderImg})
+    </insert>
 
 </mapper>

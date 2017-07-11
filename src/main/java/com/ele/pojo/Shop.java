@@ -32,6 +32,7 @@ public class Shop {
 
     private List<DtoDiscountDesc> discountDescList;
     private List<ShopImg> imgList;
+    private Boolean collectFlag;
 
 
 
@@ -195,6 +196,14 @@ public class Shop {
         this.ranke = ranke;
     }
 
+    public Boolean getCollectFlag() {
+        return collectFlag;
+    }
+
+    public void setCollectFlag(Boolean collectFlag) {
+        this.collectFlag = collectFlag;
+    }
+
     @Override
     public String toString() {
         return "Shop{" +
@@ -218,6 +227,7 @@ public class Shop {
                 ", ranke=" + ranke +
                 ", discountDescList=" + discountDescList +
                 ", imgList=" + imgList +
+                ", collectFlag=" + collectFlag +
                 '}';
     }
 }

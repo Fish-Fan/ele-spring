@@ -76,4 +76,13 @@ public class ShopService {
     public List<Shop> findBasicShopMsgOrderByServer() {
         return shopMapper.findBasicShopMsgOrderByServer();
     }
+
+    /**
+     * 获取商家被收藏数量
+     * @param shopId
+     * @return
+     */
+    public Integer getShopCollectCount(Integer shopId) {
+        return shopMapper.getShopCollectCount(shopId);
+    }
 }

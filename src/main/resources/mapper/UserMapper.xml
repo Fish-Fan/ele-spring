@@ -32,8 +32,33 @@
     </select>
 
     <!--更新用户状态-->
-    <select id="statusUser" parameterType="com.ele.pojo.User" resultType="int">
+    <update id="statusUser" parameterType="com.ele.pojo.User">
         UPDATE user SET status = #{status} WHERE id = #{id}
+    </update>
+
+    <!--获取用户收藏的商家-->
+    <resultMap id="likeToShop" type="com.ele.pojo.Like">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="shopId" column="shop_id"/>
+
+        <association property="shop" column="shop" select="com.ele.mapper.ShopMapper.findById"/>
+    </resultMap>
+
+
+    <select id="getCollectShopByUserId" parameterType="int" resultType="com.ele.pojo.Like">
+        select * from `like` where user_id = #{userId}
     </select>
+
+    <!--收藏商家-->
+    <insert id="collectShop" parameterType="com.ele.pojo.Like">
+        insert into `like`(user_id,shop_id)
+        values(#{userId},#{shopId})
+    </insert>
+
+    <!--取消收藏商家-->
+    <delete id="uncollectShop" parameterType="com.ele.pojo.Like">
+        delete from `like` where user_id = #{userId} and shop_id = #{shopId}
+    </delete>
 
 </mapper>

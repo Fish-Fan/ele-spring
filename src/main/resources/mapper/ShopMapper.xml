@@ -106,4 +106,9 @@
     <select id="findFoodByLikeName" parameterType="string" resultType="com.ele.pojo.ShopFood">
         select * from shop_food where food_name like concat('%',#{searchValue},'%')
     </select>
+
+    <!--获取商家被收藏数量-->
+    <select id="getShopCollectCount" parameterType="int" resultType="int">
+        select count(*) from `like` where shop_id = #{shopId}
+    </select>
 </mapper>
