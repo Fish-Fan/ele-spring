@@ -176,4 +176,36 @@ public class UserController {
 
     }
 
+    /**
+     * 删除用户的地址
+     * @param userAddress
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/profile/address/delete/{addressId:\\d+}",method =RequestMethod.POST,produces = "application/json;charset=utf-8")
+    public String delectUserAddress(@RequestBody UserAddress userAddress,HttpServletRequest request) {
+        HttpSession httpSession = request.getSession();
+        User user = (User) httpSession.getAttribute("user");
+        Integer id = user.getId();
+        if (id != userAddress.getUserId()) {
+            return "error";
+        } else {
+            userService.delectUserAddress(userAddress);
+            return "success";
+        }
+    }
+    /**
+     * 增加用户的地址
+     * @param userAddress
+     * @param
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "//profile/address/add:\\d+}",method =RequestMethod.POST,produces = "application/json;charset=utf-8")
+    public String addUserAddress(@RequestBody UserAddress userAddress){
+        userService.addUserAddress(userAddress);
+        return "success";
+    }
+
 }

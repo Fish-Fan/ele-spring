@@ -103,4 +103,19 @@ public class UserService {
     public void unCollectShop(Like like){
         userMapper.uncollectShop(like);
     }
+
+    /**
+     * 增加用户地址
+     * @param userAddress
+     */
+    public void addUserAddress(UserAddress userAddress){
+        userMapper.addAddress(userAddress);
+    }
+    /**
+     * 删除用户地址
+     * @param userAddress
+     */
+    public void delectUserAddress(UserAddress userAddress){
+        userMapper.delectUserAddress(userAddress);
+    }
 }

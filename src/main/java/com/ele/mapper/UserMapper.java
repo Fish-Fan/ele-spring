@@ -80,5 +80,16 @@ public interface UserMapper {
      */
     void uncollectShop(Like like);
 
+    /**
+     * 删除用户地址
+     * @param userAddress
+     */
+    void delectUserAddress(UserAddress userAddress);
+    /**
+     * 增加用户地址
+     * @param userAddress
+     */
+    void addAddress(UserAddress userAddress);
+
 
 }

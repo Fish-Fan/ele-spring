@@ -61,4 +61,14 @@
         delete from `like` where user_id = #{userId} and shop_id = #{shopId}
     </delete>
 
+    <!--增加用户地址-->
+    <select id="addAddress" parameterType="com.ele.pojo.UserAddress">
+    INSERT INTO user_address(user_id,user_address)
+    VALUE (#{userId},#{userAddress})
+    </select>
+    <!--删除用户地址-->
+    <select id="delectUserAddress" parameterType="int" resultType="com.ele.pojo.UserAddress">
+    DELETE FROM user_address  WHERE id = #{id}
+    </select>
+
 </mapper>
