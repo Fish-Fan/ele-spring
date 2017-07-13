@@ -7,6 +7,7 @@ import com.ele.pojo.Shop;
 import com.ele.pojo.User;
 import com.ele.pojo.UserAddress;
 import com.ele.service.UserService;
+import com.ele.util.EleUtil;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,31 +44,6 @@ public class UserController {
         return gson.toJson(addressList);
     }
 
-    /**
-     * 返回要修改的地址信息，并跳转至修改地址界面
-     * @param addressId
-     * @param req
-     * @return
-     */
-    @RequestMapping(value = "/profile/address/update/{addressId:\\d+}",method = RequestMethod.GET)
-    public String updateUserAddress(@PathVariable Integer addressId,HttpServletRequest req) {
-        HttpSession session = req.getSession();
-        User user = (User) session.getAttribute("user");
-
-        boolean isContain = false;
-        List<UserAddress> addressList = user.getAddressList();
-        for(UserAddress address: addressList) {
-            if(address.getId() == addressId) {
-                isContain = true;
-            }
-        }
-        //跳转至updateAddress界面(未实现)
-        if(isContain) {
-            return "server/user/updateAddress";
-        } else {
-            return "redirect:/profile/address";
-        }
-    }
 
     /**
      * 更新用户的地址
@@ -75,10 +51,52 @@ public class UserController {
      * @param req
      * @return
      */
-    @RequestMapping(value = "/profile/address/update/{addressId:\\d+}",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+    @ResponseBody
+    @RequestMapping(value = "/profile/address/update",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
     public String getUserUpdateAddress(@RequestBody UserAddress userAddress,HttpServletRequest req) {
+        System.out.println(userAddress);
         userService.updateUserAddress(userAddress);
         return "success";
+    }
+
+
+    /**
+     * 删除用户的地址
+     * @param userAddress
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/profile/address/delete/{addressId:\\d+}",method =RequestMethod.POST,produces = "application/json;charset=utf-8")
+    public String delectUserAddress(@RequestBody UserAddress userAddress,HttpServletRequest request) {
+        HttpSession httpSession = request.getSession();
+//        User user = (User) httpSession.getAttribute("user");
+        User user = userService.findById(1);
+        boolean result = EleUtil.checkUserHasAddress(user,userAddress.getId(),userService);
+        if(result) {
+            userService.delectUserAddress(userAddress);
+            return "success";
+        } else {
+            return "error";
+        }
+
+    }
+
+    /**
+     * 增加用户的地址
+     * @param userAddress
+     * @param
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/profile/address/add",method =RequestMethod.POST,produces = "application/json;charset=utf-8")
+    public String addUserAddress(@RequestBody UserAddress userAddress){
+        System.out.println(userAddress);
+        Integer id = userService.addUserAddress(userAddress);
+        userAddress.setId(id);
+
+        Gson gson = new Gson();
+        return gson.toJson(userAddress);
     }
 
 
@@ -176,36 +194,6 @@ public class UserController {
 
     }
 
-    /**
-     * 删除用户的地址
-     * @param userAddress
-     * @param request
-     * @return
-     */
-    @ResponseBody
-    @RequestMapping(value = "/profile/address/delete/{addressId:\\d+}",method =RequestMethod.POST,produces = "application/json;charset=utf-8")
-    public String delectUserAddress(@RequestBody UserAddress userAddress,HttpServletRequest request) {
-        HttpSession httpSession = request.getSession();
-        User user = (User) httpSession.getAttribute("user");
-        Integer id = user.getId();
-        if (id != userAddress.getUserId()) {
-            return "error";
-        } else {
-            userService.delectUserAddress(userAddress);
-            return "success";
-        }
-    }
-    /**
-     * 增加用户的地址
-     * @param userAddress
-     * @param
-     * @return
-     */
-    @ResponseBody
-    @RequestMapping(value = "//profile/address/add:\\d+}",method =RequestMethod.POST,produces = "application/json;charset=utf-8")
-    public String addUserAddress(@RequestBody UserAddress userAddress){
-        userService.addUserAddress(userAddress);
-        return "success";
-    }
+
 
 }

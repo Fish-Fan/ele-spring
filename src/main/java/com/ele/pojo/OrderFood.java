@@ -9,6 +9,7 @@ public class OrderFood {
     private String foodName;
     private Integer orderId;
     private Integer foodCount;
+    private Double foodPrice;
 
     public Integer getId() {
         return id;
@@ -50,6 +51,14 @@ public class OrderFood {
         this.foodCount = foodCount;
     }
 
+    public Double getFoodPrice() {
+        return foodPrice;
+    }
+
+    public void setFoodPrice(Double foodPrice) {
+        this.foodPrice = foodPrice;
+    }
+
     @Override
     public String toString() {
         return "OrderFood{" +
@@ -58,6 +67,7 @@ public class OrderFood {
                 ", foodName='" + foodName + '\'' +
                 ", orderId=" + orderId +
                 ", foodCount=" + foodCount +
+                ", foodPrice=" + foodPrice +
                 '}';
     }
 }

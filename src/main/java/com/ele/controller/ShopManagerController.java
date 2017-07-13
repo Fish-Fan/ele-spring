@@ -26,7 +26,7 @@ public class ShopManagerController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/store",method = RequestMethod.POST,produces ="application/json;charset=utf-8" )
+    @RequestMapping(value = "/stor",method = RequestMethod.POST,produces ="application/json;charset=utf-8" )
     public String loginShop(HttpServletRequest request){
         String phoneNum = request.getParameter("phoneNum");
         String password = request.getParameter("passWord");

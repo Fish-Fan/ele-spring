@@ -44,9 +44,10 @@ public class RewardController {
         User user = userService.findById(1);
 
         boolean result = EleUtil.userHasOrder(user,orderId,orderService);
+        Order order = orderService.findOrderById(orderId);
 
         if(result) {
-            rewardService.insertReward(rewardDTO);
+            rewardService.insertReward(rewardDTO,order);
             return "success";
         }
         return "error";

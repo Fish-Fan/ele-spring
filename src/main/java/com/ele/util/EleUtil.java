@@ -31,6 +31,7 @@ public class EleUtil {
             orderFood.setFoodCount(food.getCount());
             orderFood.setFoodName(food.getFoodName());
             orderFood.setFoodId(food.getId());
+            orderFood.setFoodPrice(food.getPrice());
 
             orderFoodList.add(orderFood);
         }
@@ -84,5 +85,35 @@ public class EleUtil {
         long diffSeconds = diff / 1000 % 60;
         long diffMinutes = diff / (60 * 1000) % 60;
         return diffMinutes;
+    }
+
+    /**
+     * 检查用户是否拥有该地址
+     * @param user
+     * @param addressId
+     * @param userService
+     * @return
+     */
+    public static boolean checkUserHasAddress(User user,Integer addressId,UserService userService) {
+        List<UserAddress> addressList = userService.getUserAddress(user);
+        for(UserAddress address: addressList) {
+            if(address.getId() == addressId)
+                return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * 检查是否是匿名用户
+     * @param order
+     * @return
+     */
+    public static boolean checkIsNoName(Order order) {
+        boolean result = order.getNoName();
+        if(result) {
+            return true;
+        }
+        return false;
     }
 }

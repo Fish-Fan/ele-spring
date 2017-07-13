@@ -23,7 +23,7 @@
 
     <!--根据订单ID查找商品-->
     <select id="findOrderFoodByOrderId" parameterType="int" resultType="com.ele.pojo.OrderFood">
-        select id,food_id,food_name,order_id,food_count from order_food_list where order_id = #{orderId}
+        select id,food_id,food_name,order_id,food_count,food_price from order_food_list where order_id = #{orderId}
     </select>
 
 
@@ -43,6 +43,7 @@
               #{food.foodName},
               #{food.orderId},
               #{food.foodCount}
+              #{food.foodPrice}
             )
         </foreach>
     </insert>
@@ -59,8 +60,8 @@
     </select>
 
     <!--更新订单信息-->
-    <update id="updateOrder" parameterType="int">
-        update `order` set status = #{status},is_no_name = #{isNoName},order_remark = #{orderRemark},delivery_time = #{deliveryTime},address = #{address},finish_time=#{finishTime}
+    <update id="updateOrder" parameterType="com.ele.pojo.Order">
+        update `order` set username = #{username},avatar = #{avatar},status = #{status},is_no_name = #{isNoName},order_remark = #{orderRemark},delivery_time = #{deliveryTime},address = #{address},finish_time=#{finishTime}
         where id = #{id}
     </update>
 

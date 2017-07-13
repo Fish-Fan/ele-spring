@@ -93,6 +93,7 @@ public class OrderService {
         orderMapper.updateOrder(order);
     }
 
+
     /**
      * 更新订单
      * @param order
@@ -101,6 +102,10 @@ public class OrderService {
         orderMapper.updateOrder(order);
     }
 
+    /**
+     * 用户确定收到商品
+     * @param orderId
+     */
     public void confirmGetDelivery(Integer orderId) {
         Order order = orderMapper.findOrderById(orderId);
         String generateTime = order.getGenerateTime();
@@ -122,6 +127,17 @@ public class OrderService {
 
         orderChanged(order);
 
+    }
+
+    /**
+     * 将订单转为匿名用户的订单
+     * @param order
+     * @return
+     */
+    public Order changeUserToNoName(Order order) {
+        order.setUsername("匿名用户");
+        order.setAvatar("匿名用户的头像");
+        return order;
     }
 
 }

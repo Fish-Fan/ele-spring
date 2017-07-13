@@ -5,6 +5,7 @@ import com.ele.pojo.Order;
 import com.ele.pojo.User;
 import com.ele.service.OrderService;
 import com.ele.service.UserService;
+import com.ele.util.EleUtil;
 import com.google.gson.Gson;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,10 @@ public class OrderController {
     @ResponseBody
     @RequestMapping(value = "/pay/confirm",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
     public String confirmOrder(@RequestBody Order order) {
+        boolean result = EleUtil.checkIsNoName(order);
+        if(result) {
+            order = orderService.changeUserToNoName(order);
+        }
         orderService.orderChanged(order);
         //confirmPay未完成
         return "server/user/confirmPay";
@@ -108,11 +113,24 @@ public class OrderController {
     }
 
     /**
-     * 确认收货
+     * 返回确认收货页面的订单信息
+     * @param orderId
      * @return
      */
     @ResponseBody
     @RequestMapping(value = "/finish",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+    public String getConfirmOrderMsg(@RequestParam Integer orderId) {
+        Order order = orderService.findOrderById(orderId);
+        Gson gson = new Gson();
+        return gson.toJson(order);
+    }
+
+    /**
+     * 确认收货
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/finish",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
     public String confirmGetDelivery(@RequestBody Order order) {
         orderService.confirmGetDelivery(order.getId());
         return "success";

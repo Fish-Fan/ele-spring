@@ -92,7 +92,7 @@ public class UserService {
 
     /**
      * 获取用户地址
-     * @param userId
+     * @param user
      * @return
      */
     public List<UserAddress> getUserAddress(User user) {
@@ -118,8 +118,9 @@ public class UserService {
      * 增加用户地址
      * @param userAddress
      */
-    public void addUserAddress(UserAddress userAddress){
-        userMapper.addAddress(userAddress);
+    public Integer addUserAddress(UserAddress userAddress){
+         userMapper.addAddress(userAddress);
+         return userAddress.getId();
     }
     /**
      * 删除用户地址
