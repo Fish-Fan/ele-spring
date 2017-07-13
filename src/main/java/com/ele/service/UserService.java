@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,22 +65,6 @@ public class UserService {
         }
     }
 
-    /**
-     * 获取用户地址
-     * @param userId
-     * @return
-     */
-    public List<UserAddress> getUserAddress(Integer userId) {
-        return userMapper.getUserAddress(userId);
-    }
-
-    /**
-     * 更新用户地址
-     * @param userAddress
-     */
-    public void updateUserAddress(UserAddress userAddress) {
-        userMapper.updateUserAddress(userAddress);
-    }
 
     /**
      * 获取用户收藏商家列表
@@ -102,6 +88,30 @@ public class UserService {
      */
     public void unCollectShop(Like like){
         userMapper.uncollectShop(like);
+    }
+
+    /**
+     * 获取用户地址
+     * @param userId
+     * @return
+     */
+    public List<UserAddress> getUserAddress(User user) {
+        List<UserAddress> addressList = userMapper.getUserAddress(user.getId());
+
+        for(UserAddress address: addressList) {
+            address.setPhoneNum(user.getPhoneNum());
+            address.setUsername(user.getUsername());
+        }
+
+        return addressList;
+    }
+
+    /**
+     * 更新用户地址
+     * @param userAddress
+     */
+    public void updateUserAddress(UserAddress userAddress) {
+        userMapper.updateUserAddress(userAddress);
     }
 
     /**

@@ -5,9 +5,10 @@
         select * from user where id = #{id}
     </select>
 
+    <!--注册用户-->
     <select id="insertUser" parameterType="com.ele.pojo.User">
         insert into user(username,password,email,avatar,phone_num,weixin)
-        values(#{username},#{password},#{email},#{avatar},#{phone_num},#{weixin})
+        values(#{username},#{password},#{email},#{avatar},#{phoneNum},#{weixin})
     </select>
 
 

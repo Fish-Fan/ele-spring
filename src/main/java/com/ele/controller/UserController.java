@@ -38,7 +38,7 @@ public class UserController {
 //        User user = (User) session.getAttribute("user");
         User user = userService.findById(1);
 
-        List<UserAddress> addressList = user.getAddressList();
+        List<UserAddress> addressList = userService.getUserAddress(user);
         Gson gson = new Gson();
         return gson.toJson(addressList);
     }

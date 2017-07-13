@@ -16,6 +16,7 @@ import com.ele.util.WeChatUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.joda.time.DateTime;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -82,13 +83,15 @@ public class test {
 
 
         String dateStart = "2013-08-13 16:29:58";
-        String dateStop = "2013-08-13 16:31:48";
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         try {
             Date d1 = format.parse(dateStart);
-            Date d2 = format.parse(dateStop);
+            DateTime now = new DateTime();
+            String endStart = now.toString("yyyy-MM-dd HH:mm:ss");
+            Date d2 = format.parse(endStart);
+            System.out.println(endStart);
             test1(d1,d2);
 
 

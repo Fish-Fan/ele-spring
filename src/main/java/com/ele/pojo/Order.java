@@ -8,15 +8,17 @@ import java.util.List;
 public class Order {
     private Integer id;
     private String username;
+    private String avatar;
     private String phoneNum;
     private Boolean isNoName;
     private String orderRemark;
     private Double sumMoney;
     private Integer userId;
-    private String deliveryTime;
+    private Long deliveryTime;
     private Integer grade;
     private String address;
     private String generateTime;
+    private String finishTime;
     private Integer status;
     private Integer shopId;
 
@@ -39,6 +41,14 @@ public class Order {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getPhoneNum() {
@@ -81,11 +91,11 @@ public class Order {
         this.userId = userId;
     }
 
-    public String getDeliveryTime() {
+    public Long getDeliveryTime() {
         return deliveryTime;
     }
 
-    public void setDeliveryTime(String deliveryTime) {
+    public void setDeliveryTime(Long deliveryTime) {
         this.deliveryTime = deliveryTime;
     }
 
@@ -111,6 +121,14 @@ public class Order {
 
     public void setGenerateTime(String generateTime) {
         this.generateTime = generateTime;
+    }
+
+    public String getFinishTime() {
+        return finishTime;
+    }
+
+    public void setFinishTime(String finishTime) {
+        this.finishTime = finishTime;
     }
 
     public List<OrderFood> getFoodList() {
@@ -158,15 +176,17 @@ public class Order {
         return "Order{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
+                ", avatar='" + avatar + '\'' +
                 ", phoneNum='" + phoneNum + '\'' +
                 ", isNoName=" + isNoName +
                 ", orderRemark='" + orderRemark + '\'' +
                 ", sumMoney=" + sumMoney +
                 ", userId=" + userId +
-                ", deliveryTime='" + deliveryTime + '\'' +
+                ", deliveryTime=" + deliveryTime +
                 ", grade=" + grade +
                 ", address='" + address + '\'' +
                 ", generateTime='" + generateTime + '\'' +
+                ", finishTime='" + finishTime + '\'' +
                 ", status=" + status +
                 ", shopId=" + shopId +
                 ", foodList=" + foodList +

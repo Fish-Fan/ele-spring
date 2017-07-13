@@ -34,19 +34,6 @@ public interface UserMapper {
     User findByEmail(String email);
 
     /**
-     * 根据用户ID查找用户的地址
-     * @param userId
-     * @return
-     */
-    List<UserAddress> getUserAddress(Integer userId);
-
-    /**
-     * 更新用户地址
-     * @param userAddress
-     */
-    void updateUserAddress(UserAddress userAddress);
-
-    /**
      *
      * 用户登录
      * @param user
@@ -79,6 +66,19 @@ public interface UserMapper {
      * @param like
      */
     void uncollectShop(Like like);
+
+    /**
+     * 根据用户ID查找用户的地址
+     * @param userId
+     * @return
+     */
+    List<UserAddress> getUserAddress(Integer userId);
+
+    /**
+     * 更新用户地址
+     * @param userAddress
+     */
+    void updateUserAddress(UserAddress userAddress);
 
     /**
      * 删除用户地址

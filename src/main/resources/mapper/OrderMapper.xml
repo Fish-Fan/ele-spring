@@ -5,6 +5,7 @@
     <resultMap id="order" type="com.ele.pojo.Order">
         <id property="id" column="id"/>
         <result property="username" column="username"/>
+        <result property="avatar" column="avatar"/>
         <result property="phoneNum" column="phone_num"/>
         <result property="isNoName" column="is_no_name"/>
         <result property="orderRemark" column="order_remark"/>
@@ -28,8 +29,8 @@
 
     <!--新增订单-->
     <insert id="insertOrder" parameterType="com.ele.pojo.Order" useGeneratedKeys="true" keyProperty="id">
-        insert into `order`(username,phone_num,is_no_name,sum_money,user_id,address,generate_time,status,shop_id)
-        values(#{username},#{phoneNum},#{isNoName},#{sumMoney},#{userId},#{address},#{generateTime},#{status},#{shopId})
+        insert into `order`(username,avatar,phone_num,is_no_name,sum_money,user_id,address,generate_time,status,shop_id)
+        values(#{username},#{avatar},#{phoneNum},#{isNoName},#{sumMoney},#{userId},#{address},#{generateTime},#{status},#{shopId})
     </insert>
     
     <!--插入该订单商品信息-->
@@ -59,7 +60,7 @@
 
     <!--更新订单信息-->
     <update id="updateOrder" parameterType="int">
-        update `order` set status = #{status},is_no_name = #{isNoName},order_remark = #{orderRemark},delivery_time = #{deliveryTime},address = #{address}
+        update `order` set status = #{status},is_no_name = #{isNoName},order_remark = #{orderRemark},delivery_time = #{deliveryTime},address = #{address},finish_time=#{finishTime}
         where id = #{id}
     </update>
 

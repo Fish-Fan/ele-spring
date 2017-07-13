@@ -11,10 +11,7 @@ import com.ele.util.EleUtil;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -39,16 +36,20 @@ public class RewardController {
      * @param req
      * @param orderId
      */
-    @RequestMapping(value = "/user/reward/{orderId:\\d+}",method = RequestMethod.POST)
-    public void getUserReward(RewardDTO rewardDTO, HttpServletRequest req, @PathVariable Integer orderId) {
+    @ResponseBody
+    @RequestMapping(value = "/user/reward/{orderId:\\d+}",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+    public String getUserReward(@RequestBody RewardDTO rewardDTO, HttpServletRequest req, @PathVariable Integer orderId) {
         HttpSession session = req.getSession();
-        User user = (User) session.getAttribute("user");
+//        User user = (User) session.getAttribute("user");
+        User user = userService.findById(1);
 
         boolean result = EleUtil.userHasOrder(user,orderId,orderService);
 
         if(result) {
             rewardService.insertReward(rewardDTO);
+            return "success";
         }
+        return "error";
     }
 
     /**
@@ -58,7 +59,7 @@ public class RewardController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "user/reward/{orderId:\\d+}",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "/user/reward/{orderId:\\d+}",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
     public String returnUserOrder(@PathVariable Integer orderId,HttpServletRequest req) {
         HttpSession session = req.getSession();
 //        User user = (User) session.getAttribute("user");

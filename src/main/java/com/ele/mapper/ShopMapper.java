@@ -73,4 +73,6 @@ public interface ShopMapper {
      * @return
      */
     Integer getShopCollectCount(Integer shopId);
+
+
 }

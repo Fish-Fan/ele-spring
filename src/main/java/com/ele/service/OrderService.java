@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,6 +39,7 @@ public class OrderService {
         Order order = new Order();
 
         order.setUsername(user.getUsername());
+        order.setAvatar(user.getAvatar());
         order.setPhoneNum(user.getPhoneNum());
         order.setNoName(true);
         order.setSumMoney(orderDetail.getOrderDetail().getTotalPrice());
@@ -89,8 +93,35 @@ public class OrderService {
         orderMapper.updateOrder(order);
     }
 
+    /**
+     * 更新订单
+     * @param order
+     */
     public void orderChanged(Order order) {
         orderMapper.updateOrder(order);
+    }
+
+    public void confirmGetDelivery(Integer orderId) {
+        Order order = orderMapper.findOrderById(orderId);
+        String generateTime = order.getGenerateTime();
+
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            DateTime now = new DateTime();
+            String finishTime = now.toString("yyyy-MM-dd HH:mm:ss");
+            Date d1 = format.parse(generateTime);
+            Date d2 = format.parse(finishTime);
+            long minus = EleUtil.getTimeMinus(d1,d2);
+
+            order.setFinishTime(finishTime);
+            order.setDeliveryTime(minus);
+            order.setStatus(2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        orderChanged(order);
+
     }
 
 }

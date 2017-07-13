@@ -107,10 +107,15 @@ public class OrderController {
         return "success";
     }
 
+    /**
+     * 确认收货
+     * @return
+     */
     @ResponseBody
-    @RequestMapping(value = "/finish/{oredrId:\\d+}",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
-    public String confirmGetDelivery() {
-        return null;
+    @RequestMapping(value = "/finish",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+    public String confirmGetDelivery(@RequestBody Order order) {
+        orderService.confirmGetDelivery(order.getId());
+        return "success";
     }
 
 
