@@ -1,7 +1,10 @@
 package com.ele.service;
 
 import com.ele.mapper.ShopManagerMapper;
+import com.ele.pojo.MenuType;
 import com.ele.pojo.ShopManager;
+import com.ele.util.ConfigProp;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,26 +17,56 @@ import org.springframework.transaction.annotation.Transactional;
 public class ShopManagerService {
     @Autowired
     private ShopManagerMapper shopManagerMapper;
+
     /**
      * 商家登陆
      * @param
      * @return
      */
-    public ShopManager loginShop(ShopManager shopManager){
+    public ShopManager loginShopManager(ShopManager shopManager){
+        shopManager.setPassword(DigestUtils.md5Hex(shopManager.getPassword() + ConfigProp.get("user.password.salt")));
+
         ShopManager shopManager1 = shopManagerMapper.shopLogin(shopManager);
-        if (shopManager1 != null){
+        if(shopManager1 != null) {
             return shopManager1;
-        }else {
+        } else {
             return null;
         }
     }
+
     /**
      * 商家注册
      * @param
      * @return
      */
-    public Integer insertShop(ShopManager shopManager){
-        shopManagerMapper.insertShop(shopManagerMapper);
+    public Integer insertShopManager(ShopManager shopManager){
+        shopManager.setPassword(DigestUtils.md5Hex(shopManager.getPassword() + ConfigProp.get("user.password.salt")));
+        shopManagerMapper.insertShop(shopManager);
         return shopManager.getShopId();
+    }
+
+    /**
+     * 增加菜单种类
+     * @param
+     */
+    public MenuType insertMenuType(MenuType menuType){
+        shopManagerMapper.insertMenuType(menuType);
+        return menuType;
+    }
+    /**
+     * 删除菜单种类
+     * @param
+     */
+    public Integer deleteMenuType(Integer menuType){
+        shopManagerMapper.deleteMenuType(menuType);
+        return menuType;
+    }
+    /**
+     * 更新菜单种类
+     * @param
+     */
+    public MenuType updateMenuType(MenuType menuType){
+        shopManagerMapper.updateMenuType(menuType);
+        return menuType;
     }
 }

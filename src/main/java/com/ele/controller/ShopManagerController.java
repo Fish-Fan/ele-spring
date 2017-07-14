@@ -1,5 +1,6 @@
 package com.ele.controller;
 
+import com.ele.pojo.MenuType;
 import com.ele.pojo.ShopManager;
 import com.ele.service.ShopManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,9 @@ public class ShopManagerController {
         String phoneNum = request.getParameter("phoneNum");
         String password = request.getParameter("passWord");
         ShopManager shopManager = new ShopManager();
-        shopManager.setPassWord(password);
+        shopManager.setPassword(password);
         shopManager.setPhoneNum(phoneNum);
-        ShopManager shopManager1 = shopManagerService.loginShop(shopManager);
+        ShopManager shopManager1 = shopManagerService.loginShopManager(shopManager);
         if (shopManager1 != null){
             return "success";
         }else {
@@ -49,9 +50,38 @@ public class ShopManagerController {
     @RequestMapping(value = "/store",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
     public Integer registerShop(@RequestBody ShopManager shopManager, HttpServletRequest request){
         HttpSession session = request.getSession();
-        if (shopManagerService.insertShop(shopManager) != null){
+        if (shopManagerService.insertShopManager(shopManager) != null){
             return shopManager.getShopId();
         }
         return null;
     }
+
+    /**
+     * 增加菜单种类
+     * @param
+     */
+    @ResponseBody
+    @RequestMapping(value = "/stor3",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+    public void insertMenuType(@RequestBody MenuType menuType){
+        shopManagerService.insertMenuType(menuType);
+    }
+    /**
+     * 删除菜单种类
+     * @param
+     */
+    @ResponseBody
+    @RequestMapping(value = "/store1",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+    public void deleteMenuType(@RequestBody MenuType menuType){
+        shopManagerService.deleteMenuType(menuType.getMenuTypeId());
+    }
+    /**
+     * 更新菜单种类
+     * @param
+     */
+    @ResponseBody
+    @RequestMapping(value = "/store2",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+    public void updateMenuType(@RequestBody MenuType menuType){
+        shopManagerService.updateMenuType(menuType);
+    }
+
 }

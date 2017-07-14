@@ -2,10 +2,7 @@ package com.ele.service;
 
 import com.ele.dto.OrderDetail;
 import com.ele.mapper.OrderMapper;
-import com.ele.pojo.Order;
-import com.ele.pojo.OrderFood;
-import com.ele.pojo.ShopFood;
-import com.ele.pojo.User;
+import com.ele.pojo.*;
 import com.ele.util.EleUtil;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,7 +103,7 @@ public class OrderService {
      * 用户确定收到商品
      * @param orderId
      */
-    public void confirmGetDelivery(Integer orderId) {
+    public void confirmGetDelivery(Integer orderId,Shop shop) {
         Order order = orderMapper.findOrderById(orderId);
         String generateTime = order.getGenerateTime();
 
@@ -126,6 +123,11 @@ public class OrderService {
         }
 
         orderChanged(order);
+        Double shopDeliveryTime = computedDeliveryTime(shop.getId());
+        Integer time = shopDeliveryTime.intValue();
+        //更新商家平均送达时间
+        shop.setDeliveryTime(time);
+        updateShopDeliveryTime(shop);
 
     }
 
@@ -138,6 +140,23 @@ public class OrderService {
         order.setUsername("匿名用户");
         order.setAvatar("匿名用户的头像");
         return order;
+    }
+
+    /**
+     * 计算商家最新配送时间
+     * @param shopId
+     * @return
+     */
+    public Double computedDeliveryTime(Integer shopId) {
+        return orderMapper.computedDeliveryTime(shopId);
+    }
+
+    /**
+     * 跟新商家配送时间
+     * @param shop
+     */
+    public void updateShopDeliveryTime(Shop shop) {
+        orderMapper.updateShopDeliveryTime(shop);
     }
 
 }

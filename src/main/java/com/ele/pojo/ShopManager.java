@@ -6,7 +6,7 @@ package com.ele.pojo;
 public class ShopManager {
     private Integer shopId;
     private String phoneNum;
-    private String passWord;
+    private String password;
 
     public Integer getShopId() {
         return shopId;
@@ -24,12 +24,12 @@ public class ShopManager {
         this.phoneNum = phoneNum;
     }
 
-    public String getPassWord() {
-        return passWord;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class ShopManager {
         return "ShopManager{" +
                 "shopId=" + shopId +
                 ", phoneNum='" + phoneNum + '\'' +
-                ", passWord='" + passWord + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

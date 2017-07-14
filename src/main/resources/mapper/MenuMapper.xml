@@ -5,4 +5,18 @@
         INSERT INTO menu_type_real(shop_id,menu_type_id)
         VALUE (#{shopId},#{menuTypeId})
     </insert>
+    <resultMap id="selectShopFoodByMenuTypeId" type="com.ele.pojo.Shop">
+        <result property="menuTypeId" column="menu_type_id"/>
+        <result property="menuName" column="menu_name"/>
+        <result property="menuImg " column="menu_img" />
+
+        <collection property="shopList" column="menu_type_id" select="selectShopFoodByMenuTypeId"/>
+    </resultMap>
+
+    <!--根据MenuTypeId查找ShopMessage-->
+    <select id="selectShopFoodByMenuTypeId" parameterType="int" resultType="com.ele.pojo.Shop">
+    SELECT shop.* FROM shop,menu_type_real
+    WHERE shop.id = menu_type_real.shop_id
+    AND menu_type_id = #{menuTypeId}
+    </select>
 </mapper>

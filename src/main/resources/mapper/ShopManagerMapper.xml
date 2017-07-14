@@ -3,11 +3,27 @@
 <mapper namespace="com.ele.mapper.ShopManagerMapper">
     <!--商家登陆-->
     <select id="shopLogin" parameterType="string" resultType="com.ele.pojo.ShopManager">
-    SELECT * FROM shop_manager WHERE phone_num = #{phoneNum} AND password = #{passWord}
+    SELECT * FROM shop_manager WHERE phone_num = #{phoneNum} AND password = #{password}
     </select>
+
     <!--商家注册-->
     <insert id="insertShop" parameterType="com.ele.pojo.ShopManager" useGeneratedKeys="true" keyProperty="shop_id" >
         insert into shop_manager (phone_num,password)
-        values(#{phoneNum},#{passWord})
+        values(#{phoneNum},#{password})
     </insert>
+
+    <!--增加Menu种类-->
+    <insert id="insertMenuType" parameterType="com.ele.pojo.MenuType">
+        INSERT INTO menu_type(menu_name,menu_img)
+        VALUES (#{menuName},#{menuImg})
+    </insert>
+    <!--修改菜单-->
+    <update id="updateMenuType" parameterType="com.ele.pojo.MenuType">
+        UPDATE menu_type SET menu_name = #{menuName} , menu_img = #{menuImg}
+        WHERE menu_type_id = #{menuTypeId}
+    </update>
+    <!--删除菜单种类-->
+    <select id="deleteMenuType" parameterType="int" resultType="com.ele.pojo.MenuType">
+    DELETE FROM menu_type WHERE  menu_type_id = #{menuTypeId}
+    </select>
 </mapper>

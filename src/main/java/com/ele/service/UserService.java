@@ -5,6 +5,8 @@ import com.ele.pojo.Like;
 import com.ele.pojo.Shop;
 import com.ele.pojo.User;
 import com.ele.pojo.UserAddress;
+import com.ele.util.ConfigProp;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,12 +40,11 @@ public class UserService {
      * @return
      */
     public User loginUser(User user) {
-
+        user.setPassword(DigestUtils.md5Hex(user.getPassword() + ConfigProp.get("user.password.salt")));
         User loginuser = userMapper.loginUser(user);
-        if (loginuser != null) {
-            loginuser.setStatus(1);
-            userMapper.statusUser(loginuser);
-            return user;
+
+        if(loginuser != null) {
+            return loginuser;
         } else {
             return null;
         }
@@ -56,15 +57,14 @@ public class UserService {
      */
     public boolean registUser(User user) {
         User checkUser = userMapper.findByEmail(user.getEmail());
-
         if(checkUser != null) {
             return false;
         } else {
+            user.setPassword(DigestUtils.md5Hex(user.getPassword() + ConfigProp.get("user.password.salt")));
             userMapper.insertUser(user);
             return true;
         }
     }
-
 
     /**
      * 获取用户收藏商家列表
@@ -128,5 +128,13 @@ public class UserService {
      */
     public void delectUserAddress(UserAddress userAddress){
         userMapper.delectUserAddress(userAddress);
+    }
+
+    /**
+     * 跟新用户头像
+     * @param user
+     */
+    public void updateAvatar(User user){
+        userMapper.updateAvatar(user);
     }
 }

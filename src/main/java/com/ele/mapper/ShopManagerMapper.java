@@ -1,5 +1,6 @@
 package com.ele.mapper;
 
+import com.ele.pojo.MenuType;
 import com.ele.pojo.ShopManager;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +18,23 @@ public interface ShopManagerMapper {
 
     /**
      * 商家注册
-     * @param shopManagerMapper
+     * @param shopManager
      */
-    void insertShop(ShopManagerMapper shopManagerMapper);
+    void insertShop(ShopManager shopManager);
+
+    /**
+     * 增加菜单种类
+     * @param
+     */
+    void insertMenuType(MenuType menuType);
+    /**
+     * 删除菜单种类
+     * @param
+     */
+    void deleteMenuType(Integer menuTypeId);
+    /**
+     * 更新菜单种类
+     * @param
+     */
+    void updateMenuType(MenuType menuType);
 }

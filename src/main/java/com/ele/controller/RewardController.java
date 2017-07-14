@@ -93,5 +93,6 @@ public class RewardController {
 
         rewardService.insertOrderImg(orderImg);
         return "success";
+
     }
 }

@@ -85,4 +85,14 @@ public class ShopService {
     public Integer getShopCollectCount(Integer shopId) {
         return shopMapper.getShopCollectCount(shopId);
     }
+
+    /**
+     * 商家开店
+     * @param shop
+     * @return
+     */
+    public Integer insertShop(Shop shop) {
+        shopMapper.insertShop(shop);
+        return shop.getId();
+    }
 }

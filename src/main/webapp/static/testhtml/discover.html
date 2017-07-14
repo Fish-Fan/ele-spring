@@ -1,0 +1,39 @@
+
+		<header class="mui-bar mui-bar-nav" style='background-image: linear-gradient(90deg,#0af,#0085ff);'>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style='color:white;'></a>
+			<h1 class="mui-title" style='color:white;'>促销活动</h1>
+		</header>
+
+		<div class="mui-content">
+			<div class="mui-card">
+				<div class="mui-card-header">
+                </div>
+				<div class="mui-card-content">
+					<div class="mui-card-content-inner">
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+        <nav class="mui-bar mui-bar-tab">
+            <a class="mui-tab-item" data-target="homepage.html">
+                外卖
+            </a>
+            <a class="mui-tab-item mui-active" data-target="discover.html">
+                发现
+            </a>
+            <a class="mui-tab-item" data-target="history.html">
+                订单
+            </a>
+            <a class="mui-tab-item" data-target="profile.html">
+                我的
+            </a>
+        </nav>
+        </div>
+        <script>
+            $('a[data-target]').on('click tap',function(){
+                loadWindow($(this).data('target'))
+            })
+        </script>

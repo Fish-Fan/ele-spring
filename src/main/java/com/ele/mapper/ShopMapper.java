@@ -74,5 +74,10 @@ public interface ShopMapper {
      */
     Integer getShopCollectCount(Integer shopId);
 
+    /**
+     * 商家开店
+     * @param shop
+     */
+    void insertShop(Shop shop);
 
 }

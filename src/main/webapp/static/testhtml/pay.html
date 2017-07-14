@@ -1,0 +1,149 @@
+<style>
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+        font-family: 'Helvetica Neue', Tahoma, Arial, PingFangSC-Regular, 'Hiragino Sans GB', 'Microsoft Yahei', sans-serif;
+    }
+
+    .mui-content .time {
+        width: 100%;
+        height: 10%;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        text-align: center;
+        background-color: #FFFFFF;
+    }
+
+    .mui-content .last-time {
+        color: #777777;
+    }
+
+    .mui-content #time {
+        margin-top: 15px;
+        font-family: Verdana;
+        font-size: 24px;
+        color: black;
+        height: 5%;
+    }
+
+    .mui-content .order-text {
+        height: 40px;
+    }
+
+    .mui-content .big {
+        padding-left: 15px;
+    }
+
+    .mui-content .small {
+        padding-left: 10px;
+        color: #777777;
+    }
+
+    .mui-content .choose {
+        height: 35px;
+        padding-left: 10px;
+        padding-top: 9px;
+        padding-bottom: 10px;
+        font-size: 14px;
+        color: #777777;
+        background-color: #DDDDDD;
+    }
+
+    .mui-content .pay {
+        margin-top: 12px;
+        font-size: 18px;
+        color: black;
+    }
+</style>
+<header class="mui-bar mui-bar-nav" style="background-image: linear-gradient(90deg,#0af,#0085ff);">
+    <a class="mui-icon mui-icon-back" data-target="order.html" style="color:white"></a>
+    <h1 class="mui-title" id="msg" style="color:white">在线支付</h1>
+</header>
+<div class="mui-content">
+    <div class="time">
+        <div class="last-time"><span>支付剩余时间</span></div>
+        <div>
+            <p id="time">15:00</p>
+        </div>
+    </div>
+    <div>
+        <hr style="height:1px;border:none;border-top:1px solid #CCCCCC;"/>
+    </div>
+    <div class="order-text" id="ordertext">
+        <!-- 订单信息 -->
+    </div>
+    <div class="choose">
+        <span>选择支付方式</span>
+    </div>
+    <div class="mui-card mui-card-media" style="width:100%;margin:0">
+        <div class="mui-media-body">
+            <div class="mui-input-row mui-checkbox mui-right">
+                <label><p class="pay">余额支付</p></label>
+                <input name="checkbox1" value="Item 1" type="checkbox" style="margin-top:15px">
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="mui-bar" style="background-color:#00CC33;position: fixed;bottom: 0;width: 100%;height: 50px;">
+    <h1 class="mui-title" id="button-pay" style="color:white;font-size:20px">
+    <!-- 确认支付按钮 -->
+    </h1>
+</footer>
+
+
+<script>
+    function LinkButtonActivate() {
+        $('[data-target]').on('click tap',function(){
+            loadWindow($(this).data('target'))
+        })
+    }
+</script>
+
+<script>
+    $(function () {
+        var m = 14;
+        var s = 59;
+        setInterval(function () {
+            if (s < 10) {
+                //如果秒数少于10在前面加上0
+                $('#time').html(m + ':0' + s);
+            } else {
+                $('#time').html(m + ':' + s);
+            }
+            s--;
+            if (s < 0) {
+                //如果秒数少于0就变成59秒
+                s = 59;
+                m--;
+            }
+            if (m < 0) {
+                loadWindow("index.html");
+            }
+        }, 1000)
+        $.ajax({
+            url: "api/order-pay.json",
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                $("#ordertext").empty().append(
+                    '<span class="big">' + data.shop.name + '外卖订单' +
+                    '</span>' +
+                    '<span class="right" id="pay" style="float:right;color:#CC0000;padding-right:10px">' + '¥ ' + data.sumMoney +
+                    '</span>'
+                )
+
+
+                $("#button-pay")
+                    .empty()
+                    .text('确认支付' + ' ¥ ' + data.sumMoney)
+                    .click(function () {
+                        $.post('/api/order/pay/wait',{"result":"true"});
+                        loadWindow("finish.html");
+                    })
+                LinkButtonActivate();
+            }
+        })
+    })
+</script>

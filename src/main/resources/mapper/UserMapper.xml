@@ -72,4 +72,9 @@
     DELETE FROM user_address  WHERE id = #{id}
     </select>
 
+    <!--更新用户头像-->
+    <update id="updateAvatar" parameterType="com.ele.pojo.User">
+        update `user` set avatar = #{avatar} where id = #{id}
+    </update>
+
 </mapper>

@@ -1,0 +1,100 @@
+<header class="mui-bar mui-bar-nav" style='background-image: linear-gradient(90deg,#0af,#0085ff);'>
+    <a class="mui-icon mui-icon-left-nav mui-pull-left" style='color:white;' href="index.html?load=profile.html"></a>
+    <h1 class="mui-title" style='color:white;'>修改头像</h1>
+</header>
+
+<div class="mui-content">
+</div>
+
+<script>
+    // generate picture comments
+    $('.mui-content').append(
+        '<div class="mui-card">' +
+        '<div class="mui-card-header">' +
+        '<h5>选择上传头像</h5>' +
+        '</div>' +
+        '<div class="mui-card-content">' +
+        '<div class="mui-card-content-inner" id="uploader">' +
+        '<div id="fileList" class="uploader-list"></div>' +
+        '<div id="filePicker">选择头像</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>'
+    )
+
+
+    var WebRoot = "http://58bb0055.ngrok.io";
+
+    var WebUploaderInit = function (token) {
+        var uploader = WebUploader.create({
+            auto: true,
+            server: "http://up.qiniu.com",
+            pick: '#filePicker',
+            accept: {
+                title: 'Images',
+                extensions: 'gif,jpg,jpeg,bmp,png',
+                mimeTypes: 'image/*'
+            },
+            formData: {
+                "token": token
+            }
+        });
+
+        uploader.on('fileQueued', function (file) {
+            var $li = $('<div id="' + file.id + '" class="file-item thumbnail" style="width:110px;display:inline-block;">' + '<img>' + '</div>'),
+                $img = $li.find('img');
+            var $list = $('.uploader-list');
+            $list.append($li);
+            uploader.makeThumb(file, function (error, src) {
+                if (error) {
+                    $img.replaceWith('<span>不能预览</span>');
+                    return;
+                }
+                $img.attr('src', src);
+            }, 100, 100);
+        });
+
+// 文件上传过程中创建进度条实时显示。
+        uploader.on('uploadProgress', function (file, percentage) {
+            var $li = $('#' + file.id),
+                $percent = $li.find('.progress span');
+// 避免重复创建
+            if (!$percent.length) {
+                $percent = $('<p class="progress"><span></span></p>')
+                    .appendTo($li)
+                    .find('span');
+            }
+            $percent.css('width', percentage * 100 + '%');
+        });
+
+// 文件上传成功，给item添加成功class, 用样式标记上传成功。
+        uploader.on('uploadSuccess', function (file, response) {
+            $('#' + file.id).addClass('upload-state-done');
+            $.post(WebRoot + '/user/changeavatar', {
+                "avatar": 'http://oleco2u3s.bkt.clouddn.com/' + response.key + "?imageView2/1/w/40/h/40"
+            }, function (data) {
+                alert(data);
+            });
+        });
+
+// 文件上传失败，显示上传出错。
+        uploader.on('uploadError', function (file) {
+            var $li = $('#' + file.id),
+                $error = $li.find('div.error');
+// 避免重复创建
+            if (!$error.length) {
+                $error = $('<div class="error"></div>').appendTo($li);
+            }
+            $error.text('上传失败');
+        });
+
+// 完成上传，先删除进度条。
+        uploader.on('uploadComplete', function (file) {
+            $('#' + file.id).find('.progress').remove();
+        });
+    }
+
+
+    WebUploaderInit("1o90vmY9OmRcueIeIeFBID6q2uy8peFiFBxpnM78:rdalpapK8yThJayH3FakQwqQbp8=:eyJzY29wZSI6InRlc3QiLCJkZWFkbGluZSI6MTYwNTA2NDI3MX0=");
+
+</script>

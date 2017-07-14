@@ -3,6 +3,7 @@ package com.ele.mapper;
 import com.ele.dto.OrderDetail;
 import com.ele.pojo.Order;
 import com.ele.pojo.OrderFood;
+import com.ele.pojo.Shop;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -44,4 +45,17 @@ public interface OrderMapper {
      * @param order
      */
     void updateOrder(Order order);
+
+    /**
+     * 计算最新商家平均送达时间
+     * @param shopId
+     * @return
+     */
+    Double computedDeliveryTime(Integer shopId);
+
+    /**
+     * 更新商家平均送达时间
+     * @param shop
+     */
+    void updateShopDeliveryTime(Shop shop);
 }

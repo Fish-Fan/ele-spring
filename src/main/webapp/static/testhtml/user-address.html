@@ -1,0 +1,190 @@
+﻿
+<header class="mui-bar mui-bar-nav" style='background-image: linear-gradient(90deg,#0af,#0085ff);'>
+    <a class="mui-icon mui-icon-left-nav mui-pull-left" style='color:white;' data-href="index.html?load=profile.html"></a>
+    <h1 class="mui-title" style='color:white;'>收货地址</h1>
+</header>
+
+<div class="mui-content">
+    <ul class="mui-table-view user-address-list">
+    </ul>
+</div>
+
+
+
+<nav class="mui-bar mui-bar-tab">
+    <a class="mui-tab-item" data-click="addUserAddress()">
+        新增地址
+    </a>
+</nav>
+<script>
+    $('a[data-target]').on('click tap',function(){
+        loadWindow($(this).data('target'));
+    })
+    $('a[data-href]').on('click tap',function(){
+        window.location.href = $(this).data('href');
+    })
+    function editUserAddressToggleActivate() {
+        $('[data-click]').on('tap',function(){
+            eval($(this).data('click'));
+        })
+    }
+    function editUserAddressToggleDisable() {
+        $('[data-click]').off('tap');
+    }
+
+    var userId;
+    var username;
+    var userPhoneNum;
+    var AddingAddress = false;
+    var RootPath = "http://348beb18.ngrok.io/";
+
+    function editUserAddressComplete(input) {
+        AddingAddress = false;
+        var addressId = $(input).parent().parent().attr('id');
+        $(input).parent().siblings('[data-click]').html('<p>编辑</p>');
+        var userAddressText = $(input).val();
+        $(input).replaceWith(userAddressText);
+        editUserAddressToggleActivate();
+
+        // generate address JSON object
+        var addressJSON = {};
+        addressJSON.userId = window.userId;
+        addressJSON.userAddress = userAddressText;
+        if(addressId!=undefined&&addressId!=''){
+            addressJSON.id = addressId;
+        }
+        var submitURL = RootPath + "user/profile/address/" + ((addressId==undefined||addressId=='')?'add':'update');
+        // ajax submit
+        $.ajax({
+            url: submitURL,
+            type: 'post',
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(addressJSON),
+            success: function(data){
+                $('.user-address:last').attr('id',data.addressId);
+                if(data.msg=='success'){
+                    alert("地址提交成功");
+                }
+            },
+            error: function(){
+                alert('地址提交失败');
+            }
+        })
+
+        deleteUserAddressToggleActivate();
+    }
+
+    function addUserAddress(addressItem) {
+        AddingAddress = false;
+        if($('input[name="user-address"]').length>0){
+            AddingAddress = true;
+            return;
+        }
+        if(addressItem==undefined){
+            AddingAddress = true;
+        }
+        if(AddingAddress == true){
+            editUserAddressToggleDisable();
+            addressItem = {
+                id: '',
+                userAddress: "<input name='user-address'>",
+                username: window.username,
+                phoneNum: window.userPhoneNum
+            }
+        }
+        var userAddressListItem = $(
+            '<li class="mui-table-view-cell user-address" id=' + addressItem.id + '>' +
+                '<span class="user-address-text" style="display:inline-block;min-height:21px;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;">' + addressItem.userAddress + '</span>' +
+                '<span style="float:right;position:relative;top:5px;margin: 0 5px 0 5px;" data-address-delete="deleteUserAddress($(this).parent())"><p>' + '删除' + '</p></span>' +
+                '<span style="float:right;position:relative;top:5px;" data-click="editUserAddress($(this).parent())"><p>' + (AddingAddress?'完成':'编辑') + '</p></span>' +
+                '<p><span class="username">' + addressItem.username + '</span> <span class="user-contact">' + addressItem.phoneNum + '</span></p>' +
+            '</li>');
+
+        $('.user-address-list').append(userAddressListItem);
+
+        if(AddingAddress == true){
+            $('input[name="user-address"]').keydown(function(event) {
+                if (event.which == 13) {
+                    event.preventDefault();
+                    editUserAddressComplete(this);
+                }
+            }).blur(function () {
+                editUserAddressComplete(this);
+            }).parent().siblings('[data-click]').one('tap',function () {
+                editUserAddressComplete($('input[name="user-address"]'));
+            })
+        }
+    }
+
+    function editUserAddress(UserAddress) {
+        editUserAddressToggleDisable();
+        var userAddressField = UserAddress.find('.user-address-text');
+        userAddressField.siblings('[data-click]')
+            .off('tap')
+            .one('tap',function(){
+                editUserAddressComplete($('input[name="user-address"]'));
+            }).html('<p>完成</p>')
+        var userAddressText = userAddressField.html();
+        userAddressField.html('<input name="user-address" value="'+userAddressText+'">');
+        $('input[name="user-address"]').keydown(function(event) {
+            if (event.which == 13) {
+                event.preventDefault();
+                editUserAddressComplete(this);
+            }
+        }).blur(function () {
+            editUserAddressComplete(this);
+        })
+    }
+
+    function initUserAddress() {
+//        $.getJSON('api/user-address.json',function(data){
+        $.getJSON(RootPath + 'user/profile/address',function(data){
+            userId = data[0].userId;
+            username = data[0].username;
+            userPhoneNum = data[0].phoneNum;
+
+            for (i = 0; i < data.length; ++i) {
+                addUserAddress(data[i]);
+            }
+
+            editUserAddressToggleActivate();
+            deleteUserAddressToggleActivate();
+            $('.user-address-text').css('max-width',window.innerWidth-100);
+        })
+    }
+
+    function deleteUserAddress(userAddress) {
+        var userAddressId = $(userAddress).attr('id');
+        if(userAddressId == undefined || userAddressId == ''){
+            alert("地址未添加或已被删除，请刷新页面");
+            return;
+        }
+        $.ajax({
+                url: RootPath + 'user/profile/address/delete/' + userAddressId,
+                type: 'post',
+                dataType: 'json',
+                contentType: "application/json",
+                data: JSON.stringify({
+                    "id": userAddressId
+                }),
+                success: function(data){
+                    $(userAddress).remove();
+                    if(data.msg=='success'){
+                        alert("地址提交成功");
+                    }
+                },
+                error: function(){
+                    alert('地址提交失败');
+                }
+            })
+    }
+
+    function deleteUserAddressToggleActivate() {
+        $('[data-address-delete]').off('tap').on('tap',function () {
+            eval($(this).data('address-delete'));
+        });
+    }
+
+    initUserAddress();
+</script>

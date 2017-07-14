@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>命名规范</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <style>
+        td {
+            padding: 6px 20px 6px 20px;
+            font-weight: bold;
+        }
+        td:nth-of-type(2) {
+            font-size: 20px;
+        }
+        td,
+        th {
+            text-align: center;
+        }
+    </style>
+    <div class='container-fluid'>
+        <div style='width:100%;text-align:center;margin: 40px 0 40px 0;'>
+            <h1><b>妈&nbsp;饿了<sup><small>TM</small></sup></b></h1>
+            <h1 style='font-weight:900;'>命名与接口规范</h1>
+            <h3 style='font-weight:400;'>Naming and API Standard</h3>
+        </div>
+        <div class='panel panel-default'>
+            <table class='table table-striped'>
+                <tr>
+                    <th>
+                        <h3>模块描述</h3>
+                    </th>
+                    <th>
+                        <h3>负责人</h3>
+                    </th>
+                    <th>
+                        <h3>API</h3>
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        登陆页面
+                    </td>
+                    <td>
+                        <span class='label label-info'>高 <span class='badge'>前</span></span>
+                        <span class='label label-danger'>陈 <span class='badge'>后</span></span>
+                    </td>
+                    <td><a class='btn btn-default btn-md' href='#login'>API</a></td>
+                </tr>
+                <tr>
+                    <td>注册页面</td>
+                    <td>
+                        <span class='label label-info'>高 <span class='badge'>前</span></span>
+                        <span class='label label-danger'>陈 <span class='badge'>后</span></span>
+                    </td>
+                    <td><a class='btn btn-default btn-md' href='#signup'>API</a></td>
+                </tr>
+                <tr>
+                    <td>个人信息页面</td>
+                    <td>
+                        <span class='label label-primary'>于 <span class='badge'>前</span></span>
+                        <span class='label label-danger'>陈 <span class='badge'>后</span></span>
+                    </td>
+                    <td><a class='btn btn-default btn-md' href='#profile'>API</a></td>
+                </tr>
+                <tr>
+                    <td>首页</td>
+                    <td>
+                        <span class='label label-primary'>于 <span class='badge'>前</span></span>
+                        <span class='label label-success'>樊 <span class='badge'>后</span></span>
+                    </td>
+                    <td><a class='btn btn-default btn-md' href='#index'>API</a></td>
+                </tr>
+                <tr>
+                    <td>商家页面</td>
+                    <td>
+                        <span class='label label-success'>樊 <span class='badge'>全栈</span></span>
+                    </td>
+                    <td><a class='btn btn-default btn-md' href='#store'>API</a></td>
+                </tr>
+                <tr>
+                    <td>商品页面</td>
+                    <td>
+                        <span class='label label-success'>樊 <span class='badge'>全栈</span></span>
+                    </td>
+                    <td><a class='btn btn-default btn-md' href='#goods'>API</a></td>
+                </tr>
+                <tr>
+                    <td>订单页面</td>
+                    <td>
+                        <span class='label label-warning'>周 <span class='badge'>前</span></span>
+                        <span class='label label-success'>樊 <span class='badge'>后</span></span>
+                    </td>
+                    <td><a class='btn btn-default btn-md' href='#order'>API</a></td>
+                </tr>
+                <tr>
+                    <td>支付页面</td>
+                    <td>
+                        <span class='label label-info'>高 <span class='badge'>前</span></span>
+                        <span class='label label-success'>樊 <span class='badge'>后</span></span>
+                    </td>
+                    <td><a class='btn btn-default btn-md' href='#order-pay'>API</a></td>
+                </tr>
+                <tr>
+                    <td>商品评价</td>
+                    <td>
+                        <span class='label label-primary'>于 <span class='badge'>前</span></span>
+                        <span class='label label-success'>樊 <span class='badge'>后</span></span>
+                    </td>
+                    <td><a class='btn btn-default btn-md' href='#order-comment'>API</a></td>
+                </tr>
+                <tr>
+                    <td>查看历史订单</td>
+                    <td>
+                        <span class='label label-warning'>周 <span class='badge'>前</span></span>
+                        <span class='label label-success'>樊 <span class='badge'>后</span></span>
+                    </td>
+                    <td><a class='btn btn-default btn-md' href='#order-history'>API</a></td>
+                </tr>
+                <tr>
+                    <td>退出登录</td>
+                    <td>
+                        <span class='label label-info'>高 <span class='badge'>前</span></span>
+                        <span class='label label-danger'>陈 <span class='badge'>后</span></span>
+                    </td>
+                    <td><a class='btn btn-default btn-md' href='#logout'>API</a></td>
+                </tr>
+                <tr>
+                    <td>管理员后台</td>
+                    <td>
+                        <span class='label label-primary'>于 <span class='badge'>前</span></span>
+                        <span class='label label-success'>樊 <span class='badge'>后</span></span>
+                    </td>
+                    <td><a class='btn btn-default btn-md' href='#admin-dba'>API</a></td>
+                </tr>
+                <tr>
+                    <td>商家后台</td>
+                    <td>
+                        <span class='label label-primary'>于 <span class='badge'>前</span></span>
+                        <span class='label label-success'>樊 <span class='badge'>后</span></span>
+                    </td>
+                    <td><a class='btn btn-default btn-md' href='#admin-store'>API</a></td>
+                </tr>
+            </table>
+        </div>
+
+
+        <!-- APIs -->
+        <div class='panel' style='margin-top:60px;'>
+            <div class="panel-heading">
+                <div class="row">
+                    <div class='col-lg-6 text-left text-muted'>
+                        <ul class='list-group'>
+                            <li class='list-group-item active'>
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6">
+                                        <h3 class='list-group-item-heading text-capitalize'>login API</h3>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 text-right">
+                                        <a class='btn btn-default btn-md' name='login' href='#'>回到顶部</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 list-group-item-heading">前端页面</div>
+                                    <div class="col-xs-6 col-sm-6 list-group-item-text text-right text-primary">login.html</div>
+                                </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 list-group-item-heading">API 路径</div>
+                                    <div class="col-xs-6 col-sm-6 list-group-item-text text-right text-danger">/user/login</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success progress-bar-striped text-capitalize" style="width: 60%;">
+                            begin on Jul.07
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <pre class='api-params'>
+                username, password
+            </pre>
+            <pre class='api-sample' data-source='login.json'></pre>
+        </div>
+
+        <div class='panel' style='margin-top:60px;'>
+            <div class="panel-heading">
+                <div class="row">
+                    <div class='col-lg-6 text-left text-muted'>
+                        <ul class='list-group'>
+                            <li class='list-group-item active'>
+                                <div class="row">
+                                    <div class='col-xs-12 col-sm-6 col-lg-6'>
+                                        <h3 class='list-group-item-heading text-capitalize'>signup API</h3>
+                                    </div>
+                                    <div class='col-xs-12 col-sm-6 col-lg-6 text-right'>
+                                        <a class='btn btn-default btn-md' name='signup' href='#'>回到顶部</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 list-group-item-heading">前端页面</div>
+                                    <div class="col-xs-6 col-sm-6 list-group-item-text text-right text-primary">signup.html</div>
+                                </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 list-group-item-heading">API 路径</div>
+                                    <div class="col-xs-6 col-sm-6 list-group-item-text text-right text-danger">/user/register</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success progress-bar-striped text-capitalize" style="width: 60%;">
+                            begin on Jul.07
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <pre class='api-params'>
+                username, password
+            </pre>
+            <pre class='api-sample' data-source='signup.json'></pre>
+        </div>
+
+        <div class='panel' style='margin-top:60px;'>
+            <div class="panel-heading">
+                <div class="row">
+                    <div class='col-lg-6 text-left text-muted'>
+                        <ul class='list-group'>
+                            <li class='list-group-item active'>
+                                <div class="row">
+                                    <div class='col-xs-12 col-sm-6 col-lg-6'>
+                                        <h3 class='list-group-item-heading text-capitalize'>profile API <span data-auto></span></h3>
+                                    </div>
+                                    <div class='col-xs-12 col-sm-6 col-lg-6 text-right'>
+                                        <a class='btn btn-default btn-md' name='profile' href='#'>回到顶部</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 list-group-item-heading">前端页面</div>
+                                    <div class="col-xs-6 col-sm-6 list-group-item-text text-right text-primary">profile.html</div>
+                                </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 list-group-item-heading">API 路径</div>
+                                    <div class="col-xs-6 col-sm-6 list-group-item-text text-right text-danger">/user/profile</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success progress-bar-striped text-capitalize" style="width: 60%;">
+                            begin on Jul.07
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <pre class='api-sample' data-source='profile.json'></pre>
+        </div>
+
+        <div class='panel' style='margin-top:60px;'>
+            <div class="panel-heading">
+                <div class="row">
+                    <div class='col-lg-6 text-left text-muted'>
+                        <ul class='list-group'>
+                            <li class='list-group-item active'>
+                                <div class="row">
+                                    <div class='col-xs-12 col-sm-6 col-lg-6'>
+                                        <h3 class='list-group-item-heading text-capitalize'>index API</h3>
+                                    </div>
+                                    <div class='col-xs-12 col-sm-6 col-lg-6 text-right'>
+                                        <a class='btn btn-default btn-md' name='index' href='#'>回到顶部</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 list-group-item-heading">前端页面</div>
+                                    <div class="col-xs-6 col-sm-6 list-group-item-text text-right text-primary">index.html</div>
+                                </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 list-group-item-heading">API 路径</div>
+                                    <div class="col-xs-6 col-sm-6 list-group-item-text text-right text-danger">/index</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success progress-bar-striped text-capitalize" style="width: 80%;">
+                            begin on Jul.07
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <pre class='api-sample' data-source='index.json'></pre>
+        </div>
+
+        <div class='panel' style='margin-top:60px;'>
+            <div class="panel-heading">
+                <div class="row">
+                    <div class='col-lg-6 text-left text-muted'>
+                        <ul class='list-group'>
+                            <li class='list-group-item active'>
+                                <div class="row">
+                                    <div class='col-xs-12 col-sm-6 col-lg-6'>
+                                        <h3 class='list-group-item-heading text-capitalize'>store API</h3>
+                                    </div>
+                                    <div class='col-xs-12 col-sm-6 col-lg-6 text-right'>
+                                        <a class='btn btn-default btn-md' name='store' href='#'>回到顶部</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 list-group-item-heading">前端页面</div>
+                                    <div class="col-xs-6 col-sm-6 list-group-item-text text-right text-primary">store.html</div>
+                                </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 list-group-item-heading">API 路径</div>
+                                    <div class="col-xs-6 col-sm-6 list-group-item-text text-right text-danger">/api/store/{id}</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success progress-bar-striped text-capitalize" style="width: 90%;">
+                            begin on Jul.07
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <pre class='api-params'>
+                id
+            </pre>
+            <pre class='api-sample' data-source='store.json'></pre>
+        </div>
+
+        <div class='panel' style='margin-top:60px;'>
+            <div class="panel-heading">
+                <div class="row">
+                    <div class='col-lg-6 text-left text-muted'>
+                        <ul class='list-group'>
+                            <li class='list-group-item active'>
+                                <div class="row">
+                                    <div class='col-xs-12 col-sm-6 col-lg-6'>
+                                        <h3 class='list-group-item-heading text-capitalize'>goods API</h3>
+                                    </div>
+                                    <div class='col-xs-12 col-sm-6 col-lg-6 text-right'>
+                                        <a class='btn btn-default btn-md' name='goods' href='#'>回到顶部</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 list-group-item-heading">前端页面</div>
+                                    <div class="col-xs-6 col-sm-6 list-group-item-text text-right text-primary">goods.html</div>
+                                </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 list-group-item-heading">API 路径</div>
+                                    <div class="col-xs-6 col-sm-6 list-group-item-text text-right text-danger">/api/store/{id}/goods</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success progress-bar-striped text-capitalize" style="width: 80%;">
+                            begin on Jul.07
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <pre class='api-params'>
+                id
+            </pre>
+            <pre class='api-sample' data-source='goods.json'></pre>
+        </div>
+
+        <div class='panel' style='margin-top:60px;'>
+            <div class="panel-heading">
+                <div class="row">
+                    <div class='col-lg-6 text-left text-muted'>
+                        <ul class='list-group'>
+                            <li class='list-group-item active'>
+                                <div class="row">
+                                    <div class='col-xs-12 col-sm-6 col-lg-6'>
+                                        <h3 class='list-group-item-heading text-capitalize'>order API <span data-auto></span></h3>
+                                    </div>
+                                    <div class='col-xs-12 col-sm-6 col-lg-6 text-right'>
+                                        <a class='btn btn-default btn-md' name='order' href='#'>回到顶部</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 list-group-item-heading">前端页面</div>
+                                    <div class="col-xs-6 col-sm-6 list-group-item-text text-right text-primary">order.html</div>
+                                </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 list-group-item-heading">API 路径</div>
+                                    <div class="col-xs-6 col-sm-6 list-group-item-text text-right text-danger">/user/order</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-warning progress-bar-striped text-capitalize" style="width: 90%;">
+                            started on Jul.08
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <pre class='api-sample' data-source='order.json'></pre>
+        </div>
+
+        <div class='panel' style='margin-top:60px;'>
+            <div class="panel-heading">
+                <div class="row">
+                    <div class='col-lg-6 text-left text-muted'>
+                        <ul class='list-group'>
+                            <li class='list-group-item active'>
+                                <div class="row">
+                                    <div class='col-xs-12 col-sm-6 col-lg-6'>
+                                        <h3 class='list-group-item-heading text-capitalize'>pay API <span data-auto></span></h3>
+                                    </div>
+                                    <div class='col-xs-12 col-sm-6 col-lg-6 text-right'>
+                                        <a class='btn btn-default btn-md' name='order-pay' href='#'>回到顶部</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 list-group-item-heading">前端页面</div>
+                                    <div class="col-xs-6 col-sm-6 list-group-item-text text-right text-primary">pay.html</div>
+                                </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 list-group-item-heading">API 路径</div>
+                                    <div class="col-xs-6 col-sm-6 list-group-item-text text-right text-danger">/user/pay</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-danger progress-bar-striped text-capitalize" style="width: 100%;">
+                            day 4
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <pre class='api-sample' data-source='order-pay.json'></pre>
+        </div>
+
+        <div class='panel' style='margin-top:60px;'>
+            <div class="panel-heading">
+                <div class="row">
+                    <div class='col-lg-6 text-left text-muted'>
+                        <ul class='list-group'>
+                            <li class='list-group-item active'>
+                                <div class="row">
+                                    <div class='col-xs-12 col-sm-6 col-lg-6'>
+                                        <h3 class='list-group-item-heading text-capitalize'>comment API <span data-auto></span></h3>
+                                    </div>
+                                    <div class='col-xs-12 col-sm-6 col-lg-6 text-right'>
+                                        <a class='btn btn-default btn-md' name='order-comment' href='#'>回到顶部</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 list-group-item-heading">前端页面</div>
+                                    <div class="col-xs-6 col-sm-6 list-group-item-text text-right text-primary">comment.html</div>
+                                </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 list-group-item-heading">API 路径</div>
+                                    <div class="col-xs-6 col-sm-6 list-group-item-text text-right text-danger">/user/order/comment</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-danger progress-bar-striped text-capitalize" style="width: 100%;">
+                            day 4
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <pre class='api-sample' data-source='order-comment.json'></pre>
+        </div>
+
+        <div class='panel' style='margin-top:60px;'>
+            <div class="panel-heading">
+                <div class="row">
+                    <div class='col-lg-6 text-left text-muted'>
+                        <ul class='list-group'>
+                            <li class='list-group-item active'>
+                                <div class="row">
+                                    <div class='col-xs-12 col-sm-6 col-lg-6'>
+                                        <h3 class='list-group-item-heading text-capitalize'>history API <span data-auto></span></h3>
+                                    </div>
+                                    <div class='col-xs-12 col-sm-6 col-lg-6 text-right'>
+                                        <a class='btn btn-default btn-md' name='order-history' href='#'>回到顶部</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 list-group-item-heading">前端页面</div>
+                                    <div class="col-xs-6 col-sm-6 list-group-item-text text-right text-primary">history.html</div>
+                                </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 list-group-item-heading">API 路径</div>
+                                    <div class="col-xs-6 col-sm-6 list-group-item-text text-right text-danger">/user/order/history</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success progress-bar-striped text-capitalize" style="width: 100%;">
+                            day 8
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <pre class='api-sample' data-source='order-history.json'></pre>
+        </div>
+
+        <div class='panel' style='margin-top:60px;'>
+            <div class="panel-heading">
+                <div class="row">
+                    <div class='col-lg-6 text-left text-muted'>
+                        <ul class='list-group'>
+                            <li class='list-group-item active'>
+                                <div class="row">
+                                    <div class='col-xs-12 col-sm-6 col-lg-6'>
+                                        <h3 class='list-group-item-heading text-capitalize'>logout API <span data-auto></span></h3>
+                                    </div>
+                                    <div class='col-xs-12 col-sm-6 col-lg-6 text-right'>
+                                        <a class='btn btn-default btn-md' name='logout' href='#'>回到顶部</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 list-group-item-heading">前端页面</div>
+                                    <div class="col-xs-6 col-sm-6 list-group-item-text text-right text-primary">logout.html</div>
+                                </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 list-group-item-heading">API 路径</div>
+                                    <div class="col-xs-6 col-sm-6 list-group-item-text text-right text-danger">/user/logout</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success progress-bar-striped text-capitalize" style="width: 90%;">
+                            day 5
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <pre class='api-sample' data-source='logout.json'></pre>
+        </div>
+
+        <div class='panel' style='margin-top:60px;'>
+            <div class="panel-heading">
+                <div class="row">
+                    <div class='col-lg-6 text-left text-muted'>
+                        <ul class='list-group'>
+                            <li class='list-group-item active'>
+                                <div class="row">
+                                    <div class='col-xs-12 col-sm-6 col-lg-6'>
+                                        <h3 class='list-group-item-heading text-capitalize'>admin-dba API</h3>
+                                    </div>
+                                    <div class='col-xs-12 col-sm-6 col-lg-6 text-right'>
+                                        <a class='btn btn-default btn-md' name='admin-dba' href='#'>回到顶部</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 list-group-item-heading">前端页面</div>
+                                    <div class="col-xs-6 col-sm-6 list-group-item-text text-right text-primary">admin-dba.html</div>
+                                </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 list-group-item-heading">API 路径</div>
+                                    <div class="col-xs-6 col-sm-6 list-group-item-text text-right text-danger">/admin/dba</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-danger progress-bar-striped text-capitalize" style="width: 20%;">
+                            day 4
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class='panel' style='margin-top:60px;'>
+            <div class="panel-heading">
+                <div class="row">
+                    <div class='col-lg-6 text-left text-muted'>
+                        <ul class='list-group'>
+                            <li class='list-group-item active'>
+                                <div class="row">
+                                    <div class='col-xs-12 col-sm-6 col-lg-6'>
+                                        <h3 class='list-group-item-heading text-capitalize'>admin-store API</h3>
+                                    </div>
+                                    <div class='col-xs-12 col-sm-6 col-lg-6 text-right'>
+                                        <a class='btn btn-default btn-md' name='admin-store' href='#'>回到顶部</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 list-group-item-heading">前端页面</div>
+                                    <div class="col-xs-6 col-sm-6 list-group-item-text text-right text-primary">admin-store.html</div>
+                                </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 list-group-item-heading">API 路径</div>
+                                    <div class="col-xs-6 col-sm-6 list-group-item-text text-right text-danger">/admin/store</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-danger progress-bar-striped text-capitalize" style="width: 10%;">
+                            day 0
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- footer -->
+        <div style='width:100%;height: 1000px;padding-top:500px;text-align:center;'>
+            <h1 class='text-muted'>MA.ELE</h1>
+        </div>
+    </div>
+
+    <style>
+        img.unsupported-browser {
+            animation: grayscale 10s;
+            filter: grayscale(1.0) saturate(0);
+        }
+
+        @keyframes grayscale {
+            from {
+                filter: grayscale(0) saturate(1.0)
+            }
+            to {
+                filter: grayscale(1.0) saturate(0)
+            }
+        }
+    </style>
+    <div class="modal fade" id="not-compatible">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="background: linear-gradient(to right,#CD3333,#FF4040)">
+                    <div class="close" data-dismiss="modal"><span>&times;</span></div>
+                    <span style='color:#FFFACD;font-size: 18px;letter-spacing: 1px;'><b>Warning</b></span>
+                </div>
+                <div class="modal-body" style="background: radial-gradient(#fff 90%, #eee)">
+                    <div class="row" style='text-align:center;'>
+                        <div class="col col-sm-12 col-md-12 col-lg-6">
+                            <fieldset style='margin: 20px 0 20px 0;'>
+                                <legend style='text-align:center;'>
+                                    <a class='btn btn-lg btn-default' href='https://www.mozilla.org/en-US/firefox/new/'>
+										<span class='text-primary'>请使用<wbr/>最新版的<wbr/> Firefox <wbr/>浏览器</span>
+									</a>
+                                </legend>
+                                <a class='btn' href='https://www.mozilla.org/en-US/firefox/new/'>
+									<img class='supported-browser' src='img/icon-browser-firefox.png' />
+								</a>
+                            </fieldset>
+                        </div>
+                        <div class="col col-sm-12 col-md-12 col-lg-6">
+                            <fieldset style='margin: 20px 0 20px 0;'>
+                                <legend style='text-align:center;'>
+                                    <a class='btn btn-lg btn-default'>
+										<span class='text-muted'>不支持<wbr/>以下浏览器<wbr/>及同内核的<wbr/>浏览器</span>
+									</a>
+                                </legend>
+                                <a class='btn' href='#'>
+									<img class='unsupported-browser' src='img/icon-browser-ie.png' />
+								</a>
+                                <a class='btn' href='#'>
+									<img class='unsupported-browser' src='img/icon-browser-chrome.png' />
+								</a>
+                                <a class='btn' href='#'>
+									<img class='unsupported-browser' src='img/icon-browser-safari.png' />
+								</a>
+                                <a class='btn' href='#'>
+									<img class='unsupported-browser' src='img/icon-browser-opera.png' />
+								</a>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="background: linear-gradient(to right,#CD3333,#FF4040)">
+                    <a href='https://www.mozilla.org/en-US/firefox/new/'>
+                        <div class="btn btn-sm btn-default">Confirm</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            if (navigator.userAgent.toLowerCase().indexOf("firefox") == -1 && window.location.href.indexOf('file://') == 0) {
+                $('#not-compatible').modal('toggle')
+            }
+            var apiParams = $('.api-params');
+            apiParams.each(function (index, elem){
+                $(elem).before('<p class="text-center"><b class="text-primary">需要参数</b></p>')
+            })
+            var apiSample = $('.api-sample');
+            apiSample.each(function (index, elem) {
+                $(elem).load('api/' + $(elem).data('source'))
+                .before('<p class="text-center"><b class="text-danger">返回 JSON 数据</b></p>')
+            })
+            $('span[data-auto]').replaceWith('<br><small data-auto><kbd>后台自动判断是否已登录</kbd></small>')
+        })
+    </script>
+</body>
+
+</html>

@@ -106,15 +106,16 @@ public class ShopController {
         return "success";
     }
 
-
-
-
     /**
-     * 跳转至商家界面
+     * 商家开店
+     * @param shop
      * @return
      */
-    @RequestMapping(value = "/shop/{id:\\d+}",method = RequestMethod.GET)
-    public String demo() {
-        return "server/shop/shop";
+    @ResponseBody
+    @RequestMapping(value = "/api/shop/register")
+    public String registerShop(@RequestBody Shop shop) {
+        Integer shopId = shopService.insertShop(shop);
+        return null;
     }
+
 }

@@ -2,8 +2,10 @@ package com.ele.controller;
 
 import com.ele.dto.OrderDetail;
 import com.ele.pojo.Order;
+import com.ele.pojo.Shop;
 import com.ele.pojo.User;
 import com.ele.service.OrderService;
+import com.ele.service.ShopService;
 import com.ele.service.UserService;
 import com.ele.util.EleUtil;
 import com.google.gson.Gson;
@@ -26,6 +28,8 @@ public class OrderController {
     private UserService userService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private ShopService shopService;
 
     /**
      * 接受购物车提交的信息，并将页面跳转至下单界面
@@ -134,7 +138,8 @@ public class OrderController {
     @ResponseBody
     @RequestMapping(value = "/finish",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
     public String confirmGetDelivery(@RequestBody Order order) {
-        orderService.confirmGetDelivery(order.getId());
+        Shop shop = shopService.findById(order.getShopId());
+        orderService.confirmGetDelivery(order.getId(),shop);
         return "success";
     }
 

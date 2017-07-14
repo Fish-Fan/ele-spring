@@ -112,6 +112,9 @@
         select count(*) from `like` where shop_id = #{shopId}
     </select>
 
-    <!--计算商家配送时间总和-->
-
+    <!--商家开店-->
+    <insert id="insertShop" parameterType="com.ele.pojo.Shop" useGeneratedKeys="true" keyProperty="id">
+        insert into shop(`name`,introduce,special_msg,contact,address,open_time,min_price,delivery_money)
+        values(#{name},#{introduce},#{specialMsg},#{contact},#{address},#{openTime},#{minPrice},#{deliveryMoney})
+    </insert>
 </mapper>

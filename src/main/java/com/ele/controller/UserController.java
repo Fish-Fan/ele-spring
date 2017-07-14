@@ -108,18 +108,12 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping(value = "/register",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
-    public UserRegister registerUser(@RequestBody User user) {
+    public String registerUser(@RequestBody User user) {
         UserRegister userRegister = new UserRegister();
         if(userService.registUser(user)) {
-            userRegister.setMsgUsername("用户名合法");
-            userRegister.setMsgPassword("成功");
-            userRegister.setMsg("注册成功");
-            return userRegister;
+            return "success";
         } else {
-            userRegister.setMsgUsername("用户名不合法");
-            userRegister.setMsgPassword("不成功");
-            userRegister.setMsg("注册失败");
-            return userRegister;
+            return "error";
         }
     }
 
@@ -192,6 +186,24 @@ public class UserController {
         Gson gson = new Gson();
         return  gson.toJson(shopList);
 
+    }
+
+    /**
+     * 更新用户头像
+     * @param req
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/changeavatar",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+    public String changeUserAvatar(HttpServletRequest req) {
+        HttpSession session = req.getSession();
+//        User user = (User) session.getAttribute("user");
+        User user = userService.findById(1);
+        String avatar = req.getParameter("avatar");
+        System.out.println("avatar->" + avatar);
+        user.setAvatar(avatar);
+        userService.updateAvatar(user);
+        return "success";
     }
 
 

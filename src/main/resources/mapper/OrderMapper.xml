@@ -66,4 +66,15 @@
     </update>
 
 
+    <!--计算商家配送时间平均值-->
+    <select id="computedDeliveryTime" parameterType="int" resultType="double">
+        select sum(delivery_time)/count(*) from `order` where shop_id = #{shopId}
+    </select>
+
+    <!--更新商家配送时间-->
+    <update id="updateShopDeliveryTime" parameterType="com.ele.pojo.Shop">
+        update shop set delivery_time = #{deliveryTime} where id = #{id}
+    </update>
+
+
 </mapper>

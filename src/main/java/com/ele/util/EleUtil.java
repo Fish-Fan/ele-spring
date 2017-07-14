@@ -83,7 +83,7 @@ public class EleUtil {
         long diff = d2.getTime() - d1.getTime();
 
         long diffSeconds = diff / 1000 % 60;
-        long diffMinutes = diff / (60 * 1000) % 60;
+        long diffMinutes = diff / (60 * 1000);
         return diffMinutes;
     }
 

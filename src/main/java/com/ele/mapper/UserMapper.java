@@ -92,5 +92,10 @@ public interface UserMapper {
      */
     void addAddress(UserAddress userAddress);
 
+    /**
+     * 更新用户头像
+     * @param user
+     */
+    void updateAvatar(User user);
 
 }

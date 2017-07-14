@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>评论页面</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/mui.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/simditor/2.3.6/styles/simditor.min.css" rel="stylesheet">
+    <link href="http://simditor.tower.im/assets/styles/mobile.css" rel="stylesheet">
+    <link href="https://cdn.staticfile.org/webuploader/0.1.5/webuploader.css" rel="stylesheet">
+</head>
+<body>
+
+    <header class="mui-bar mui-bar-nav" style='background-image: linear-gradient(90deg,#0af,#0085ff);'>
+        <a class="mui-icon mui-icon-left-nav mui-pull-left" style='color:white;' href="index.html?load=history.html"></a>
+        <h1 class="mui-title" style='color:white;'>评价</h1>
+    </header>
+
+    <div class="mui-content">
+        <div class="mui-card">
+            <div class="mui-card-header">
+                商品评价 <p style="position: relative;top:5px;">文字评价或选择标签可得积分</p>
+            </div>
+            <div class="mui-card-content">
+                <div class="mui-card-content-inner" style="padding-top: 10px;padding-bottom: 10px;">
+                    <div class="mui-media">
+                        <img class="mui-media-object mui-pull-left" id="shop-avatar" style="line-height: 40px;max-width: 40px;height: 40px;position: relative;top: -5px;">
+                        <div class="mui-media-body mui-text-center">
+                            <p id="shop-name" style="margin-bottom: 0;position: relative;top: 3px;"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- comments -->
+    </div>
+
+    <nav class="mui-bar mui-bar-tab">
+        <a class="mui-tab-item comment-submit">
+            <button class="mui-btn mui-btn-primary mui-btn-block" style="height:50px;position: relative;top:0;">提交评价</button>
+        </a>
+    </nav>
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://dev.dcloud.net.cn/mui/dist/js/mui.min.js"></script>
+
+    <script src="http://simditor.tower.im/assets/scripts/module.js"></script>
+    <script src="http://simditor.tower.im/assets/scripts/uploader.js"></script>
+    <script src="http://simditor.tower.im/assets/scripts/hotkeys.js"></script>
+    <script src="http://simditor.tower.im/assets/scripts/simditor.js"></script>
+
+    <script src="https://cdn.staticfile.org/webuploader/0.1.5/webuploader.min.js"></script>
+
+    <script>
+        function getMyDate(){
+            var p = function(s) {
+                return s < 10 ? '0' + s: s;
+            }
+            var myDate = new Date();
+            var year = myDate.getFullYear();
+            var month = myDate.getMonth()+1;
+            var date = myDate.getDate();
+            var h = myDate.getHours();
+            var m = myDate.getMinutes();
+            var s = myDate.getSeconds();
+            var now = year+'-'+p(month)+"-"+p(date)+" "+p(h)+':'+p(m)+":"+p(s);
+            return now;
+        }
+    </script>
+
+    <script>
+        function CommentTagsToggleActivate(){
+            $('.comment-tag').click(function(){
+                if($(this).hasClass('mui-badge-default')){
+                    $(this)
+                        .removeClass('mui-badge-default')
+                        .addClass('mui-badge-primary')
+                } else {
+                    $(this)
+                        .removeClass('mui-badge-primary')
+                        .addClass('mui-badge-default')
+                }
+            })
+        }
+
+        function SetCommentGrade(option){
+            var grade = parseInt($(option).data('comment-grade-option'));
+            var gradeBar = $(option).parent();
+            gradeBar.attr('data-comment-grade',grade);
+            for(i=0;i<5;++i){
+                if(i<grade){
+                    gradeBar.find('[data-comment-grade-option]')
+                        .eq(i).removeClass('fa-star-o').addClass('fa-star');
+                } else {
+                    gradeBar.find('[data-comment-grade-option]')
+                        .eq(i).removeClass('fa-star').addClass('fa-star-o');
+                }
+            }
+        }
+
+        var url = window.location.href;
+        var orderid = url.substr(url.indexOf('orderid=')+8);
+        var orderJSON;
+
+//        $.getJSON('user/reward/'+orderid, function(data){
+        $.getJSON('api/order-comment.json', function(data){
+            orderJSON = data;
+            var shop = data.shop;
+            $('#shop-avatar').attr('src',shop.avatar);
+            $('#shop-name').text(shop.name);
+
+            var foodList = data.foodList;
+            for(i=0;i<foodList.length;++i){
+                var foodName = foodList[i].foodName;
+                var price = foodList[i].price;
+                var count = foodList[i].count;
+                    $('.mui-content').append(
+                        '<div class="mui-card">' +
+                            '<div class="mui-card-header">' +
+                                '<div class="mui-row" style="width:100%;">' +
+                                    '<div class="mui-col-xs-8">' +
+                                        '<p>' + foodName + '</p>' +
+                                    '</div>' +
+                                    '<div class="mui-col-xs-4 mui-text-center">' +
+                                        '<p data-comment-grade-for-food data-comment-grade=3>' +
+                                            '<i class="fa fa-star" data-comment-grade-option=1 aria-hidden="true"></i>' +
+                                            '<i class="fa fa-star" data-comment-grade-option=2 aria-hidden="true"></i>' +
+                                            '<i class="fa fa-star" data-comment-grade-option=3 aria-hidden="true"></i>' +
+                                            '<i class="fa fa-star-o" data-comment-grade-option=4 aria-hidden="true"></i>' +
+                                            '<i class="fa fa-star-o" data-comment-grade-option=5 aria-hidden="true"></i>' +
+                                        '</p>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="mui-card-content">' +
+                                '<div class="mui-card-content-inner" style="padding-top:10px;">' +
+                                    '<div class="mui-row">' +
+                                        '<div class="mui-col-xs-12">' +
+                                            '<i class="fa fa-2x fa-smile-o" aria-hidden="true" style="margin-right: 5px;color:gray;" data-comment-type=0></i>' +
+                                            '<i class="fa fa-2x fa-meh-o" aria-hidden="true" style="margin-right: 5px;color:gray;" data-comment-type=1></i>' +
+                                            '<i class="fa fa-2x fa-frown-o" aria-hidden="true" style="margin-right: 5px;color:gray;" data-comment-type=2></i>' +
+                                        '</div>' +
+                                    '</div>' +
+                                    '<div class="mui-row">' +
+                                        '<div class="mui-col-xs-12 comment-tags" data-comment-which="food">' +
+                                        '</div>' +
+                                    '</div>' +
+                                    '<textarea class="food-comment" id="editor-' + i + '"></textarea>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>')
+
+                Simditor.locale = 'en-US';
+                var editor = new Simditor({
+                    textarea: '#editor-'+i,
+                    toolbar: false
+                });
+            }// for each in foodList
+
+
+            // generate picture comments
+            $('.mui-content').append(
+                '<div class="mui-card">' +
+                    '<div class="mui-card-header">' +
+                        '<h5>添加商品照片</h5>' +
+                    '</div>' +
+                    '<div class="mui-card-content">' +
+                        '<div class="mui-card-content-inner" id="uploader">' +
+                            '<div id="fileList" class="uploader-list"></div>' +
+                            '<div id="filePicker">添加照片</div>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>'
+            )
+
+
+
+
+
+
+            var WebRoot = "http://58bb0055.ngrok.io";
+
+            var WebUploaderInit = function (token) {
+                var uploader = WebUploader.create({
+                    auto: true,
+                    server: "http://up.qiniu.com",
+                    pick: '#filePicker',
+                    accept: {
+                        title: 'Images',
+                        extensions: 'gif,jpg,jpeg,bmp,png',
+                        mimeTypes: 'image/*'
+                    },
+                    formData: {
+                        "token": token
+                    }
+                });
+
+                uploader.on( 'fileQueued', function( file ) {
+                    var $li = $('<div id="' + file.id + '" class="file-item thumbnail" style="width:110px;display:inline-block;">' + '<img>' + '</div>'),
+                        $img = $li.find('img');
+                    var $list = $('.uploader-list');
+                    $list.append( $li );
+                    uploader.makeThumb( file, function( error, src ) {
+                        if ( error ) {
+                            $img.replaceWith('<span>不能预览</span>');
+                            return;
+                        }
+                        $img.attr( 'src', src );
+                    }, 100, 100 );
+                });
+
+                // 文件上传过程中创建进度条实时显示。
+                uploader.on( 'uploadProgress', function( file, percentage ) {
+                    var $li = $( '#'+file.id ),
+                        $percent = $li.find('.progress span');
+                    // 避免重复创建
+                    if ( !$percent.length ) {
+                        $percent = $('<p class="progress"><span></span></p>')
+                            .appendTo( $li )
+                            .find('span');
+                    }
+                    $percent.css( 'width', percentage * 100 + '%' );
+                });
+
+                // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+                uploader.on( 'uploadSuccess', function( file, response ) {
+                    $( '#'+file.id ).addClass('upload-state-done');
+                    $.post(WebRoot + '/user/reward/uploadimg',{
+                        "key": 'http://oleco2u3s.bkt.clouddn.com/' + response.key + "?imageView2/1/w/320/h/480",
+                        "orderId": orderJSON.id
+                    },function (data) {
+                        alert(data);
+                    });
+                });
+
+                // 文件上传失败，显示上传出错。
+                uploader.on( 'uploadError', function( file ) {
+                    var $li = $( '#'+file.id ),
+                        $error = $li.find('div.error');
+                    // 避免重复创建
+                    if ( !$error.length ) {
+                        $error = $('<div class="error"></div>').appendTo( $li );
+                    }
+                    $error.text('上传失败');
+                });
+
+                // 完成上传，先删除进度条。
+                uploader.on( 'uploadComplete', function( file ) {
+                    $( '#'+file.id ).find('.progress').remove();
+                });
+            }
+
+
+            WebUploaderInit("1o90vmY9OmRcueIeIeFBID6q2uy8peFiFBxpnM78:rdalpapK8yThJayH3FakQwqQbp8=:eyJzY29wZSI6InRlc3QiLCJkZWFkbGluZSI6MTYwNTA2NDI3MX0=");
+
+
+
+
+
+
+
+
+
+            // generate shop comment
+            $('.mui-content').append(
+                '<div class="mui-card" style="margin-bottom: 64px;">' +
+                    '<div class="mui-card-header">' +
+                        '<div class="mui-row" style="width:100%;">' +
+                            '<div class="mui-col-xs-8">' +
+                                '<p>' + '评价商家服务' + '</p>' +
+                            '</div>' +
+                            '<div class="mui-col-xs-4 mui-text-center">' +
+                                '<p data-comment-grade-for-shop data-comment-grade=3>' +
+                                    '<i class="fa fa-star" data-comment-grade-option=1 aria-hidden="true"></i>' +
+                                    '<i class="fa fa-star" data-comment-grade-option=2 aria-hidden="true"></i>' +
+                                    '<i class="fa fa-star" data-comment-grade-option=3 aria-hidden="true"></i>' +
+                                    '<i class="fa fa-star-o" data-comment-grade-option=4 aria-hidden="true"></i>' +
+                                    '<i class="fa fa-star-o" data-comment-grade-option=5 aria-hidden="true"></i>' +
+                                '</p>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="mui-card-content">' +
+                        '<div class="mui-card-content-inner" style="padding-top:10px;">' +
+                            '<div class="mui-row">' +
+                                '<div class="mui-col-xs-12">' +
+                                    '<i class="fa fa-2x fa-smile-o" aria-hidden="true" style="margin-right: 5px;color:gray;" data-comment-type=0></i>' +
+                                    '<i class="fa fa-2x fa-meh-o" aria-hidden="true" style="margin-right: 5px;color:gray;" data-comment-type=1></i>' +
+                                    '<i class="fa fa-2x fa-frown-o" aria-hidden="true" style="margin-right: 5px;color:gray;" data-comment-type=2></i>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="mui-row">' +
+                                '<div class="mui-col-xs-12 comment-tags" data-comment-which="shop">' +
+                                '</div>' +
+                            '</div>' +
+                            '<textarea class="shop-comment" id="editor-shop' + '"></textarea>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>')
+            var editor = new Simditor({
+                textarea: '#editor-shop',
+                toolbar: false
+            });
+            // generate shop comment end
+
+
+
+            var commentTagsFood = {
+                Good: ['干净卫生','食材新鲜','分量足','味道好','包装精美','很实惠'],
+                Bad: ['有杂物','不新鲜','分量一般','味道一般','包装简陋','价格贵']
+            };
+            var commentTagsShop = {
+                Good: ['配送快','准时送达','送货上门','餐品保存完好','主动联系','态度良好'],
+                Bad: ['配送慢','未收到餐','不送上楼','送错餐','餐品打翻','少送商品','不看备注','不接电话','态度恶劣']
+            };
+
+
+            // set reward grade
+            $('[data-comment-grade]').find('[data-comment-grade-option]').on('tap',function(){
+                SetCommentGrade(this)
+            })
+
+
+            // set reward type
+            $('.fa-smile-o,.fa-meh-o,.fa-frown-o').on('tap',function(){
+                $(this).css('color','black').attr('data-selected','')
+                    .siblings().css('color','gray').removeAttr('data-selected');
+                var tags = $(this).parent().parent().parent().find('.comment-tags');
+                tags.empty();
+                var commentTags = commentTagsFood;
+                if (tags.data('comment-which')=='shop') {
+                    commentTags = commentTagsShop;
+                }
+                if($(this).hasClass('fa-frown-o')){
+                    for(j=0;j<commentTags.Bad.length;++j) {
+                        tags.append('<span class="mui-badge mui-badge-default comment-tag" style="margin-bottom:5px;margin-right:5px;">' + commentTags.Bad[j] + '</span>');
+                    }
+                } else {
+                    for(j=0;j<commentTags.Good.length;++j) {
+                        tags.append('<span class="mui-badge mui-badge-default comment-tag" style="margin-bottom:5px;margin-right:5px;">' + commentTags.Good[j] + '</span>');
+                    }
+                }
+                CommentTagsToggleActivate();
+            })
+
+            // set textarea size
+            $('.simditor ,simditor-wrapper')
+                .css('height','40px');
+            $('.simditor-body')
+                .css({'min-height':'20px','height':'30px','padding':'5px',"text-overflow":"true"})
+                .on("keydown keyup keypress",function(e){
+                    if(e.keyCode == 13) e.preventDefault()
+                });
+
+            // init comment tags for food
+            $('.comment-tags[data-comment-which="food"]').empty();
+            for(j=0;j<commentTagsFood.Good.length;++j) {
+                $('.comment-tags[data-comment-which="food"]')
+                    .append('<span class="mui-badge mui-badge-default comment-tag" style="margin-bottom:5px;margin-right:5px;">' + commentTagsFood.Good[j] + '</span>');
+            }
+            // init comment tags for shop
+            $('.comment-tags[data-comment-which="shop"]').empty();
+            for(j=0;j<commentTagsShop.Good.length;++j) {
+                $('.comment-tags[data-comment-which="shop"]')
+                    .append('<span class="mui-badge mui-badge-default comment-tag" style="margin-bottom:5px;margin-right:5px;">' + commentTagsShop.Good[j] + '</span>');
+            }
+            CommentTagsToggleActivate();
+            // ajax callback end
+        });
+
+        function getCommentTags(number) {
+            var ResultString = "<p>";
+            var tags = $('.comment-tags').eq(number).find('.comment-tag.mui-badge-primary');
+            $(tags).each(function(index,element){
+                ResultString += $(element).text();
+                if(index < $(tags).length-1) ResultString += ",";
+            })
+            ResultString += "</p>";
+            return ResultString;
+        }
+
+        // 提交评论
+        function CommentSubmit(){
+            var commentJSON = {};
+
+            // 获取所有商品评论
+            var foodCommentList = new Array();
+            var foodCommentType = $('[data-comment-type][data-selected]');
+            var foodCommentText = $('.simditor-body');
+            for(i=0;i<orderJSON.foodList.length;++i){
+                var foodComment = {};
+                foodComment.shopId = orderJSON.shop.id;
+                foodComment.shopFoodId = orderJSON.foodList[i].foodId;
+                foodComment.userId = orderJSON.userId;
+                foodComment.avatar = orderJSON.avatar;
+                foodComment.username = orderJSON.username;
+                foodComment.orderId = orderJSON.id;
+                foodComment.rewardType = foodCommentType.eq(i).data('comment-type');
+                foodComment.rewardMsg = getCommentTags(i);
+                foodComment.rewardMsg += foodCommentText.eq(i).html();
+                foodComment.rewardTime = getMyDate();
+                foodComment.grade = $('[data-comment-grade-for-food]').eq(i).data('comment-grade');
+                foodCommentList.push(foodComment)
+            }
+
+            // 获取商家服务评论
+            var shopComment = {};
+            shopComment.userId = orderJSON.userId;
+            shopComment.avatar = orderJSON.avatar;
+            shopComment.username = orderJSON.username;
+            shopComment.orderId = orderJSON.id;
+            shopComment.shopId = orderJSON.shop.id;
+            shopComment.orderId = orderJSON.id;
+            shopComment.rewardType = $('[data-comment-type][data-selected]:last').data('comment-type');
+            shopComment.rewardMsg = getCommentTags(i);
+            shopComment.rewardMsg += $('.simditor-body:last').html();
+            shopComment.rewardTime = getMyDate();
+            shopComment.grade = $('[data-comment-grade-for-shop]').data('comment-grade');
+
+            // 生成评论 JSON 对象
+            commentJSON.foodRewardList = foodCommentList;
+            commentJSON.shopReward = shopComment;
+
+            // 调试评论 JSON 对象
+            alert(JSON.stringify(commentJSON))
+
+            // 提交评论 JSON 对象
+            $.ajax({
+//                url: 'http://fa7c0bb7.ngrok.io/user/reward/'+orderJSON.id,
+                url: 'api/order-comment-reply.txt',
+                type: 'post',
+                dataType: 'json',
+                contentType: "application/json",
+                data: JSON.stringify(commentJSON),
+                success: function(data){
+                    if(data.msg=='success'){
+                        alert("评论提交成功");
+                    }
+                },
+                error: function(){
+                    alert('评论提交失败');
+                }
+            })
+        }
+
+        $('.comment-submit').on('tap',CommentSubmit);
+    </script>
+
+</body>
+</html>
