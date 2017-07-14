@@ -84,10 +84,12 @@ public class OrderController {
      * 跳转至等待支付界面
      * @return
      */
-    @RequestMapping(value = "/pay/wait",method = RequestMethod.GET)
-    public String getWaitPay() {
-        //跳转至waitPay界面(未完成)
-        return "server/user/waitPay";
+    @ResponseBody
+    @RequestMapping(value = "/pay/wait",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+    public String getWaitPay(@RequestParam Integer orderId) {
+        Order order = orderService.findOrderById(orderId);
+        Gson gson = new Gson();
+        return gson.toJson(order);
     }
 
     /**

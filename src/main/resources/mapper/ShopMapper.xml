@@ -111,4 +111,7 @@
     <select id="getShopCollectCount" parameterType="int" resultType="int">
         select count(*) from `like` where shop_id = #{shopId}
     </select>
+
+    <!--计算商家配送时间总和-->
+
 </mapper>
