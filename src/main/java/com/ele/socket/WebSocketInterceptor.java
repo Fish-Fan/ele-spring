@@ -11,7 +11,6 @@ import java.util.Map;
 
 /**
  * @desp websocket拦截器
- * @author liulichao
  *
  */
 public class WebSocketInterceptor implements HandshakeInterceptor{

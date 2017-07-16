@@ -12,6 +12,10 @@ String wsPath = "ws://"+request.getServerName()+":"+request.getServerPort()+path
 <body>
 <h1>
 	Hello world!  This is a WebSocket demo!
+	<div id="sendMessage">
+		<input type="text" id="sendMessageInput">
+		<button id="sendMessgeBtn">发送</button>
+	</div>
 	<div id="message">
 		
 	</div>
@@ -35,6 +39,7 @@ String wsPath = "ws://"+request.getServerName()+":"+request.getServerPort()+path
 	    }
 		sock.onopen = function (e) {
 			console.log(e);
+			sendMessage("abc");
 	    };
 	    sock.onmessage = function (e) {
 	    	console.log(e)
@@ -45,7 +50,18 @@ String wsPath = "ws://"+request.getServerName()+":"+request.getServerPort()+path
 	    };
 	    sock.onclose = function (e) {
 	    	console.log(e);
-	    }
+	    };
+
+	    $("#sendMessgeBtn").click(function () {
+			sendMessage();
+        });
+
+	    function sendMessage(message) {
+//			var message = $("#sendMessageInput").val();
+			console.log("发送消息->" + message);
+			sock.send(message);
+
+        }
 	});
 	
 </script>

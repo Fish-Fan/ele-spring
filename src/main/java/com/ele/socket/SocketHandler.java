@@ -3,6 +3,7 @@ package com.ele.socket;
 import com.ele.pojo.User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.*;
+import org.springframework.web.socket.handler.AbstractWebSocketHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,8 +12,7 @@ import java.util.ArrayList;
  * Created by yanfeng-mac on 2017/7/6.
  */
 @Service
-public class SocketHandler implements WebSocketHandler {
-
+public class SocketHandler extends AbstractWebSocketHandler {
     private static final ArrayList<WebSocketSession> users = new ArrayList<>();
 
     @Override
@@ -28,8 +28,13 @@ public class SocketHandler implements WebSocketHandler {
     }
 
     @Override
-    public void handleMessage(WebSocketSession webSocketSession, WebSocketMessage<?> webSocketMessage) throws Exception {
+    protected void handleTextMessage(WebSocketSession webSocketSession,TextMessage message) throws Exception {
+        System.out.println("handleTextMessage收到消息->" + message.getPayload());
+    }
 
+    @Override
+    public void handleMessage(WebSocketSession webSocketSession, WebSocketMessage<?> webSocketMessage) throws Exception {
+        System.out.println("handleMessage收到消息->" + webSocketMessage.getPayload());
     }
 
     @Override
