@@ -88,6 +88,7 @@ public class OrderService {
     public void orderPaid(Order order) {
         order.setStatus(1);
         orderMapper.updateOrder(order);
+        updateFoodMonthlyCounts(order.getFoodList());
     }
 
 
@@ -157,6 +158,63 @@ public class OrderService {
      */
     public void updateShopDeliveryTime(Shop shop) {
         orderMapper.updateShopDeliveryTime(shop);
+    }
+
+    /**
+     * 根据订单更新商品月销量
+     * @param foodList
+     */
+    public void updateFoodMonthlyCounts(List<OrderFood> foodList) {
+        for(OrderFood orderFood: foodList) {
+            ShopFood shopFood = new ShopFood();
+            shopFood = orderMapper.findGoodById(orderFood.getFoodId());
+            Integer monthlyCounts = shopFood.getMonthlyCounts() + orderFood.getFoodCount();
+            shopFood.setMonthlyCounts(monthlyCounts);
+            orderMapper.updateGoodMonthlyCount(shopFood);
+        }
+    }
+
+    /**
+     * 根据天查找订单
+     * @param shopId
+     * @return
+     */
+    public List<Order> selectOrderByDay(Integer shopId) {
+        return orderMapper.selectOrderByDay(shopId);
+    }
+
+    /**
+     * 根据周查找订单
+     * @param shopId
+     * @return
+     */
+    public List<Order> selectOrderByWeek(Integer shopId) {
+        return orderMapper.selectOrderByWeek(shopId);
+    }
+
+    /**
+     * 根据月查找订单
+     * @param shopId
+     * @return
+     */
+    public List<Order> selectOrderByMonth(Integer shopId) {
+        return orderMapper.selectOrderByMonth(shopId);
+    }
+
+    /**
+     * 查找今日为接单订单
+     * @return
+     */
+    public List<Order> selectUnGetOrderByNowDays() {
+        return orderMapper.selectUnGetOrderByNowDays();
+    }
+
+    /**
+     * 查找今日已接订单
+     * @return
+     */
+    public List<Order> selectGetOrderByNowDays() {
+        return orderMapper.selectGetOrderByNowDays();
     }
 
 }

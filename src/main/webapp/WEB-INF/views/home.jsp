@@ -31,11 +31,11 @@ String wsPath = "ws://"+request.getServerName()+":"+request.getServerPort()+path
 		//建立socket连接
 		var sock;
 		if ('WebSocket' in window) {
-			sock = new WebSocket("<%=wsPath%>socketServer");
+			sock = new WebSocket("<%=wsPath%>manager/shop/getorder");
 	    } else if ('MozWebSocket' in window) {
-	    	sock = new MozWebSocket("<%=wsPath%>socketServer");
+	    	sock = new MozWebSocket("<%=wsPath%>manager/shop/getorder");
 	    } else {
-	    	sock = new SockJS("<%=basePath%>sockjs/socketServer");
+	    	sock = new SockJS("<%=basePath%>sockjs/manager/shop/getorder");
 	    }
 		sock.onopen = function (e) {
 			console.log(e);

@@ -16,6 +16,9 @@
         <result property="address" column="address"/>
         <result property="generateTime" column="generate_time"/>
         <result property="status" column="status"/>
+        <result property="days" column="days"/>
+        <result property="weeks" column="weeks"/>
+        <result property="months" column="months"/>
 
         <association property="shop" column="shop_id" select="com.ele.mapper.ShopMapper.findById"/>
         <collection property="foodList" column="id" select="findOrderFoodByOrderId"/>
@@ -75,6 +78,49 @@
     <update id="updateShopDeliveryTime" parameterType="com.ele.pojo.Shop">
         update shop set delivery_time = #{deliveryTime} where id = #{id}
     </update>
+
+    <!--根据商品ID查找商品-->
+    <select id="findGoodById" parameterType="int" resultType="com.ele.pojo.ShopFood">
+        select * from shop_food where id = #{id}
+    </select>
+
+    <!--更新商品月销量-->
+    <update id="updateGoodMonthlyCount" parameterType="com.ele.pojo.ShopFood">
+        update shop_food set monthly_counts = #{monthlyCounts} where id = #{id}
+    </update>
+
+    <!--根据天来查找订单-->
+    <select id="selectOrderByDay" parameterType="int" resultMap="order">
+        select DATE_FORMAT(generate_time,'%Y%m%d') days,`order`.id,`order`.username,`order`.avatar,`order`.phone_num,`order`.is_no_name,`order`.order_remark,`order`.sum_money,`order`.user_id,`order`.delivery_time,`order`.grade,`order`.address,`order`.generate_time,`order`.finish_time,`order`.`status`
+        from `order` where `order`.shop_id = #{shopId};
+    </select>
+
+    <!--根据周来查找订单-->
+    <select id="selectOrderByWeek" parameterType="int" resultMap="order">
+        select DATE_FORMAT(generate_time,'%Y%u') weeks,`order`.id,`order`.username,`order`.avatar,`order`.phone_num,`order`.is_no_name,`order`.order_remark,`order`.sum_money,`order`.user_id,`order`.delivery_time,`order`.grade,`order`.address,`order`.generate_time,`order`.finish_time,`order`.`status`
+        from `order` where `order`.shop_id = #{shopId};
+    </select>
+
+    <!--根据月份查找订单-->
+    <select id="selectOrderByMonth" parameterType="int" resultMap="order">
+        select DATE_FORMAT(generate_time,'%Y%m') months,`order`.id,`order`.username,`order`.avatar,`order`.phone_num,`order`.is_no_name,`order`.order_remark,`order`.sum_money,`order`.user_id,`order`.delivery_time,`order`.grade,`order`.address,`order`.generate_time,`order`.finish_time,`order`.`status`
+        from `order` where `order`.shop_id = #{shopId};
+    </select>
+
+    <!--查询今日未接订单-->
+    <select id="selectUnGetOrderByNowDays" resultMap="order">
+        SELECT * FROM `order` WHERE TO_DAYS(generate_time) = TO_DAYS(NOW()) where status = 2
+    </select>
+
+    <!--查询今日已接订单-->
+    <select id="selectGetOrderByNowDays" resultMap="order">
+        select * from `order` where TO_DAYS(generate_time) = TO_DAYS(NOW()) where status in (3,4,5)
+    </select>
+
+    <!--查询今日已收货订单-->
+    <select id="selectFinishOrderByNowDays" resultMap="order">
+        select * from `order` where TO_DAYS(generate_time) = TO_DAYS(NOW()) where status in (4,5)
+    </select>
 
 
 </mapper>

@@ -26,4 +26,6 @@
     <select id="deleteMenuType" parameterType="int" resultType="com.ele.pojo.MenuType">
     DELETE FROM menu_type WHERE  menu_type_id = #{menuTypeId}
     </select>
+
+
 </mapper>

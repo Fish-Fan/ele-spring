@@ -1,5 +1,6 @@
 package com.ele.socket;
 
+import com.ele.pojo.ShopManager;
 import com.ele.pojo.User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.*;
@@ -20,7 +21,7 @@ public class SocketHandler extends AbstractWebSocketHandler {
         System.out.println("成功建立起socket链接");
         users.add(webSocketSession);
 
-        String username = webSocketSession.getAttributes().get("user").toString();
+        String username = webSocketSession.getAttributes().get("shopManager").toString();
         if(username != null) {
             webSocketSession.sendMessage(new TextMessage("我们已经建立起websocket通信啦"));
         }
@@ -73,14 +74,14 @@ public class SocketHandler extends AbstractWebSocketHandler {
     }
 
     /**
-     * 给指定用户发送消息
-     * @param username
+     * 给指定商家发送消息
+     * @param shopManager
      * @param textMessage
      */
-    public void sendMessageToUser(String username, TextMessage textMessage) {
+    public void sendMessageToUser(ShopManager shopManager, TextMessage textMessage) {
         for (WebSocketSession webSocketSession : users) {
-            User user = (User) webSocketSession.getAttributes().get("user");
-            if(user.getUsername().equals(username)) {
+            ShopManager shopManager1 = (ShopManager) webSocketSession.getAttributes().get("shopManager");
+            if(shopManager1.getPhoneNum().equals(shopManager.getPhoneNum())) {
                 try {
                     webSocketSession.sendMessage(textMessage);
                 } catch (IOException e) {

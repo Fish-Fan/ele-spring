@@ -3,16 +3,19 @@ package com.ele.controller;
 import com.ele.dto.OrderDetail;
 import com.ele.pojo.Order;
 import com.ele.pojo.Shop;
+import com.ele.pojo.ShopManager;
 import com.ele.pojo.User;
 import com.ele.service.OrderService;
 import com.ele.service.ShopService;
 import com.ele.service.UserService;
+import com.ele.socket.SocketHandler;
 import com.ele.util.EleUtil;
 import com.google.gson.Gson;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.socket.TextMessage;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -30,6 +33,8 @@ public class OrderController {
     private OrderService orderService;
     @Autowired
     private ShopService shopService;
+    @Autowired
+    private SocketHandler socketHandler;
 
     /**
      * 接受购物车提交的信息，并将页面跳转至下单界面
@@ -102,18 +107,23 @@ public class OrderController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/pay/wait",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
-    public String waitPay(HttpServletRequest req) {
+    @RequestMapping(value = "/pay/wait/{orderId:\\d+}",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+    public String waitPay(HttpServletRequest req,@PathVariable("orderId") Integer orderId) {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-        Integer orderId = (Integer) session.getAttribute("curr_order_id");
+        Order order = orderService.findOrderById(orderId);
 
         String result = req.getParameter("result");
         if(result.equals("true")) {
-            orderService.orderPaid(orderService.findOrderById(orderId));
+            orderService.orderPaid(order);
+            ShopManager shopManager = (ShopManager) session.getAttribute("shopManager");
+            Gson gson = new Gson();
+            socketHandler.sendMessageToUser(shopManager,new TextMessage(gson.toJson(order)));
         } else {
             return "error";
         }
+
+
 
         return "success";
     }

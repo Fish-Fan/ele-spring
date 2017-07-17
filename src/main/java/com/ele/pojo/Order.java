@@ -25,6 +25,9 @@ public class Order {
     private List<OrderFood> foodList;
     private User user;
     private Shop shop;
+    private String days;
+    private String weeks;
+    private String months;
 
 
     public Integer getId() {
@@ -171,6 +174,30 @@ public class Order {
         this.shop = shop;
     }
 
+    public String getDays() {
+        return days;
+    }
+
+    public void setDays(String days) {
+        this.days = days;
+    }
+
+    public String getWeeks() {
+        return weeks;
+    }
+
+    public void setWeeks(String weeks) {
+        this.weeks = weeks;
+    }
+
+    public String getMonths() {
+        return months;
+    }
+
+    public void setMonths(String months) {
+        this.months = months;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -192,6 +219,9 @@ public class Order {
                 ", foodList=" + foodList +
                 ", user=" + user +
                 ", shop=" + shop +
+                ", days='" + days + '\'' +
+                ", weeks='" + weeks + '\'' +
+                ", months='" + months + '\'' +
                 '}';
     }
 }

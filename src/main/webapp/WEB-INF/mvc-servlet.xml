@@ -41,7 +41,7 @@
 
     <bean id="websocket" class="com.ele.socket.SocketHandler"/>
     <websocket:handlers>
-        <websocket:mapping path="/socketServer" handler="websocket"/>
+        <websocket:mapping path="/manager/shop/getorder" handler="websocket"/>
         <websocket:handshake-interceptors>
             <bean class="com.ele.socket.WebSocketInterceptor"/>
         </websocket:handshake-interceptors>

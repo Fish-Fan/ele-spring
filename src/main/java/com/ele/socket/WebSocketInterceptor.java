@@ -32,7 +32,7 @@ public class WebSocketInterceptor implements HandshakeInterceptor{
 			HttpSession session = servletRequest.getServletRequest().getSession();
 			if(session!=null){
 				//区分socket连接以定向发送消息
-				map.put("user", session.getAttribute("user"));
+				map.put("shopManager", session.getAttribute("shopManager"));
 			}
 		}
 		return true;

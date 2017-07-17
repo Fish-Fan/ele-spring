@@ -1,6 +1,7 @@
 package com.ele.controller;
 
 
+import com.ele.pojo.ShopManager;
 import com.ele.pojo.User;
 import com.ele.socket.SocketHandler;
 import com.google.gson.Gson;
@@ -25,23 +26,26 @@ public class SocketController {
     public String login(HttpSession session){
         System.out.println("用户登录了建立连接啦");
 
-        User user = new User();
-        user.setUsername("fanyank");
-        user.setId(19);
+        ShopManager shopManager = new ShopManager();
+        shopManager.setPhoneNum("17888999988");
+        shopManager.setShopId(1);
+        shopManager.setPassword("123123");
 
-        session.setAttribute("user", user);
+        session.setAttribute("shopManager", shopManager);
 
         return "home";
     }
 
     @RequestMapping(value = "/message", method = RequestMethod.GET)
     public String sendMessage(){
-        User user = new User();
-        user.setUsername("Alice");
-        user.setId(20);
+        ShopManager shopManager = new ShopManager();
+        shopManager.setPhoneNum("17888999988");
+        shopManager.setShopId(1);
+        shopManager.setPassword("123123");
+
         Gson gson = new Gson();
 
-        socketHandler.sendMessageToUser("fanyank", new TextMessage(gson.toJson(user)));
+        socketHandler.sendMessageToUser(shopManager, new TextMessage(gson.toJson(shopManager)));
 
         return "message";
     }

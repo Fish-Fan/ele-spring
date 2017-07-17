@@ -4,6 +4,7 @@ import com.ele.dto.OrderDetail;
 import com.ele.pojo.Order;
 import com.ele.pojo.OrderFood;
 import com.ele.pojo.Shop;
+import com.ele.pojo.ShopFood;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -58,4 +59,56 @@ public interface OrderMapper {
      * @param shop
      */
     void updateShopDeliveryTime(Shop shop);
+
+    /**
+     * 根据商品ID查找商品
+     * @param id
+     * @return
+     */
+    ShopFood findGoodById(Integer id);
+
+    /**
+     * 更新商品月销量
+     * @param shopFood
+     */
+    void updateGoodMonthlyCount(ShopFood shopFood);
+
+    /**
+     * 按天查找订单
+     * @param shopId
+     * @return
+     */
+    List<Order> selectOrderByDay(Integer shopId);
+
+    /**
+     * 按周查找订单
+     * @param shopId
+     * @return
+     */
+    List<Order> selectOrderByWeek(Integer shopId);
+
+    /**
+     * 按月查找订单
+     * @param shopId
+     * @return
+     */
+    List<Order> selectOrderByMonth(Integer shopId);
+
+    /**
+     * 查询今日未接订单
+     * @return
+     */
+    List<Order> selectUnGetOrderByNowDays();
+
+    /**
+     * 查询今日已接订单
+     * @return
+     */
+    List<Order> selectGetOrderByNowDays();
+
+    /**
+     * 查询今日已完成订单
+     * @return
+     */
+    List<Order> selectFinishOrderByNowDays();
 }
