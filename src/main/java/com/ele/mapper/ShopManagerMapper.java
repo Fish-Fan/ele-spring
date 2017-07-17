@@ -37,4 +37,25 @@ public interface ShopManagerMapper {
      * @param
      */
     void updateMenuType(MenuType menuType);
+
+    /**
+     * 查询今日销售额
+     * @param shopId
+     * @return
+     */
+    Integer selectNowDaysSalesAmount(Integer shopId);
+
+    /**
+     * 查询本月销售额
+     * @param shopId
+     * @return
+     */
+    Integer selectNowMonthySalesAmount(Integer shopId);
+
+    /**
+     * 查询本年度销售额
+     * @param shopId
+     * @return
+     */
+    Integer selectNowYearSalesAmount(Integer shopId);
 }

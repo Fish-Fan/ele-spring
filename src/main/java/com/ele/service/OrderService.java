@@ -217,4 +217,12 @@ public class OrderService {
         return orderMapper.selectGetOrderByNowDays();
     }
 
+    /**
+     * 查询今日已收货订单
+     * @return
+     */
+    public List<Order> selectFinishOrderByNowDays() {
+        return orderMapper.selectFinishOrderByNowDays();
+    }
+
 }

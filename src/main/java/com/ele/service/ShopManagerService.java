@@ -69,4 +69,31 @@ public class ShopManagerService {
         shopManagerMapper.updateMenuType(menuType);
         return menuType;
     }
+
+    /**
+     * 查询今日销售额
+     * @param shopId
+     * @return
+     */
+    public Integer selectNowDaysSalesAmount(Integer shopId) {
+        return shopManagerMapper.selectNowDaysSalesAmount(shopId);
+    }
+
+    /**
+     * 查询本月销售额
+     * @param shopId
+     * @return
+     */
+    public Integer selectNowMonthySalesAmount(Integer shopId) {
+        return shopManagerMapper.selectNowMonthySalesAmount(shopId);
+    }
+
+    /**
+     * 查询本年度销售额
+     * @param shopId
+     * @return
+     */
+    public Integer selectNowYearSalesAmount(Integer shopId) {
+        return shopManagerMapper.selectNowYearSalesAmount(shopId);
+    }
 }

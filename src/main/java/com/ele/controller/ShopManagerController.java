@@ -1,10 +1,13 @@
 package com.ele.controller;
 
+import com.ele.dto.Goods;
 import com.ele.pojo.MenuType;
 import com.ele.pojo.Order;
+import com.ele.pojo.Shop;
 import com.ele.pojo.ShopManager;
 import com.ele.service.OrderService;
 import com.ele.service.ShopManagerService;
+import com.ele.service.ShopService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +26,8 @@ public class ShopManagerController {
     private ShopManagerService shopManagerService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private ShopService shopService;
 
     /**
      * 商家登陆
@@ -135,12 +140,120 @@ public class ShopManagerController {
         return gson.toJson(orderList);
     }
 
+    /**
+     * 查询今日未接订单
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/manager/shop/order/status/2",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
     public String getUnGetOrderByNowDays() {
-        List<Order> orderList = null;
-        return null;
+        List<Order> orderList = orderService.selectUnGetOrderByNowDays();
+        Gson gson = new Gson();
+        return gson.toJson(orderList);
     }
 
+    /**
+     * 查询今日已接订单
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/manager/shop/order/status/3",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+    public String getGetOrderByNowDays() {
+        List<Order> orderList = orderService.selectGetOrderByNowDays();
+        Gson gson = new Gson();
+        return gson.toJson(orderList);
+    }
+
+    /**
+     * 查询今日已完成订单
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/manager/shop/order/status/4",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+    public String getFinishOrderByNowDays() {
+        List<Order> orderList = orderService.selectFinishOrderByNowDays();
+        Gson gson = new Gson();
+        return gson.toJson(orderList);
+    }
+
+    /**
+     * 查询商家信息
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/manager/shop/detail",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+    public String getShopDetail(HttpServletRequest req) {
+        HttpSession session = req.getSession();
+//        ShopManager shopManager = (ShopManager) session.getAttribute("shopManager");
+//        Integer id = shopManager.getShopId();
+        Integer id = 1;
+
+        Shop shop = shopService.findById(id);
+        shop.setDiscountDescList(shopService.findDiscountDescById(id));
+        shop.setImgList(shopService.findShopImgById(id));
+        shop.setLikeCount(shopService.getShopCollectCount(id));
+        Gson gson = new Gson();
+        return gson.toJson(shop);
+    }
+
+    /**
+     * 返回商家商品信息
+     * @param req
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/manager/shop/goods/detail",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+    public String getShopGoods(HttpServletRequest req) {
+        HttpSession session = req.getSession();
+//        ShopManager shopManager = (ShopManager) session.getAttribute("shopManager");
+//        Integer id = shopManager.getShopId();
+        Integer id = 1;
+        List<Goods> goodsList = shopService.findShopGoodsById(id);
+
+        Gson gson = new Gson();
+        return gson.toJson(goodsList);
+    }
+
+    /**
+     * 查询今日销售额
+     * @param req
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/manager/shop/salesmount/day",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+    public String getNowDaysSaleAmount(HttpServletRequest req) {
+        HttpSession session = req.getSession();
+        ShopManager shopManager = (ShopManager) session.getAttribute("shopManager");
+
+        return shopManagerService.selectNowDaysSalesAmount(shopManager.getShopId()) + "";
+    }
+
+    /**
+     * 查询本月销售额
+     * @param req
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/manager/shop/salesmount/month",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+    public String getNowMonthSaleAmount(HttpServletRequest req) {
+        HttpSession session = req.getSession();
+        ShopManager shopManager = (ShopManager) session.getAttribute("shopManager");
+
+        return shopManagerService.selectNowMonthySalesAmount(shopManager.getShopId()) + "";
+    }
+
+    /**
+     * 查询本年度销售额
+     * @param req
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/manager/shop/salesmount/year",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+    public String getNowYearsSaleAmount(HttpServletRequest req) {
+        HttpSession session = req.getSession();
+        ShopManager shopManager = (ShopManager) session.getAttribute("shopManager");
+
+        return shopManagerService.selectNowYearSalesAmount(shopManager.getShopId()) + "";
+    }
 
 }

@@ -27,5 +27,25 @@
     DELETE FROM menu_type WHERE  menu_type_id = #{menuTypeId}
     </select>
 
+    <!--查询商家今日销售额-->
+    <select id="selectNowDaysSalesAmount" parameterType="int" resultType="int">
+        SELECT sum(`order`.sum_money) FROM `order`
+        WHERE TO_DAYS(generate_time) = TO_DAYS(NOW())
+        and shop_id = #{shopId}
+    </select>
+
+    <!--查询商家本月销售额-->
+    <select id="selectNowMonthySalesAmount" parameterType="int" resultType="int">
+        SELECT sum(`order`.sum_money) FROM `order` where
+        DATE_FORMAT(generate_time, '%Y%m') = DATE_FORMAT(CURDATE(), '%Y%m')
+        and shop_id = #{shopId}
+    </select>
+
+    <!--查询商家本年度销售额-->
+    <select id="selectNowYearSalesAmount" parameterType="int" resultType="int">
+        SELECT sum(`order`.sum_money) FROM `order`
+        where YEAR(generate_time)=YEAR(NOW())
+        and shop_id = #{shopId}
+    </select>
 
 </mapper>
