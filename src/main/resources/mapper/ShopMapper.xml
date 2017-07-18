@@ -117,4 +117,6 @@
         insert into shop(`name`,introduce,special_msg,contact,address,open_time,min_price,delivery_money)
         values(#{name},#{introduce},#{specialMsg},#{contact},#{address},#{openTime},#{minPrice},#{deliveryMoney})
     </insert>
+
+
 </mapper>

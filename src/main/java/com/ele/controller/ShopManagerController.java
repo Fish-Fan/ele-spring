@@ -1,10 +1,7 @@
 package com.ele.controller;
 
 import com.ele.dto.Goods;
-import com.ele.pojo.MenuType;
-import com.ele.pojo.Order;
-import com.ele.pojo.Shop;
-import com.ele.pojo.ShopManager;
+import com.ele.pojo.*;
 import com.ele.service.OrderService;
 import com.ele.service.ShopManagerService;
 import com.ele.service.ShopService;
@@ -254,6 +251,94 @@ public class ShopManagerController {
         ShopManager shopManager = (ShopManager) session.getAttribute("shopManager");
 
         return shopManagerService.selectNowYearSalesAmount(shopManager.getShopId()) + "";
+    }
+
+    /**
+     * 商家添加商品
+     * @param shopFood
+     */
+    @ResponseBody
+    @RequestMapping(value = "/manager/shop/goods/add",method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    public String insertFoodToShop(@RequestBody ShopFood shopFood){
+        Integer shopfoodid = shopManagerService.insertFoodToShop(shopFood);
+        return shopfoodid+"";
+    }
+    /**
+     * 商家更新商品
+     * @param shopFood
+     */
+    @ResponseBody
+    @RequestMapping(value = "/manager/shop/goods/edit",method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    public void updateFoodToShop(@RequestBody ShopFood shopFood){
+        shopManagerService.updateFoodToShop(shopFood);
+    }
+    /**
+     * 商家删除商品
+     * @param shopFood
+     */
+    @ResponseBody
+    @RequestMapping(value = "/manager/shop/goods/delete",method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    public void deleteFoodToShop(@RequestBody ShopFood shopFood){
+        shopManagerService.deleteFoodToShop(shopFood.getId());
+    }
+    /**
+     * 删除商家菜单种类
+     * @param
+     */
+    @ResponseBody
+    @RequestMapping(value = " /manager/shop/goodtype/delete",method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    public void deleteShopMenu(@RequestBody FoodType foodType){
+        shopManagerService.deleteShopMenu(foodType.getFoodTypeId());
+    }
+    /**
+     * 增加商家菜单种类
+     * @param
+     */
+    @ResponseBody
+    @RequestMapping(value = "/manager/shop/goodtype/add",method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    public String insertShopMenu(@RequestBody FoodType foodType){
+        Integer foodtypeid = shopManagerService.insertShopMenu(foodType);
+        System.out.println(foodtypeid);
+        return  foodtypeid+"";
+
+
+    }
+    /**
+     * 更新商家菜单种类
+     * @param
+     */
+    @ResponseBody
+    @RequestMapping(value = "/manager/shop/goodtype/edit",method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    public void updateShopMenu(@RequestBody FoodType foodType){
+        shopManagerService.updateShopMenu(foodType);
+    }
+    /**
+     * 删除商家活动信息
+     * @param
+     */
+    @ResponseBody
+    @RequestMapping(value = "/manager/shop/discount/delete",method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    public void deleteShopActivity(@RequestBody ShopDiscountDesc shopDiscountDesc){
+        shopManagerService.deleteShopActivity(shopDiscountDesc.getId());
+    }
+    /**
+     * 增加商家活动信息
+     * @param
+     */
+    @ResponseBody
+    @RequestMapping(value = " /manager/shop/discount/add",method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    public String insertShopActivity(@RequestBody ShopDiscountDesc shopDiscountDesc){
+        Integer id = shopManagerService.insertShopActivity(shopDiscountDesc);
+        return id+"";
+    }
+    /**
+     * 更新商家活动信息
+     * @param
+     */
+    @ResponseBody
+    @RequestMapping(value = "/manager/shop/discount/edit",method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    public void updateShopActivity(@RequestBody ShopDiscountDesc shopDiscountDesc){
+        shopManagerService.updateShopActivity(shopDiscountDesc);
     }
 
 }

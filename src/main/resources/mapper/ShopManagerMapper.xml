@@ -48,4 +48,48 @@
         and shop_id = #{shopId}
     </select>
 
+    <!--商家添加商品-->
+    <insert id="insertFoodToShop" parameterType="com.ele.pojo.ShopFood" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO shop_food(food_name,shop_food_type,shop_id,price,info,description)
+        VALUES (#{foodName},#{shopFoodType},#{shopId},#{price},#{info},#{description})
+    </insert>
+    <!--商家更新商品-->
+    <update id="updateFoodToShop" parameterType="com.ele.pojo.ShopFood" >
+        UPDATE shop_food SET food_name = #{foodName},shop_food_type = #{shopFoodType},
+        old_price = #{oldPrice},info = #{info},description = #{description} WHERE id = #{id}
+    </update>
+    <!--商家删除商品-->
+    <delete id="deleteFoodToShop" parameterType="int" >
+        DELETE  FROM shop_food WHERE id = #{id}
+    </delete>
+    <!--添加商家菜单种类-->
+    <insert id="insertShopMenu" parameterType="com.ele.pojo.FoodType" useGeneratedKeys="true" keyProperty="food_type_id">
+        INSERT INTO food_type(shop_food_type,shop_id,icon_id)
+        VALUES (#{shopFoodType},#{shopId},#{iconId})
+    </insert>
+    <!--更新商家菜单种类-->
+    <update id="updateShopMenu" parameterType="com.ele.pojo.FoodType">
+        UPDATE food_type SET shop_food_type = #{shopFoodType},icon_id = #{iconId}
+        WHERE food_type_id = #{foodTypeId}
+    </update>
+    <!--删除商家菜单种类-->
+    <delete id="deleteShopMenu" parameterType="int">
+        DELETE FROM food_type WHERE food_type_id = #{foodTypeId}
+    </delete>
+    <!--添加商家活动信息-->
+    <select id="insertShopActivity" parameterType="com.ele.pojo.ShopDiscountDesc" resultType="int">
+        INSERT INTO shop_discount_desc(shop_id,shop_discount_id,shop_discount_desc)
+        VALUES (#{shopId},#{shopDiscountId},#{shopDiscountDesc})
+    </select>
+    <!--更新商家活动信息-->
+    <update id="updateShopActivity" parameterType="com.ele.pojo.ShopDiscountDesc">
+        UPDATE shop_discount_desc SET shop_id = #{shopId},
+        shop_discount_id = #{shopDiscountId},
+        shop_discount_desc = #{shopDiscountDesc}
+        WHERE id = #{id}
+    </update>
+    <!--删除商家活动信息-->
+    <delete id="deleteShopActivity" parameterType="int">
+        DELETE FROM shop_discount_desc WHERE id = #{id}
+    </delete>
 </mapper>

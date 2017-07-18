@@ -1,8 +1,7 @@
 package com.ele.service;
 
 import com.ele.mapper.ShopManagerMapper;
-import com.ele.pojo.MenuType;
-import com.ele.pojo.ShopManager;
+import com.ele.pojo.*;
 import com.ele.util.ConfigProp;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,5 +94,78 @@ public class ShopManagerService {
      */
     public Integer selectNowYearSalesAmount(Integer shopId) {
         return shopManagerMapper.selectNowYearSalesAmount(shopId);
+    }
+
+    /**
+     * 商家添加商品
+     * @param shopFood
+     */
+    public Integer insertFoodToShop(ShopFood shopFood){
+        shopManagerMapper.insertFoodToShop(shopFood);
+        return shopFood.getId();
+    }
+    /**
+     * 商家删除商品
+     * @param shopFoodId
+     */
+    public Integer deleteFoodToShop(Integer shopFoodId){
+        shopManagerMapper.deleteFoodToShop(shopFoodId);
+        return shopFoodId;
+    }
+    /**
+     * 商家更新商品
+     * @param
+     */
+    public ShopFood updateFoodToShop(ShopFood shopFood){
+        shopManagerMapper.updateFoodToShop(shopFood);
+        return  shopFood;
+    }
+    /**
+     * 删除商家菜单种类
+     * @param
+     */
+    public Integer deleteShopMenu(Integer id){
+        shopManagerMapper.deleteShopMenu(id);
+        return id;
+    }
+    /**
+     * 增加商家菜单种类
+     * @param
+     */
+    public Integer insertShopMenu(FoodType foodType){
+        shopManagerMapper.insertShopMenu(foodType);
+        return foodType.getFoodTypeId();
+    }
+    /**
+     * 更新商家菜单种类
+     * @param
+     */
+    public FoodType updateShopMenu(FoodType foodType){
+        shopManagerMapper.updateShopMenu(foodType);
+        return foodType;
+    }
+    /**
+     * 删除商家活动信息
+     * @param
+     */
+    public Integer deleteShopActivity(Integer id){
+        shopManagerMapper.deleteShopActivity(id);
+        return id;
+    }
+    /**
+     * 增加商家活动信息
+     * @param
+     */
+    public Integer insertShopActivity(ShopDiscountDesc shopDiscountDesc){
+        shopManagerMapper.insertShopActivity(shopDiscountDesc);
+        return  shopDiscountDesc.getId();
+    }
+    /**
+     * 更新商家活动信息
+     * @param
+     */
+    public ShopDiscountDesc updateShopActivity(ShopDiscountDesc shopDiscountDesc){
+        shopManagerMapper.updateShopActivity(shopDiscountDesc);
+        return shopDiscountDesc;
     }
 }
