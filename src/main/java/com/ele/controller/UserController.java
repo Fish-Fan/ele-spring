@@ -91,7 +91,9 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/profile/address/add",method =RequestMethod.POST,produces = "application/json;charset=utf-8")
     public String addUserAddress(@RequestBody UserAddress userAddress){
-        System.out.println(userAddress);
+        if("".equals(userAddress.getUserAddress())) {
+            return "error";
+        }
         Integer id = userService.addUserAddress(userAddress);
         userAddress.setId(id);
 
@@ -118,17 +120,18 @@ public class UserController {
     }
 
     /**
-     * 用户登陆
+     * 用户登录
      * @param request
      * @return
      */
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST,produces = "application/json;charset=utf-8")
     public String loginUser(HttpServletRequest request){
-        String username = request.getParameter("username");
+        String username = request.getParameter("email");
         String password = request.getParameter("password");
+
         User user = new User();
-        user.setUsername(username);
+        user.setEmail(username);
         user.setPassword(password);
         UserLogin userLogin = new UserLogin();
         User user1 = userService.loginUser(user);
@@ -139,9 +142,6 @@ public class UserController {
             userLogin.setMsgPassword("密码正确");
             userLogin.setMsg("登陆成功");
             userLogin.setStatus(1);
-
-            HttpSession session = request.getSession();
-            session.setAttribute("user",user);
 
         }else {
             userLogin.setMsgUsername("用户名错误");
@@ -203,6 +203,24 @@ public class UserController {
         System.out.println("avatar->" + avatar);
         user.setAvatar(avatar);
         userService.updateAvatar(user);
+        return "success";
+    }
+
+    /**
+     * 用户名更新
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/changeusername",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+    public String updateUserName(@RequestBody User user,HttpServletRequest request){
+        HttpSession session = request.getSession();
+        User sessionUser = (User) session.getAttribute("user");
+        System.out.println("username->" + user.getUsername());
+
+        user.setId(sessionUser.getId());
+
+        userService.updateUserName(user);
         return "success";
     }
 

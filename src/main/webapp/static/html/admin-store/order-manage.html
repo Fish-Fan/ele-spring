@@ -1,0 +1,171 @@
+
+<div class="col-md-12">
+    <div class="panel">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <h2>用户订单</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .tab-a-link {
+        padding-top: 8px!important;
+        padding-bottom: 8px!important;
+        background-color: white!important;
+    }
+</style>
+
+<div class="col-md-6">
+    <div class="panel panel-default">
+        <div class="panel-heading" style="padding:0!important;">
+            <ul class="nav nav-tabs" style="border-bottom: 0;">
+                <li class="active"><a href="#order-1-list" data-toggle="tab" class="tab-a-link">已支付</a></li>
+                <li><a href="#order-2-list" data-toggle="tab" class="tab-a-link">未接单</a></li>
+                <li><a href="#order-3-list" data-toggle="tab" class="tab-a-link">已接单</a></li>
+                <li><a href="#order-4-list" data-toggle="tab" class="tab-a-link">已收货</a></li>
+                <li><a href="#order-5-list" data-toggle="tab" class="tab-a-link">已评价</a></li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div class="tab-pane active" id="order-1-list">
+                <div class="panel-body">
+                    按时间先后顺序排序
+                </div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th style="width:20%!important;">订单 ID</th>
+                        <th style="width:20%!important;">客户昵称</th>
+                        <th style="width:20%!important;">客户地址</th>
+                        <th style="width:20%!important;">客户电话</th>
+                        <th style="width:20%!important;">发起时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- 已支付 -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane" id="order-2-list">
+                <div class="panel-body">
+                    按时间先后顺序排序
+                </div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th style="width:20%!important;">订单 ID</th>
+                        <th style="width:20%!important;">客户昵称</th>
+                        <th style="width:20%!important;">客户地址</th>
+                        <th style="width:20%!important;">客户电话</th>
+                        <th style="width:20%!important;">发起时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- 未接单 -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane" id="order-3-list">
+                <div class="panel-body">
+                    按时间先后顺序排序
+                </div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th style="width:20%!important;">订单 ID</th>
+                        <th style="width:20%!important;">客户昵称</th>
+                        <th style="width:20%!important;">客户地址</th>
+                        <th style="width:20%!important;">客户电话</th>
+                        <th style="width:20%!important;">发起时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- 已接单 -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane" id="order-4-list">
+                <div class="panel-body">
+                    按时间先后顺序排序
+                </div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th style="width:20%!important;">订单 ID</th>
+                        <th style="width:20%!important;">客户昵称</th>
+                        <th style="width:20%!important;">客户地址</th>
+                        <th style="width:20%!important;">客户电话</th>
+                        <th style="width:20%!important;">发起时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- 已收货订单 -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane" id="order-5-list">
+                <div class="panel-body">
+                    按时间先后顺序排序
+                </div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th style="width:20%!important;">订单 ID</th>
+                        <th style="width:20%!important;">客户昵称</th>
+                        <th style="width:20%!important;">客户地址</th>
+                        <th style="width:20%!important;">客户电话</th>
+                        <th style="width:20%!important;">发起时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- 已评价 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-6">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title"><b>订单内容</b></h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    订单 <span id="order-id">0</span> 详细信息
+                </div>
+                <div class="col-sm-6">
+                    <div class="btn-group btn-group-justified">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-xs">Left</button>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-xs">Middle</button>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-xs">Right</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <table class="table" id="order-foodList">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Food Name</th>
+                <th>Food Count</th>
+                <th>Food Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- 单个订单中的商品的列表 -->
+            </tbody>
+        </table>
+    </div>
+</div>
+

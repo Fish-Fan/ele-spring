@@ -12,7 +12,7 @@
 <body>
 	<link href="css/style.css" rel="stylesheet" />
 	<header class="mui-bar mui-bar-nav" style="background-image: linear-gradient(90deg,#0af,#0085ff);">
-		<a class="mui-icon mui-icon-back" href="index.html" style="color:white"></a>
+		<a class="mui-icon mui-icon-back" href="../html/index.html" style="color:white"></a>
 		<h1 class="mui-title" id="msg" style="color:white">登录</h1>
 	</header>
 	<div class="mui-content">
@@ -58,7 +58,7 @@
 					$('#msg').text(data.msg)
 					$('input[name="username"]').attr('placeholder', data['msg-username'])
 					$('input[name="password"]').attr('placeholder', data['msg-password'])
-					if (data.status == 1) window.location.href = 'index.html'
+					if (data.status == 1) window.location.href = '../html/index.html'
 				})
 			}
 		}

@@ -1,0 +1,67 @@
+
+<div class="col-md-12">
+    <div class="panel">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <h2>店铺活动 <small>discount</small></h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-11">
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            <p>为你的商品类别设置活动信息，该商品类别中的所有商品都会加入该活动</p>
+        </div>
+        <ul class="list-group" id="list-discount">
+        </ul>
+    </div>
+</div>
+
+<style>
+    .discount-name {
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .discount-number {
+        font-weight: normal;
+        color: #888;
+        float: left;
+        padding-left: 30px;
+    }
+</style>
+
+<script>
+    var discounts = [
+        {name:"满减",class:"primary",abbr:"减"},
+        {name:"折扣",class:"success",abbr:"折"},
+        {name:"特价",class:"info",abbr:"特"},
+        {name:"支持发票",class:"warning",abbr:"票"},
+        {name:"外卖保",class:"danger",abbr:"保"}
+        ];
+    for(i=0;i<discounts.length;++i) {
+        $('.list-group#list-discount').append(
+            '<li class="list-group-item">' +
+            '    <div class="row">' +
+            '        <div class="col-md-3 text-center">' +
+            '            <span class="discount-name">' +
+            '                <var class="discount-number">' + i + '</var>' +
+            '                <span class="label label-'+discounts[i].class+'" style="float: left;margin-left: 10px;margin-top: 2px;padding-top: 5px;">' +
+            ' '+                discounts[i].abbr +
+            '                </span>' +
+            ' '+            discounts[i].name +
+            '            </span>' +
+            '        </div>' +
+            '        <div class="col-md-6">' +
+            '           <div class="input-group-sm">' +
+            '               <input type="text" class="form-control" placeholder="添加活动描述信息" name="discount-description-' + i + '">' +
+            '           </div>' +
+            '        </div>' +
+            '        <div class="col-md-3">' +
+            '            <div class="btn btn-default btn-sm" data-discount-id="' + i + '">提交</div>' +
+            '        </div>' +
+            '    </div>' +
+            '</li>');
+    }
+</script>

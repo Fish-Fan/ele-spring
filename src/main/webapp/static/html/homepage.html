@@ -29,37 +29,37 @@
                 <ul class="mui-table-view mui-grid-view mui-grid-9">
                     <li class="mui-table-view-cell mui-media mui-col-xs-4 slider-item">
                         <a href="#">
-                            <img src='img/slider-1.jpg' class='slider-item-img'/>
+                            <img src='../testhtml/img/slider-1.jpg' class='slider-item-img'/>
                             <div class="mui-media-body">美食</div>
                         </a>
                     </li>
                     <li class="mui-table-view-cell mui-media mui-col-xs-4 slider-item">
                         <a href="#">
-                            <img src='img/slider-2.jpg' class='slider-item-img'/>
+                            <img src='../testhtml/img/slider-2.jpg' class='slider-item-img'/>
                             <div class="mui-media-body">甜品饮品</div>
                         </a>
                     </li>
                     <li class="mui-table-view-cell mui-media mui-col-xs-4 slider-item">
                         <a href="#">
-                            <img src='img/slider-3.jpg' class='slider-item-img'/>
+                            <img src='../testhtml/img/slider-3.jpg' class='slider-item-img'/>
                             <div class="mui-media-body">预定早餐</div>
                         </a>
                     </li>
                     <li class="mui-table-view-cell mui-media mui-col-xs-4 slider-item">
                         <a href="#">
-                            <img src='img/slider-4.jpg' class='slider-item-img'/>
+                            <img src='../testhtml/img/slider-4.jpg' class='slider-item-img'/>
                             <div class="mui-media-body">果蔬生鲜</div>
                         </a>
                     </li>
                     <li class="mui-table-view-cell mui-media mui-col-xs-4 slider-item">
                         <a href="#">
-                            <img src='img/slider-5.jpg' class='slider-item-img'/>
+                            <img src='../testhtml/img/slider-5.jpg' class='slider-item-img'/>
                             <div class="mui-media-body">商超便利</div>
                         </a>
                     </li>
                     <li class="mui-table-view-cell mui-media mui-col-xs-4 slider-item">
                         <a href="#">
-                            <img src='img/slider-6.jpg' class='slider-item-img'/>
+                            <img src='../testhtml/img/slider-6.jpg' class='slider-item-img'/>
                             <div class="mui-media-body">准时达</div>
                         </a>
                     </li>
@@ -69,13 +69,13 @@
                 <ul class="mui-table-view mui-grid-view mui-grid-9">
                     <li class="mui-table-view-cell mui-media mui-col-xs-4 slider-item">
                         <a href="#">
-                            <img src='img/slider-7.jpg' class='slider-item-img'/>
+                            <img src='../testhtml/img/slider-7.jpg' class='slider-item-img'/>
                             <div class="mui-media-body">帮买帮送</div>
                         </a>
                     </li>
                     <li class="mui-table-view-cell mui-media mui-col-xs-4 slider-item">
                         <a href="#">
-                            <img src='img/slider-8.jpg' class='slider-item-img'/>
+                            <img src='../testhtml/img/slider-8.jpg' class='slider-item-img'/>
                             <div class="mui-media-body">晚餐</div>
                         </a>
                     </li>
@@ -139,8 +139,10 @@
                     '</a>'+
                 '</li>')
         }
-        $('#shops').find('a[data-shop-id]').on('click tap',function(){
-            window.location.href='/shop/'+$(this).data('shop-id');
+        $('#shops').find('a[data-shop-id]').on('tap',function(){
+            localStorage.shopid = $(this).data('shop-id');
+            loadWindow('shop.html');
+//            console.log('shop.html?shopid='+$(this).data('shop-id'))
         })
     })
 </script>

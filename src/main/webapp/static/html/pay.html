@@ -102,6 +102,8 @@
 </script>
 
 <script>
+    LinkButtonActivate();
+    
     $(function () {
         var m = 14;
         var s = 59;
@@ -122,11 +124,14 @@
                 loadWindow("index.html");
             }
         }, 1000)
+
         $.ajax({
-            url: "api/order-pay.json",
+            // url: "api/order-pay.json",
+            url: "/api/order/pay/wait?orderId="+localStorage.orderid,
             type: "get",
             dataType: "json",
             success: function (data) {
+                window.orderid = data.id;
                 $("#ordertext").empty().append(
                     '<span class="big">' + data.shop.name + '外卖订单' +
                     '</span>' +
@@ -139,8 +144,8 @@
                     .empty()
                     .text('确认支付' + ' ¥ ' + data.sumMoney)
                     .click(function () {
-                        $.post('/api/order/pay/wait',{"result":"true"});
-                        loadWindow("finish.html");
+                        $.post('/api/order/pay/wait/' + localStorage.orderid,{"result":"true"});
+                        loadWindow("order-payed.html");
                     })
                 LinkButtonActivate();
             }

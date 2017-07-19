@@ -60,7 +60,7 @@
                                 '	</div>' +
                                 '	<div class="mui-card-footer">' +
                                 '		<a class="mui-card-link">取消订单</a>' +
-                                '		<a class="mui-card-link load-link" data-target="order.html?orderid=' + order.id + '">详情</a>' +
+                                '		<a class="mui-card-link load-link" data-target="order.html?orderid="' + order.id + '>详情</a>' +
                                 '		<a class="mui-card-link load-link" data-target="pay.html?orderid=' + order.id + '">去支付</a>' +
                                 '	</div>' +
                                 '</div>');
@@ -79,7 +79,7 @@
                                 '	</div>' +
                                 '	<div class="mui-card-footer">' +
                                 '		<a class="mui-card-link">催单</a>' +
-                                '		<a class="mui-card-link load-link" data-target="order-payed.html?orderid=' + order.id + '">详情</a>' +
+                                '		<a class="mui-card-link load-link" data-target="order.html?orderid="' + order.id + '">详情</a>' +
                                 '		<a class="mui-card-link">确认收货</a>' +
                                 '	</div>' +
                                 '</div>');
@@ -96,7 +96,7 @@
                                 '	</div>' +
                                 '	<div class="mui-card-footer">' +
                                 '		<a class="mui-card-link">删除</a>' +
-                                '		<a class="mui-card-link load-link" data-target="order-finish.html?orderid=' + order.id + '">详情</a>' +
+                                '		<a class="mui-card-link load-link" data-target="order.html?orderid="' + order.id + '">详情</a>' +
                                 '		<a class="mui-card-link comment-link" data-target="comment.html?orderid=' + order.id + '">追加评论</a>' +
                                 '	</div>' +
                                 '</div>');
@@ -116,7 +116,7 @@
                 // add page bottom
                 $('.mui-content').append('<br><br><br>');
                 // activate load-links
-                $('a.load-link').on('tap',function(){
+                $('a.load-link').on('click tap',function(){
                     var url = $(this).data('target');
                     var orderid = url.substr(url.indexOf('orderid=')+8);
                     localStorage.orderid = orderid;

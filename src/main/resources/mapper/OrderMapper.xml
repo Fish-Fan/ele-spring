@@ -38,14 +38,14 @@
     
     <!--插入该订单商品信息-->
     <insert id="insertFoodList" parameterType="java.util.List">
-        insert into order_food_list(food_id,food_name,order_id,food_count)
+        insert into order_food_list(food_id,food_name,order_id,food_count,food_price)
         values
         <foreach collection="list" item="food" index="index" separator=",">
             (
               #{food.foodId},
               #{food.foodName},
               #{food.orderId},
-              #{food.foodCount}
+              #{food.foodCount},
               #{food.foodPrice}
             )
         </foreach>

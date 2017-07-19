@@ -72,9 +72,49 @@
         <ul class="mui-table-view mui-table-view-chevron">
             <li id="offCanvas_switch" class="mui-table-view-cell">
                 匿名购买
-                <div class="mui-switch ">
-                    <div class="mui-switch-handle"></div>
+                <style>
+                    .ios-button-content {
+                        height: 24px;
+                        width: 48px;
+                        -webkit-transition: height 0.3s ease-in, width 0.3s ease-in, background-color 0.4s ease;
+                        -moz-transition: height 0.3s ease-in, width 0.3s ease-in, background-color 0.4s ease;
+                        background-color: lightgray;
+                        border-radius: 12px;
+                        display: inline-block;
+                        position: absolute;
+                        right: 16px;
+                    }
+
+                    .ios-button-circle {
+                        width: 0px;
+                        height: 0px;
+                        border-color: white;
+                        border-style: solid;
+                        border-width: 12px;
+                        border-radius: 12px;
+                        box-shadow: 0 0 2px dimgray;
+                        -moz-transition: transform 0.3s ease, margin 0.3s ease, border 1s ease;
+                        -webkit-transition: transform 0.3s ease, margin 0.3s ease, border 1s ease;
+                    }
+                </style>
+
+                <div class="ios-button-content" onclick="item_click(0);">
+                    <div class="ios-button-circle">
+                    </div>
                 </div>
+
+                <script>
+                    function item_click(n) {
+                        var items = document.getElementsByClassName("ios-button-circle");
+                        with (items[n].style) {
+                            marginLeft = (marginLeft == '24px') ? '0px' : '24px';
+                        }
+                        var boards = document.getElementsByClassName("ios-button-content");
+                        with (boards[n].style) {
+                            backgroundColor = (backgroundColor == 'limegreen') ? 'lightgray' : 'limegreen';
+                        }
+                    }
+                </script>
             </li>
         </ul>
         <ul class="mui-table-view mui-table-view-chevron">
@@ -110,7 +150,11 @@
         loadWindow($(this).data('target'))
     })
 
-    $.getJSON('api/order.json', function (data) {
+    var WebRoot = 'http://localhost:8080/';
+
+//    $.getJSON('api/order.json', function (data) {
+    $.getJSON(WebRoot+'api/order/pay/'+localStorage.orderid, function (data) {
+//        localStorage.orderid = data.id;// modified on 7/18/2017
         $('#shop-name').text(data.shop.name);
         $('#foodList').empty();
         for (i = 0; i < data.foodList.length; ++i) {

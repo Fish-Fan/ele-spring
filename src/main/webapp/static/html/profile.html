@@ -5,7 +5,7 @@
 </script>
 
 <header class="mui-bar mui-bar-nav" style='background-image: linear-gradient(90deg,#0af,#0085ff);'>
-    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style='color:white;'></a>
+    <a class="mui-icon mui-icon-left-nav mui-pull-left" style='color:white;' href="index.html"></a>
     <h1 class="mui-title" style='color:white;'>我的</h1>
 </header>
 
@@ -31,13 +31,13 @@
                                 <form class="mui-input-group">
                                     <div class="mui-input-row">
                                         <label style='width:40%'>新用户名</label>
-                                        <input style='width:60%' type="text" placeholder="请输入新用户名">
+                                        <input style='width:60%' type="text" placeholder="请输入新用户名" id="newUsernameInput">
                                     </div>
                                 </form>
                             </div>
                         </li>
                         <li class="mui-table-view-cell mui-collapse">
-                            <a class="mui-navigate-right" href="#">我的头像</a>
+                            <a class="mui-navigate-right" data-target="user-change-avatar.html">我的头像</a>
                             <div class="mui-collapse-content">
                                 <form class="mui-input-group">
                                     <div class="mui-input-row">
@@ -63,7 +63,7 @@
                             </div>
                         </li>
                         <li class="mui-table-view-cell mui-collapse">
-                            <a class="mui-navigate-right" href="#">收货地址</a>
+                            <a class="mui-navigate-right" href="#" data-target="user-address.html">收货地址</a>
                             <div class="mui-collapse-content">
                                 <form class="mui-input-group">
                                     <div class="mui-input-row">
@@ -78,7 +78,7 @@
                         </li>
                         <li class="mui-table-view-cell">
                             <div>
-                                <button class="mui-btn mui-btn-negative mui-btn-block" data-target="logout.html">
+                                <button class="mui-btn mui-btn-negative mui-btn-block" id="button-logout">
                                     退出登录
                                 </button>
                             </div>
@@ -88,18 +88,18 @@
             <div id="item2mobile" class="mui-control-content">
                 <ul class="mui-table-view">
                     <li class="mui-table-view-cell">
-                        <div class="mui-row">
+                        <div class="mui-row" id="bind-user-tel">
                             <div class='mui-col-xs-6'>绑定手机号</div>
                             <div class='mui-col-xs-6 mui-text-right'><p>现在就绑定</p></div>
                         </div>
                     </li>
-                    <li class="mui-table-view-cell">
+                    <li class="mui-table-view-cell" id="bind-user-qq">
                         <div class="mui-row">
                             <div class='mui-col-xs-6'>绑定QQ</div>
                             <div class='mui-col-xs-6 mui-text-right'><p>现在就绑定</p></div>
                         </div>
                     </li>
-                    <li class="mui-table-view-cell">
+                    <li class="mui-table-view-cell" id="bind-user-email">
                         <div class="mui-row">
                             <div class='mui-col-xs-6'>绑定邮箱</div>
                             <div class='mui-col-xs-6 mui-text-right'><p>现在就绑定</p></div>
@@ -133,7 +133,7 @@
                             <div class='mui-col-xs-6 mui-text-right'>
                                 <p>
                                     查看
-                                    <span class='mui-badge mui-badge-primary mui-badge-inverted'>妈饿了</span>
+                                    <span class='mui-badge mui-badge-inverted'>妈饿了</span>
                                     服务条款
                                 </p>
                             </div>
@@ -145,7 +145,7 @@
                             <div class='mui-col-xs-6 mui-text-right'>
                                 <p>
                                     查看
-                                    <span class='mui-badge mui-badge-primary mui-badge-inverted'>妈饿了</span>
+                                    <span class='mui-badge mui-badge-inverted'>妈饿了</span>
                                     版本信息
                                 </p>
                             </div>
@@ -157,7 +157,7 @@
                             <div class='mui-col-xs-6 mui-text-right'>
                                 <p>
                                     关于
-                                    <span class="mui-badge mui-badge-royal mui-badge-inverted">UltraLight</span>
+                                    <span class="mui-badge mui-badge-inverted">UltraLight</span>
                                     团队
                                 </p>
                             </div>
@@ -184,8 +184,39 @@
             </a>
         </nav>
     </div>
+<script src="http://cdn.bootcss.com/axios/0.16.2/axios.min.js"></script>
     <script>
-        $('[data-target]').on('click tap',function(){
+        $('[data-target]').on('tap',function(){
             loadWindow($(this).data('target'))
         })
+
+        $('#button-logout').off('tap').on('tap',function () {
+            mui.confirm('确认退出？','',['是','否'],
+                function(e){
+                    if(e.index == 0){
+                        loadWindow("logout.html")
+                    }
+                },'div');
+        })
+
+        $('#bind-user-tel').on('tap',function(){
+            mui.prompt('text','deftext','title',['true','false'],null,'div')
+        })
+
+        $('#bind-user-qq').on('tap',function(){
+            mui.prompt('text','deftext','title',['true','false'],null,'div')
+        })
+
+        $('#bind-user-email').on('tap',function(){
+            mui.prompt('text','deftext','title',['true','false'],null,'div')
+        })
+
+        $("#newUsernameInput").blur(function () {
+            var username = $(this).val();
+            axios.post("/user/changeusername",{
+                "username": username
+            }).then(function (res) {
+                console.log(res.data);
+            });
+        });
     </script>

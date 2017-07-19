@@ -47,6 +47,7 @@ public class OrderService {
         order.setStatus(0);
         order.setShopId(orderDetail.getOrderDetail().getFoodList().get(0).getShopId());
 
+
         Integer orderId = insertOrder(order);
         order.setFoodList(EleUtil.ShopFoodCastToOrderFood(foodList,orderId));
         insertFoodList(order.getFoodList());
@@ -118,7 +119,7 @@ public class OrderService {
 
             order.setFinishTime(finishTime);
             order.setDeliveryTime(minus);
-            order.setStatus(2);
+            order.setStatus(4);
         } catch (ParseException e) {
             e.printStackTrace();
         }

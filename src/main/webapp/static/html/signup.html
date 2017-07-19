@@ -1,50 +1,147 @@
 <!DOCTYPE html>
 <html class="ui-page-login">
 
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<title></title>
-		<link href="css/mui.min.css" rel="stylesheet" />
-		<link href="css/style.css" rel="stylesheet" />
-	</head>
-	<body>
-		<header class="mui-bar mui-bar-nav" style="background-image: linear-gradient(90deg,#0af,#0085ff);">
-            <a class="mui-icon mui-icon-back" href="login.html" style="color:white"></a>
-			<h1 class="mui-title" style="color:white">注册</h1>
-		</header>
-		<div class="mui-content">
-			<form class="mui-input-group" action="" method="post">
-                <div class="mui-input-row">
-					<label>用户名</label>
-					<input id='account' type="text" name="username" class="mui-input-clear mui-input" placeholder="请输入用户名">
-				</div>
-				<div class="mui-input-row">
-					<label>密码</label>
-					<input id='password' type="password" name="password" class="mui-input-clear mui-input" placeholder="请输入密码">
-				</div>
-				<div class="mui-input-row">
-					<label>确认</label>
-					<input id='password_confirm' type="password" class="mui-input-clear mui-input" placeholder="请确认密码">
-				</div>
-				<div class="mui-input-row">
-					<label>邮箱</label>
-					<input id='email' type="email" class="mui-input-clear mui-input" placeholder="请输入邮箱">
-				</div>
-                <div class="mui-input-row">
-					<label>手机号</label>
-					<input id='phonenumber' type="text" name="phonenumber" class="mui-input-clear mui-input" placeholder="请输入手机号">
-				</div>
-			</form>
-			<div class="mui-content-padded">
-				<button id='reg' class="mui-btn mui-btn-block mui-btn-primary">注册</button>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title></title>
+	<link href="../css/mui.min.css" rel="stylesheet" />
+	<link href="../css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+	<header class="mui-bar mui-bar-nav" style="background-image: linear-gradient(90deg,#0af,#0085ff);">
+		<a class="mui-icon mui-icon-back" href="login.html" style="color:white"></a>
+		<h1 class="mui-title" style="color:white" id="msg">注册</h1>
+	</header>
+	<div class="mui-content">
+		<form class="mui-input-group" id="form1" action="" method="post">
+			<div class="mui-input-row">
+				<label>用户名</label>
+				<input id='username' type="text" name="username" class="mui-input-clear mui-input" placeholder="请输入用户名">
+				<span class="mui-icon mui-icon-clear" data-clear="#username"></span>
 			</div>
-			
+			<div class="mui-input-row">
+				<label>密码</label>
+				<input id='password' type="password" name="password" class="mui-input-clear mui-input" placeholder="请输入密码" onblur="checkp()">
+				<span class="mui-icon mui-icon-clear" data-clear="#password"></span>
+			</div>
+			<div class="mui-input-row">
+				<label>确认</label>
+				<input id='confirmpassword' type="password" name="confirmpassword" class="mui-input-clear mui-input" placeholder="请确认密码"
+				 onblur="checkcp()">
+				<span class="mui-icon mui-icon-clear" data-clear="#confirmpassword"></span>
+			</div>
+			<div class="mui-input-row">
+				<label>邮箱</label>
+				<input id='email' type="email" name="email" class="mui-input-clear mui-input" placeholder="请输入邮箱" onblur="checkE()">
+				<span class="mui-icon mui-icon-clear" data-clear="#email"></span>
+			</div>
+			<div class="mui-input-row">
+				<label>手机号</label>
+				<input id='phonenumber' type="text" name="phonenumber" class="mui-input-clear mui-input" placeholder="请输入手机号" onblur="checkpn()">
+				<span class="mui-icon mui-icon-clear" data-clear="#phonenumber"></span>
+			</div>
+		</form>
+		<div class="mui-content-padded">
+			<button id='reg' class="mui-btn mui-btn-block mui-btn-primary" onclick="signup()">注册</button>
 		</div>
-        <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>  
-		<script>
+
+	</div>
+	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		var name = document.getElementById("username").value;
+		var pwd = document.getElementById("password").value;
+		var pwdcon = document.getElementById("confirmpassword").value;
+		var email = document.getElementById("email").value;
+		var phonenumber = document.getElementById("phonenumber").value;
+		// if((name !== "")&&(pwd !== "")&&( pwdcon !== "")&&(email !== "")&&(phonenumber !== "")){
+		// 	$("#reg").removeAttr("disabled")
+		// }
+		function checkp() {
+			var pwd = document.getElementById("password").value;
+			if (pwd.length <= 3 || pwd.length >= 9) {
+				$('input[name="password"]').val("").attr('placeholder', '密码长度应在3到9之间!')
+			}
+		}
+		function checkcp() {
+			var pwd = document.getElementById("password").value;
+			var pwdcon = document.getElementById("confirmpassword").value;
+			if (pwdcon !== pwd) {
+				$('input[name="confirmpassword"]').val("").attr('placeholder', '两次输入密码不一致，请重新输入')
+			}
+		}
+		function checkE() {
+			var email = document.getElementById("email").value;
+			if (!email.match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/)) {
+				$('input[name="email"]').val("").attr('placeholder', '请输入有效的邮箱')
+			}
+		}
+		function checkpn() {
+			var phonenumber = document.getElementById("phonenumber").value;
+			if (!phonenumber.match(/^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/)) {
+				$('input[name="phonenumber"]').val("").attr('placeholder', '请输入有效的手机号')
+			}
+		}
+		function signup() {
+			var name = document.getElementById("username").value;
+			var pwd = document.getElementById("password").value;
+			var pwdcon = document.getElementById("confirmpassword").value;
+			var email = document.getElementById("email").value;
+			var phonenumber = document.getElementById("phonenumber").value;
+
+			var name_msg = document.getElementById("username");
+			var pwd_msg = document.getElementById("password");
+			var pwdcon_msg = document.getElementById("confirmpassword");
+			var email_msg = document.getElementById("email");
+			var phonenumber_msg = document.getElementById("phonenumber");
+
+			if (name == null || name == "") {
+				name_msg.setAttribute('placeholder', "账号不能为空");
+			}
+			if (pwd == null || pwd == "") {
+				pwd_msg.setAttribute('placeholder', "密码不能为空");
+			}
+			if (pwdcon == null || pwdcon == "") {
+				pwdcon_msg.setAttribute('placeholder', "密码不能为空");
+			}
+			if (email == null || email == "") {
+				email_msg.setAttribute('placeholder', "邮箱不能为空");
+			}
+			if (phonenumber == null || phonenumber == "") {
+				phonenumber_msg.setAttribute('placeholder', "手机号不能为空");
+			}			
+			else {
+			    var data = {                        
+						"username": $('input[name="username"]').val(),
+						"password": $('input[name="password"]').val(),
+						"email": $('input[name="email"]').val(),						
+						"phonenumber": $('input[name="phonenumber"]').val()
+                };
+				$.ajax({
+					url: '/user/register',
+					type: 'post',
+					dataType: 'json',
+					contentType:'application/json',
+					data:JSON.stringify(data),
+					complete: function (data) {
+						var result = data.responseText;
+						if (result == "success") {
+							window.location.href = "login.html";
+						} else {
+							$('input[name="email"]').val("").attr('placeholder', '邮箱已被注册请重新输入')
+							console.log(result);
+						}
+					}
+				})
+			}
+		}
+
+		$('[data-clear]').on('click', function () {
+			$($(this).data('clear')).val("")
+		})
 		
-		</script>
-	</body>
+	</script>
+</body>
 
 </html>

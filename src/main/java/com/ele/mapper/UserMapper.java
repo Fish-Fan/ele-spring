@@ -98,4 +98,10 @@ public interface UserMapper {
      */
     void updateAvatar(User user);
 
+    /**
+     * 更新用户名
+     * @param user
+     */
+    void updateUserName(User user);
+
 }

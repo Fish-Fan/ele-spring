@@ -137,4 +137,12 @@ public class UserService {
     public void updateAvatar(User user){
         userMapper.updateAvatar(user);
     }
+
+    /**
+     * 更新用户名
+     * @param user
+     */
+    public void updateUserName(User user){
+        userMapper.updateUserName(user);
+    }
 }

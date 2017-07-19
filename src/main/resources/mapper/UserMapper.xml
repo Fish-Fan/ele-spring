@@ -29,7 +29,7 @@
 
     <!--登陆-->
     <select id="loginUser" parameterType="string" resultType="com.ele.pojo.User">
-        SELECT * FROM user WHERE username = #{username} AND password = #{password}
+        SELECT * FROM user WHERE email = #{email} AND password = #{password}
     </select>
 
     <!--更新用户状态-->
@@ -75,6 +75,11 @@
     <!--更新用户头像-->
     <update id="updateAvatar" parameterType="com.ele.pojo.User">
         update `user` set avatar = #{avatar} where id = #{id}
+    </update>
+
+    <!--更新用户名-->
+    <update id="updateUserName" parameterType="com.ele.pojo.User" >
+    UPDATE `user` SET username = #{username} WHERE id = #{id}
     </update>
 
 </mapper>

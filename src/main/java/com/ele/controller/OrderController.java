@@ -47,8 +47,7 @@ public class OrderController {
     public String getOrderDetail(@RequestBody OrderDetail orderDetail, HttpServletRequest req) {
 
         HttpSession session = req.getSession();
-//        User user = (User) session.getAttribute("user");
-        User user = userService.findById(1);
+        User user = (User) session.getAttribute("user");
 
         Integer orderId = orderService.insertShopCartData(orderDetail,user);
         return orderId+"";
@@ -57,17 +56,13 @@ public class OrderController {
 
     /**
      * 返回下单界面的数据
-     * @param req
+     * @param
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/pay",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
-    public String returnOrderDetail(HttpServletRequest req,@RequestParam("orderId") Integer orderId1) {
-        HttpSession session = req.getSession();
-        Integer orderId = 13;
-
+    @RequestMapping(value = "/pay/{orderId:\\d+}",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+    public String returnOrderDetail(@PathVariable Integer orderId) {
         Order order = orderService.findOrderById(orderId);
-
         Gson gson = new Gson();
         return gson.toJson(order);
     }
@@ -80,6 +75,7 @@ public class OrderController {
     @ResponseBody
     @RequestMapping(value = "/pay/confirm",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
     public String confirmOrder(@RequestBody Order order) {
+        System.out.println(order);
         boolean result = EleUtil.checkIsNoName(order);
         if(result) {
             order = orderService.changeUserToNoName(order);
@@ -148,6 +144,7 @@ public class OrderController {
     @ResponseBody
     @RequestMapping(value = "/finish",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
     public String confirmGetDelivery(@RequestBody Order order) {
+        System.out.println(order);
         Shop shop = shopService.findById(order.getShopId());
         orderService.confirmGetDelivery(order.getId(),shop);
         return "success";
@@ -164,13 +161,27 @@ public class OrderController {
     @RequestMapping(value = "/history",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
     public String ReturnHistoryOrder(HttpServletRequest req) {
         HttpSession session = req.getSession();
-//        User user = (User) session.getAttribute("user");
-        User user = userService.findById(1);
+        User user = (User) session.getAttribute("user");
+        System.out.println(user);
+//        User user = userService.findById(1);
         List<Order> orderList = orderService.findHistoryOrderByUserId(user.getId());
 
         Gson gson = new Gson();
         return gson.toJson(orderList);
     }
+
+//    /**
+//     * 返回订单详情页面订单数据
+//     * @param orderId
+//     * @return
+//     */
+//    @ResponseBody
+//    @RequestMapping(value = "/detail/{orderId:\\d+}",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+//    public String returnOrderDetail(@PathVariable Integer orderId) {
+//        Order order = orderService.findOrderById(orderId);
+//        Gson gson = new Gson();
+//        return gson.toJson(order);
+//    }
 
 
 }

@@ -87,6 +87,7 @@ public class RewardController {
         String key = req.getParameter("key");
         String orderId = req.getParameter("orderId");
 
+
         OrderImg orderImg = new OrderImg();
         orderImg.setOrderId(new Integer(orderId));
         orderImg.setOrderImg(key);

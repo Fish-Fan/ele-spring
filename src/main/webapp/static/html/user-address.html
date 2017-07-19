@@ -36,7 +36,7 @@
     var username;
     var userPhoneNum;
     var AddingAddress = false;
-    var RootPath = "http://348beb18.ngrok.io/";
+    var RootPath = "/";
 
     function editUserAddressComplete(input) {
         AddingAddress = false;
@@ -156,10 +156,10 @@
 
     function deleteUserAddress(userAddress) {
         var userAddressId = $(userAddress).attr('id');
-        if(userAddressId == undefined || userAddressId == ''){
-            alert("地址未添加或已被删除，请刷新页面");
-            return;
-        }
+//        if(userAddressId == undefined || userAddressId == ''){
+//            alert("地址未添加或已被删除，请刷新页面");
+//            return;
+//        }
         $.ajax({
                 url: RootPath + 'user/profile/address/delete/' + userAddressId,
                 type: 'post',

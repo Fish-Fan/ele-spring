@@ -33,7 +33,7 @@ public class SocketController {
 
         session.setAttribute("shopManager", shopManager);
 
-        return "home";
+        return "order-manage";
     }
 
     @RequestMapping(value = "/message", method = RequestMethod.GET)

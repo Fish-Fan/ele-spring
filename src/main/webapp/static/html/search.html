@@ -46,7 +46,7 @@
     }
     /*通过 AJAX 方式加载店铺信息*/
     function search() {
-        $.getJSON('http://5421db24.ngrok.io/search', {"searchValue":$('#search').val()}, function (data) {
+        $.getJSON('/search', {"searchValue":$('#search').val()}, function (data) {
             var shops = data.shopList;
             $('#shops').empty();
             for (var i = 0; i < shops.length; ++i) {

@@ -5,8 +5,8 @@
     <title>评论页面</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/mui.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../testhtml/css/mui.min.css">
+    <link rel="stylesheet" href="../testhtml/css/style.css">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/simditor/2.3.6/styles/simditor.min.css" rel="stylesheet">
     <link href="http://simditor.tower.im/assets/styles/mobile.css" rel="stylesheet">
@@ -105,8 +105,8 @@
         var orderid = url.substr(url.indexOf('orderid=')+8);
         var orderJSON;
 
-//        $.getJSON('user/reward/'+orderid, function(data){
-        $.getJSON('api/order-comment.json', function(data){
+        $.getJSON('/user/reward/'+orderid, function(data){
+//        $.getJSON('api/order-comment.json', function(data){
             orderJSON = data;
             var shop = data.shop;
             $('#shop-avatar').attr('src',shop.avatar);
@@ -181,7 +181,7 @@
 
 
 
-            var WebRoot = "http://58bb0055.ngrok.io";
+            var WebRoot = "http://localhost:8080";
 
             var WebUploaderInit = function (token) {
                 var uploader = WebUploader.create({
@@ -425,23 +425,29 @@
             commentJSON.shopReward = shopComment;
 
             // 调试评论 JSON 对象
-            alert(JSON.stringify(commentJSON))
+//            alert(JSON.stringify(commentJSON))
 
             // 提交评论 JSON 对象
             $.ajax({
-//                url: 'http://fa7c0bb7.ngrok.io/user/reward/'+orderJSON.id,
-                url: 'api/order-comment-reply.txt',
+                url: '/user/reward/'+orderJSON.id,
+//                url: 'api/order-comment-reply.txt',
                 type: 'post',
                 dataType: 'json',
                 contentType: "application/json",
                 data: JSON.stringify(commentJSON),
-                success: function(data){
-                    if(data.msg=='success'){
-                        alert("评论提交成功");
+//                success: function(data){
+//                    if(data == 'success'){
+//                        alert("评论提交成功");
+//                    }
+//                },
+//                error: function(){
+//                    alert('评论提交失败');
+//                }
+                complete:function (data) {
+                    if(data.responseText == "success") {
+                        alert("评价成功");
+                        window.location.href = "index.html?load=history.html";
                     }
-                },
-                error: function(){
-                    alert('评论提交失败');
                 }
             })
         }

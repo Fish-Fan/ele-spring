@@ -35,7 +35,8 @@ public class ShopManagerController {
     @RequestMapping(value = "/manager/shop/login",method = RequestMethod.POST,produces ="application/json;charset=utf-8" )
     public String loginShop(HttpServletRequest request){
         String phoneNum = request.getParameter("phoneNum");
-        String password = request.getParameter("passWord");
+        String password = request.getParameter("password");
+
         ShopManager shopManager = new ShopManager();
         shopManager.setPassword(password);
         shopManager.setPhoneNum(phoneNum);
@@ -44,7 +45,8 @@ public class ShopManagerController {
         HttpSession session = request.getSession();
         session.setAttribute("shopManager",shopManager1);
         if (shopManager1 != null){
-            return "success";
+            System.out.println(shopManager1);
+            return shopManager1.getShopId() + "";
         }else {
             return "error";
         }
