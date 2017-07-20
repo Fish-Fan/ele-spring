@@ -7,7 +7,7 @@
     <a class="mui-icon mui-icon-left-nav mui-pull-left" style="color:white" data-target="history.html"></a>
     <h1 class="mui-title">
         <div style="color:white">订单配送至</div>
-        <div style='position:relative; top:-20px;color:white;'>天津工业大学软件园</div>
+        <div style='position:relative; top:-20px;color:white;' id="addressHeader">天津工业大学软件园</div>
     </h1>
 </header>
 
@@ -17,50 +17,25 @@
 
 <div class="mui-card">
     <div class="mui-card-content">
-        <div class="mui-card-content-inner">
-            <div class="mui-navigate-right">
-                尽快送达[预计18:31]
-            </div>
-        </div>
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell mui-collapse" id="selectAddressLi">
+                <a id="lastAddressLink" class="mui-navigate-right" href="#">选择收货地址</a>
+            </li>
+        </ul>
     </div>
 </div>
-
-
 <div class="mui-card">
     <div class="mui-card-header mui-text-center">
+        <img src="" alt="" id="shopAvatar" style="width: 50px;height: 50px;border-radius: 50%">
         <p style="color:#444;width:100%;" id="shop-name"></p>
     </div>
     <div class="mui-card-content">
         <div class="mui-card-content-inner" id="foodList">
         </div>
     </div>
-    <div class="mui-card-footer">
-        <a class="mui-card-link">催单</a>
-        <a class="mui-card-link">详情</a>
-        <a class="mui-card-link">确认收货</a>
-    </div>
 </div>
 
-<div class="mui-card">
-    <div class="mui-card-content">
-        <div class="mui-input-row mui-checkbox">
-            <label>
-                成为超级会员！
-                <span style='float:right'>
-					<h6 style='display:inline'>
-                        <del>¥15</del>
-                    </h6>
-                    ¥10
-                </span>
-                <br>
-                <small>
-                    <span class="mui-badge mui-badge-danger mui-badge-inverted">每月返20元红包,本单减5元</span>
-                </small>
-            </label>
-            <input name="checkbox1" type="checkbox">
-        </div>
-    </div>
-</div>
+
 
 <div class="mui-card">
     <div class="mui-card-content">
@@ -103,18 +78,7 @@
                     </div>
                 </div>
 
-                <script>
-                    function item_click(n) {
-                        var items = document.getElementsByClassName("ios-button-circle");
-                        with (items[n].style) {
-                            marginLeft = (marginLeft == '24px') ? '0px' : '24px';
-                        }
-                        var boards = document.getElementsByClassName("ios-button-content");
-                        with (boards[n].style) {
-                            backgroundColor = (backgroundColor == 'limegreen') ? 'lightgray' : 'limegreen';
-                        }
-                    }
-                </script>
+
             </li>
         </ul>
         <ul class="mui-table-view mui-table-view-chevron">
@@ -137,8 +101,8 @@
 <nav class="mui-bar mui-bar-tab" style="height:50px;">
     <ul class="mui-table-view" style="height:50px;">
         <li class="mui-table-view-cell">
-            ¥27
-            <button class="mui-btn mui-btn-blue" data-target="pay.html">
+            <span id="sumMoneySpan"></span>
+            <button class="mui-btn mui-btn-blue" id="postDataBtn">
                 去支付
             </button>
         </li>
@@ -151,11 +115,16 @@
     })
 
     var WebRoot = 'http://localhost:8080/';
+    var responseOrder = {};
 
 //    $.getJSON('api/order.json', function (data) {
     $.getJSON(WebRoot+'api/order/pay/'+localStorage.orderid, function (data) {
 //        localStorage.orderid = data.id;// modified on 7/18/2017
+        responseOrder = data;
+        $('#addressHeader').text(data.address);
+        $('#lastAddressLink').text(data.address);
         $('#shop-name').text(data.shop.name);
+        $('#shopAvatar').attr("src",data.shop.avatar);
         $('#foodList').empty();
         for (i = 0; i < data.foodList.length; ++i) {
             $('#foodList').append(
@@ -191,5 +160,49 @@
             '<div class="mui-col-xs-6 mui-text-right">' + data.sumMoney + '</div>' +
             '</div>'
         );
+        $('#sumMoneySpan').text("￥" + data.sumMoney);
+    });
+
+    function item_click(n) {
+        if(responseOrder.isNoName == "true") {
+            responseOrder.isNoName = "false";
+        } else {
+            responseOrder.isNoName = "true";
+        }
+        var items = document.getElementsByClassName("ios-button-circle");
+        with (items[n].style) {
+            marginLeft = (marginLeft == '24px') ? '0px' : '24px';
+        }
+        var boards = document.getElementsByClassName("ios-button-content");
+        with (boards[n].style) {
+            backgroundColor = (backgroundColor == 'limegreen') ? 'lightgray' : 'limegreen';
+        }
+    }
+
+    $('#postDataBtn').click(function () {
+        var addressList = $('input[name="address"]');
+        $.each(addressList,function (index, val) {
+            if($(val).prop("checked")) {
+                responseOrder.address = $(val).val();
+            }
+        });
+        axios.post('/api/order/pay/confirm',responseOrder).then(function (res) {
+            window.location.href = "index.html?load=pay.html";
+        });
+    });
+</script>
+
+
+
+<script>
+    axios.get('/user/profile/address').then(function (res) {
+        var addressList = res.data;
+        console.log(addressList);
+        var root = $('#selectAddressLi');
+        for(var i = 0;i < addressList.length;i++) {
+            root.append('<div class="mui-collapse-content"><div class="mui-input-row mui-radio"><label>' + addressList[i].userAddress + '</label><input name="address" value="' + addressList[i].userAddress +'" type="radio"></div></div>');
+        }
     })
+
+
 </script>

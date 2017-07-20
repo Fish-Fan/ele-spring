@@ -45,8 +45,8 @@ public class ShopManagerController {
         HttpSession session = request.getSession();
         session.setAttribute("shopManager",shopManager1);
         if (shopManager1 != null){
-            System.out.println(shopManager1);
-            return shopManager1.getShopId() + "";
+            String id =shopManager1.getShopId() + "";
+            return "{\"shopId\":" + id + "}";
         }else {
             return "error";
         }
@@ -58,12 +58,13 @@ public class ShopManagerController {
      */
     @ResponseBody
     @RequestMapping(value = "/manager/shop/register",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
-    public Integer registerShop(@RequestBody ShopManager shopManager, HttpServletRequest request){
-        HttpSession session = request.getSession();
-        if (shopManagerService.insertShopManager(shopManager) != null){
-            return shopManager.getShopId();
-        }
-        return null;
+    public String registerShop(@RequestBody ShopManager shopManager, HttpServletRequest request){
+        Integer id = shopManagerService.insertShopManager(shopManager);
+        Shop shop = new Shop();
+        shop.setId(id);
+        shop.setContact(shopManager.getPhoneNum());
+        shopService.insertShop(shop);
+        return "{\"shopId\":" +shop.getId() + ",\"result\":\"success";
     }
 
     /**

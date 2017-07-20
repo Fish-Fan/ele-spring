@@ -10,7 +10,7 @@ public class Order {
     private String username;
     private String avatar;
     private String phoneNum;
-    private Boolean isNoName;
+    private String isNoName;
     private String orderRemark;
     private Double sumMoney;
     private Integer userId;
@@ -62,12 +62,12 @@ public class Order {
         this.phoneNum = phoneNum;
     }
 
-    public Boolean getNoName() {
+    public String getIsNoName() {
         return isNoName;
     }
 
-    public void setNoName(Boolean noName) {
-        isNoName = noName;
+    public void setIsNoName(String isNoName) {
+        this.isNoName = isNoName;
     }
 
     public String getOrderRemark() {

@@ -63,10 +63,10 @@
     </delete>
 
     <!--增加用户地址-->
-    <select id="addAddress" parameterType="com.ele.pojo.UserAddress">
+    <insert id="addAddress" parameterType="com.ele.pojo.UserAddress" useGeneratedKeys="true" keyProperty="id">
     INSERT INTO user_address(user_id,user_address)
-    VALUE (#{userId},#{userAddress})
-    </select>
+    VALUES(#{userId},#{userAddress})
+    </insert>
     <!--删除用户地址-->
     <select id="delectUserAddress" parameterType="int" resultType="com.ele.pojo.UserAddress">
     DELETE FROM user_address  WHERE id = #{id}
@@ -80,6 +80,11 @@
     <!--更新用户名-->
     <update id="updateUserName" parameterType="com.ele.pojo.User" >
     UPDATE `user` SET username = #{username} WHERE id = #{id}
+    </update>
+
+    <!--更新用户地址-->
+    <update id="updateLastAddress" parameterType="com.ele.pojo.User">
+        UPDATE `user` set last_address = #{lastAddress} where id = #{id}
     </update>
 
 </mapper>

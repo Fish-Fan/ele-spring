@@ -20,6 +20,7 @@ public class ShopReward {
     private String rewardTime;
 
     private List<ShopFood> foodList;
+    private List<OrderImg> imgList;
 
     public Integer getId() {
         return id;
@@ -109,6 +110,14 @@ public class ShopReward {
         this.rewardTime = rewardTime;
     }
 
+    public List<OrderImg> getImgList() {
+        return imgList;
+    }
+
+    public void setImgList(List<OrderImg> imgList) {
+        this.imgList = imgList;
+    }
+
     @Override
     public String toString() {
         return "ShopReward{" +
@@ -123,6 +132,7 @@ public class ShopReward {
                 ", grade=" + grade +
                 ", rewardTime='" + rewardTime + '\'' +
                 ", foodList=" + foodList +
+                ", imgList=" + imgList +
                 '}';
     }
 }

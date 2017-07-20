@@ -119,7 +119,7 @@ public class UserService {
      * @param userAddress
      */
     public Integer addUserAddress(UserAddress userAddress){
-         userMapper.addAddress(userAddress);
+        userMapper.addAddress(userAddress);
          return userAddress.getId();
     }
     /**
@@ -144,5 +144,13 @@ public class UserService {
      */
     public void updateUserName(User user){
         userMapper.updateUserName(user);
+    }
+
+    /**
+     * 更新用户地址
+     * @param user
+     */
+    public void updateLastAddress(User user) {
+        userMapper.updateLastAddress(user);
     }
 }

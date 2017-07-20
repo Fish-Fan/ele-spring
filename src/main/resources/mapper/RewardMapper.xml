@@ -15,8 +15,10 @@
         <result property="orderId" column="order_id"/>
         <result property="rewardType" column="reward_type"/>
         <result property="grade" column="grade"/>
+        <result property="rewardTime" column="reward_time"/>
 
         <collection property="foodList" column="order_id" select="findOrderFoodByOrderId"/>
+        <collection property="imgList" column="order_id" select="selectOrderImg"/>
     </resultMap>
 
     <!--根据OrderID查找OrderFoodList-->
@@ -26,7 +28,7 @@
 
     <!--根据商家ID查找评论-->
     <select id="findShopRewardByShopId" parameterType="int" resultMap="shopReward">
-        select id,user_id,username,avatar,reward_msg,shop_id,order_id,reward_type,grade
+        select id,user_id,username,avatar,reward_msg,shop_id,order_id,reward_type,grade,reward_time
         from shop_reward
         where shop_id = #{shop_id}
     </select>
@@ -65,5 +67,10 @@
         insert into order_img(order_id,order_img)
         values(#{orderId},#{orderImg})
     </insert>
+
+    <!--查找评论图片-->
+    <select id="selectOrderImg" parameterType="int" resultType="com.ele.pojo.OrderImg">
+        select * from order_img where order_id = #{order_id}
+    </select>
 
 </mapper>

@@ -71,7 +71,8 @@
                     '</li>')
             }
             $('#shops').find('a[data-shop-id]').on('click tap', function () {
-                loadWindow('store.jsp?id=' + $(this).data('shop-id'))
+                localStorage.shopid = $(this).data('shop-id');
+                loadWindow('shop.html');
             })
         })
     }

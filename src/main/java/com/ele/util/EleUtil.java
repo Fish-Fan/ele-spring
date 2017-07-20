@@ -110,8 +110,8 @@ public class EleUtil {
      * @return
      */
     public static boolean checkIsNoName(Order order) {
-        boolean result = order.getNoName();
-        if(result) {
+        String result = order.getIsNoName();
+        if("true".equals(result)) {
             return true;
         }
         return false;

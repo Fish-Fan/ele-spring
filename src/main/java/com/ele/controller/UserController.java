@@ -36,12 +36,17 @@ public class UserController {
     @RequestMapping(value = "/profile/address",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
     public String getUserAddress(HttpServletRequest req) {
         HttpSession session = req.getSession();
-//        User user = (User) session.getAttribute("user");
-        User user = userService.findById(1);
+        User user = (User) session.getAttribute("user");
 
         List<UserAddress> addressList = userService.getUserAddress(user);
         Gson gson = new Gson();
+
+        if(addressList.size() == 0) {
+            return gson.toJson(user);
+        }
         return gson.toJson(addressList);
+
+
     }
 
 
@@ -54,7 +59,6 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/profile/address/update",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
     public String getUserUpdateAddress(@RequestBody UserAddress userAddress,HttpServletRequest req) {
-        System.out.println(userAddress);
         userService.updateUserAddress(userAddress);
         return "success";
     }
@@ -70,8 +74,7 @@ public class UserController {
     @RequestMapping(value = "/profile/address/delete/{addressId:\\d+}",method =RequestMethod.POST,produces = "application/json;charset=utf-8")
     public String delectUserAddress(@RequestBody UserAddress userAddress,HttpServletRequest request) {
         HttpSession httpSession = request.getSession();
-//        User user = (User) httpSession.getAttribute("user");
-        User user = userService.findById(1);
+        User user = (User) httpSession.getAttribute("user");
         boolean result = EleUtil.checkUserHasAddress(user,userAddress.getId(),userService);
         if(result) {
             userService.delectUserAddress(userAddress);
@@ -140,7 +143,7 @@ public class UserController {
             httpSession.setAttribute("user", user1);
             userLogin.setMsgUsername("用户名正确");
             userLogin.setMsgPassword("密码正确");
-            userLogin.setMsg("登陆成功");
+            userLogin.setMsg("登录成功");
             userLogin.setStatus(1);
 
         }else {
@@ -197,10 +200,8 @@ public class UserController {
     @RequestMapping(value = "/changeavatar",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
     public String changeUserAvatar(HttpServletRequest req) {
         HttpSession session = req.getSession();
-//        User user = (User) session.getAttribute("user");
-        User user = userService.findById(1);
+        User user = (User) session.getAttribute("user");
         String avatar = req.getParameter("avatar");
-        System.out.println("avatar->" + avatar);
         user.setAvatar(avatar);
         userService.updateAvatar(user);
         return "success";
@@ -216,7 +217,6 @@ public class UserController {
     public String updateUserName(@RequestBody User user,HttpServletRequest request){
         HttpSession session = request.getSession();
         User sessionUser = (User) session.getAttribute("user");
-        System.out.println("username->" + user.getUsername());
 
         user.setId(sessionUser.getId());
 

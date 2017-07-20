@@ -104,4 +104,10 @@ public interface UserMapper {
      */
     void updateUserName(User user);
 
+    /**
+     * 更新用户地址
+     * @param user
+     */
+    void updateLastAddress(User user);
+
 }

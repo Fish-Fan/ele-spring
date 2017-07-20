@@ -24,104 +24,66 @@
         </div>
         <br>
         <div class="input-group">
-            <span class="input-group-addon"><span class="required-mark">*</span>店铺地址</span>
-            <input type="text" class="form-control" placeholder="店铺地址" id="shop-address">
-        </div>
-        <br>
-        <div class="input-group">
             <span class="input-group-addon"><span class="required-mark">*</span>商家姓名</span>
             <input type="text" class="form-control" placeholder="店铺法人" id="shop-owner">
         </div>
         <br>
         <div class="input-group">
-            <span class="input-group-addon"><span class="required-mark">*</span>外卖电话</span>
+            <span class="input-group-addon"><span class="required-mark">*</span>联系电话</span>
             <input type="text" class="form-control" placeholder="联系方式" id="shop-contact">
         </div>
         <br>
         <div class="input-group">
-            <span class="input-group-addon">最低起送费</span>
-            <input type="text" class="form-control" placeholder="最低起送费" id="shop-minPrice">
-        </div>
-        <br>
-        <div class="input-group">
-            <span class="input-group-addon">配送费</span>
-            <input type="text" class="form-control" placeholder="配送费" id="shop-deliveryMoney">
-        </div>
-        <br>
-        <div class="input-group">
-            <span class="input-group-addon">配送时间</span>
-            <input type="text" class="form-control" placeholder="配送时间" id="shop-deliveryTime">
-        </div>
-        <br>
-        <div class="btn-group btn-group-justified">
-            <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default">Left</button>
-            </div>
-            <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default">Middle</button>
-            </div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                    Action <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="col-md-4">
-    <div class="panel">
-        <div class="input-group">
-            <span class="input-group-addon">营业时间</span>
-            <input type="text" class="form-control" placeholder="营业时间">
-        </div>
-        <br>
-        <div class="input-group">
-            <span class="input-group-addon">店铺介绍</span>
-            <input type="text" class="form-control" placeholder="店铺介绍">
-        </div>
-        <br>
-        <div class="input-group">
-            <span class="input-group-addon">商家图片</span>
-            <input type="text" class="form-control" placeholder="选择图片">
-        </div>
-        <br>
-        <div class="input-group">
-                            <span class="input-group-addon">
-                                <input type="checkbox">
-                            </span>
-            <input type="text" class="form-control">
+            <span class="input-group-addon"><span class="required-mark">*</span>登录密码</span>
+            <input type="password" class="form-control" id="shop-password">
         </div><!-- /input-group -->
         <br>
         <div class="input-group">
-                            <span class="input-group-addon">
-                                <input type="checkbox">
-                            </span>
-            <input type="text" class="form-control">
+            <span class="input-group-addon"><span class="required-mark">*</span>门店分类</span>
+            <select class="form-control" id="shop-type">
+                <option value="" disabled="" selected="" hidden="">最多选两个</option>
+                <option value="">1</option>
+                <option value="">2</option>
+                <option value="">3</option>
+                <option value="">4</option>
+            </select>
         </div><!-- /input-group -->
+
+        <script>
+            function setShopAddress() {
+                var ShopProvince = $('#s_province').val();
+                var ShopCity = $('#s_city').val();
+                var ShopCounty = $('#s_county').val();
+                var ShopAddressDetails = $('#shop-address-details').val();
+                if(ShopProvince == '-省-'){
+                    alert('请填写省');
+                    return;
+                }
+                if(ShopCity == '-市-'){
+                    alert('请填写市');
+                    return;
+                }
+                if(ShopCounty == '-区/县-'){
+                    alert('请填写区/县');
+                    return;
+                }
+                if(ShopAddressDetails == ''){
+                    alert('请填写详细地址');
+                    return;
+                }
+                if(ShopProvince==ShopCity){
+                    ShopCity = '';
+                }
+                var ShopAddress = ShopProvince + ShopCity + ShopCounty + ShopAddressDetails;
+                $('input#shop-address').val(ShopAddress);
+            }
+        </script>
+
         <br>
         <div class="input-group">
-                            <span class="input-group-addon">
-                                A&nbsp;&nbsp;
-                                <input type="checkbox">
-                            </span>
-            <span class="input-group-addon">
-                                B&nbsp;&nbsp;
-                                <input type="checkbox">
-                            </span>
-            <span class="input-group-addon">
-                                C&nbsp;&nbsp;
-                                <input type="checkbox">
-                            </span>
-            <input type="text" class="form-control">
-        </div><!-- /input-group -->
+            <span class="input-group-addon"><span class="required-mark">*</span>店铺地址</span>
+            <input type="text" class="form-control" placeholder="店铺地址" id="shop-address">
+        </div>
         <br>
         <div class="input-group">
             <span class="input-group-addon">城市</span>
@@ -142,10 +104,140 @@
         <br>
         <div class="input-group">
             <span class="input-group-addon">详细地址</span>
-            <input type="text" class="form-control" placeholder="详细至门牌号，请与执照地址一致">
+            <input type="text" class="form-control" placeholder="详细至门牌号，请与执照地址一致" id="shop-address-details">
             <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">去定位</button>
-                            </span>
+                <button class="btn btn-default" type="button" onclick="setShopAddress()">确定</button>
+            </span>
         </div><!-- /input-group -->
     </div>
 </div>
+<div class="col-md-4">
+    <div class="panel">
+        <div class="input-group">
+            <span class="input-group-addon">营业时间</span>
+            <input type="text" class="form-control" placeholder="营业时间" id="shop-openTime">
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon">店铺介绍</span>
+            <input type="text" class="form-control" placeholder="店铺介绍" id="shop-intro">
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon">商家图片</span>
+            <input type="text" class="form-control" placeholder="选择图片">
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon">配送方式</span>
+            <select class="form-control" id="shop-specialMsg">
+                <option value="" disabled="" selected="" hidden="">选择配送方式</option>
+                <option value="">蜂鸟专送</option>
+            </select>
+        </div><!-- /input-group -->
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon">最低起送费</span>
+            <input type="text" class="form-control" placeholder="最低起送费" id="shop-minPrice">
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon">配送费</span>
+            <input type="text" class="form-control" placeholder="配送费" id="shop-deliveryMoney">
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon">配送时间</span>
+            <input type="text" class="form-control" placeholder="配送时间" id="shop-deliveryTime">
+        </div>
+
+
+        <script>
+            function shopInfoSubmit() {
+                var ShopInfo ={
+                    "id": localStorage.shopId,
+                    "name": $('#shop-name').val(),
+                    "introduce": $('#shop-intro').val(),
+                    "specialMsg": $('#shop-specialMsg').val(),
+                    "contact": $('#shop-contact').val(),
+                    "address": $('#shop-address').val(),
+                    "openTime": $('#shop-openTime').val(),
+                    "minPrice": $('#shop-minPrice').val(),
+                    "deliveryMoney": $('#shop-deliveryMoney').val()
+                };
+                $.ajax({
+                    url: '/api/shop/register',
+                    type: 'post',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(ShopInfo),
+                    success: function (data) {
+                        if(data.id == undefined) {
+                            alert('设置信息失败');
+                        } else if(localStorage.shopId == undefined) {
+                            alert('无法获取本店 ID');
+                        } else if(data.id == localStorage.shopId){
+                            var MessageModal =
+                                '<div id="message-modal-temp" class="modal fade in" tabindex="-1" style="display: block;">'+
+                                '    <div class="modal-dialog modal-lg">'+
+                                '        <div class="modal-content">'+
+                                '            <div class="modal-header">'+
+                                '                <button type="button" class="close" data-dismiss="modal">'+
+                                '                    <span aria-hidden="true">×</span>'+
+                                '                </button>'+
+                                '                <h4 class="modal-title" id="myLargeModalLabel">提示信息</h4>'+
+                                '            </div>'+
+                                '            <div class="modal-body">'+
+                                '                店铺信息已更新'+
+                                '            </div>'+
+                                '        </div>'+
+                                '    </div>'+
+                                '</div>';
+
+                            $('#message-modal-temp').remove();
+                            $(MessageModal).modal('show');
+
+                            setTimeout(function () {
+                                $('#message-modal-temp').modal('hide');
+                            },1000);
+                        }
+                    },
+                    error: function () {
+                        alert('无法连接服务器');
+                    }
+                })
+            }
+        </script>
+
+
+        <br>
+        <div class="btn-group btn-group-justified">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default">
+                    验证
+                </button>
+            </div>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default" onclick="shopInfoSubmit()">
+                    提交
+                </button>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    其他 <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">更新</a></li>
+                    <li><a href="#">重置</a></li>
+                    <li><a href="#">回退</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $.getJSON('../api/
+    $('input#shop-name').val('123')
+</script>

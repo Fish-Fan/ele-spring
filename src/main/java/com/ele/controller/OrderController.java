@@ -74,15 +74,18 @@ public class OrderController {
      */
     @ResponseBody
     @RequestMapping(value = "/pay/confirm",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
-    public String confirmOrder(@RequestBody Order order) {
-        System.out.println(order);
+    public String confirmOrder(@RequestBody Order order,HttpServletRequest req) {
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        user.setLastAddress(order.getAddress());
+        userService.updateLastAddress(user);
         boolean result = EleUtil.checkIsNoName(order);
         if(result) {
             order = orderService.changeUserToNoName(order);
         }
         orderService.orderChanged(order);
         //confirmPay未完成
-        return "server/user/confirmPay";
+        return "success";
     }
 
     /**
@@ -162,26 +165,12 @@ public class OrderController {
     public String ReturnHistoryOrder(HttpServletRequest req) {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-        System.out.println(user);
-//        User user = userService.findById(1);
         List<Order> orderList = orderService.findHistoryOrderByUserId(user.getId());
 
         Gson gson = new Gson();
         return gson.toJson(orderList);
     }
 
-//    /**
-//     * 返回订单详情页面订单数据
-//     * @param orderId
-//     * @return
-//     */
-//    @ResponseBody
-//    @RequestMapping(value = "/detail/{orderId:\\d+}",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
-//    public String returnOrderDetail(@PathVariable Integer orderId) {
-//        Order order = orderService.findOrderById(orderId);
-//        Gson gson = new Gson();
-//        return gson.toJson(order);
-//    }
 
 
 }

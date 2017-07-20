@@ -39,7 +39,7 @@
 			</div>
 			<div class="mui-input-row">
 				<label>手机号</label>
-				<input id='phonenumber' type="text" name="phonenumber" class="mui-input-clear mui-input" placeholder="请输入手机号" onblur="checkpn()">
+				<input id='phonenumber' type="text" name="phoneNum" class="mui-input-clear mui-input" placeholder="请输入手机号" onblur="checkpn()">
 				<span class="mui-icon mui-icon-clear" data-clear="#phonenumber"></span>
 			</div>
 		</form>
@@ -116,7 +116,7 @@
 						"username": $('input[name="username"]').val(),
 						"password": $('input[name="password"]').val(),
 						"email": $('input[name="email"]').val(),						
-						"phonenumber": $('input[name="phonenumber"]').val()
+						"phoneNum": $('input[name="phoneNum"]').val()
                 };
 				$.ajax({
 					url: '/user/register',

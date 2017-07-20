@@ -12,7 +12,7 @@
 
 
 <nav class="mui-bar mui-bar-tab">
-    <a class="mui-tab-item" data-click="addUserAddress()">
+    <a class="mui-tab-item" id="newAddressBtn">
         新增地址
     </a>
 </nav>
@@ -61,19 +61,18 @@
             dataType: 'json',
             contentType: "application/json",
             data: JSON.stringify(addressJSON),
-            success: function(data){
-                $('.user-address:last').attr('id',data.addressId);
-                if(data.msg=='success'){
-                    alert("地址提交成功");
-                }
-            },
-            error: function(){
-                alert('地址提交失败');
+            complete: function(data){
+                $('.user-address:last').attr('id',data.id);
+                alert("操作成功");
             }
         })
 
         deleteUserAddressToggleActivate();
     }
+
+    $('#newAddressBtn').click(function () {
+        addUserAddress();
+    });
 
     function addUserAddress(addressItem) {
         AddingAddress = false;
@@ -140,27 +139,32 @@
     function initUserAddress() {
 //        $.getJSON('api/user-address.json',function(data){
         $.getJSON(RootPath + 'user/profile/address',function(data){
-            userId = data[0].userId;
-            username = data[0].username;
-            userPhoneNum = data[0].phoneNum;
+           if(!Array.isArray(data)) {
+               userId = data.id;
+               username = data.username;
+               userPhoneNum = data.phoneNum;
+               console.log("username->" + username);
+               console.log("phoneNum->" + userPhoneNum);
+           } else {
+               userId = data[0].userId;
+               username = data[0].username;
+               userPhoneNum = data[0].phoneNum;
 
-            for (i = 0; i < data.length; ++i) {
-                addUserAddress(data[i]);
-            }
+               for (i = 0; i < data.length; ++i) {
+                   addUserAddress(data[i]);
+               }
 
-            editUserAddressToggleActivate();
-            deleteUserAddressToggleActivate();
-            $('.user-address-text').css('max-width',window.innerWidth-100);
+               editUserAddressToggleActivate();
+               deleteUserAddressToggleActivate();
+               $('.user-address-text').css('max-width',window.innerWidth-100);
+           }
         })
     }
 
     function deleteUserAddress(userAddress) {
         var userAddressId = $(userAddress).attr('id');
-//        if(userAddressId == undefined || userAddressId == ''){
-//            alert("地址未添加或已被删除，请刷新页面");
-//            return;
-//        }
-        $.ajax({
+        if(confirm("您确定要删除改地址吗？")) {
+            $.ajax({
                 url: RootPath + 'user/profile/address/delete/' + userAddressId,
                 type: 'post',
                 dataType: 'json',
@@ -168,16 +172,11 @@
                 data: JSON.stringify({
                     "id": userAddressId
                 }),
-                success: function(data){
+                complete: function (data) {
                     $(userAddress).remove();
-                    if(data.msg=='success'){
-                        alert("地址提交成功");
-                    }
-                },
-                error: function(){
-                    alert('地址提交失败');
                 }
             })
+        }
     }
 
     function deleteUserAddressToggleActivate() {

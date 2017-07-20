@@ -38,7 +38,7 @@ public class OrderService {
         order.setUsername(user.getUsername());
         order.setAvatar(user.getAvatar());
         order.setPhoneNum(user.getPhoneNum());
-        order.setNoName(true);
+        order.setIsNoName("false");
         order.setSumMoney(orderDetail.getOrderDetail().getTotalPrice());
         order.setAddress(user.getLastAddress());
         order.setGenerateTime(now);
@@ -140,7 +140,7 @@ public class OrderService {
      */
     public Order changeUserToNoName(Order order) {
         order.setUsername("匿名用户");
-        order.setAvatar("匿名用户的头像");
+        order.setAvatar("http://static.galileo.xiaojukeji.com/static/tms/default_header.png");
         return order;
     }
 

@@ -71,7 +71,10 @@
                 <input type="checkbox" value="remember-me"> 记住密码
             </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="button" onclick="signIn('.form-signin');">登入</button>
+        <div class="btn-group btn-group-justified">
+            <a href="javascript: void(0);" class="btn btn-lg btn-primary" onclick="signIn('.form-signin');">登入</a>
+            <a href="javascript: void(0);" class="btn btn-lg btn-success" onclick="signUp('.form-signin');">注册</a>
+        </div>
     </form>
 
 </div> <!-- /container -->
@@ -87,9 +90,34 @@
                 "phoneNum":phoneNum,
                 "password":password
             },function (data) {
-            console.log(data);
-            if(data != undefined){
-                localStorage.shopId = data;
+//            alert(JSON.stringify(data));
+            if(data.shopId!=null){
+                localStorage.shopId = data.shopId;
+                window.location.href = 'index.html';
+            }
+        });
+    }
+
+
+    function signUp(formClassName) {
+        var form = $(formClassName);
+        var phoneNum = form.find('input#inputEmail').val();
+        var password = form.find('input#inputPassword').val();
+        $.post('/manager/shop/register',{
+            "phoneNum":phoneNum,
+            "password":password
+        },function (data) {
+//            alert(JSON.stringify(data));
+            if(data.result=='error'){
+                alert('用户名已存在');
+                return;
+            }
+            if(data.result=='success'){
+                alert('注册成功');
+                return;
+            }
+            if(data.shopId!=null){
+                localStorage.shopId = data.shopId;
                 window.location.href = 'index.html';
             }
         });

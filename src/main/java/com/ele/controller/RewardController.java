@@ -48,6 +48,8 @@ public class RewardController {
 
         if(result) {
             rewardService.insertReward(rewardDTO,order);
+            order.setStatus(5);
+            orderService.orderChanged(order);
             return "success";
         }
         return "error";

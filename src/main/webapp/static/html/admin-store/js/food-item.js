@@ -6,24 +6,68 @@ function getParent(element,level) {
     return $(a);
 }
 
-function UpdateFoodItem(ButtonUpdate) {
+
+function UpdateFoodItemSuccess(data) {
     var MessageModal =
+        '<div id="message-modal-temp" class="modal fade in" tabindex="-1" style="display: block;">'+
+        '    <div class="modal-dialog modal-lg">'+
+        '        <div class="modal-content">'+
+        '            <div class="modal-header">'+
+        '                <button type="button" class="close" data-dismiss="modal">'+
+        '                    <span aria-hidden="true">×</span>'+
+        '                </button>'+
+        '                <h4 class="modal-title" id="myLargeModalLabel">提示信息</h4>'+
+        '            </div>'+
+        '            <div class="modal-body">'+
+        '                商品信息已更新'+
+        '            </div>'+
+        '        </div>'+
+        '    </div>'+
+        '</div>';
 
-<div class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: block; padding-right: 17px;">
-        <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
+    $('#message-modal-temp').remove();
+    $(MessageModal).modal('show');
+    setTimeout(function () {
+        $('#message-modal-temp').modal('hide');
+    },1000);
+}
 
-        <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-    <h4 class="modal-title" id="myLargeModalLabel">Large modal</h4>
-    </div>
-    <div class="modal-body">
-        商品信息已更新
-    </div>
-    </div>
-    </div>
-    </div>
 
+function UpdateFoodItem(ButtonUpdate) {
+    var FoodJSON = $(ButtonUpdate).data('food');
+    var name = $(ButtonUpdate).parent().parent().parent().parent().find('#food-name').val();
+    var oldPrice = FoodJSON.price;
+    var price = $(ButtonUpdate).parent().parent().parent().parent().find('#food-price').val();
+    var foodType = $(ButtonUpdate).parent().parent().parent().parent().find('#food-type').val();
+    var info = $(ButtonUpdate).parent().parent().find('input').val();
+
+    // alert(name + ' ' + oldPrice + ' ' + price + ' ' + info);
+    if(name == '') name = FoodJSON.foodName;
+    if(price == '') price = FoodJSON.price;
+    if(foodType == '') foodType = FoodJSON.shopFoodType;
+    // if(info == '') info = FoodJSON.info;
+
+    var FoodItem ={
+        "id": FoodJSON.id,
+        "foodName": name,
+        "shopFoodType": foodType,
+        "oldPrice": oldPrice,
+        "price": price,
+        "info": info,
+        "description": info
+    };
+
+    $.ajax({
+        url: '/api/shop/register',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(FoodItem),
+        success: UpdateFoodItemSuccess,
+        error: function () {
+            alert('无法连接至服务器');
+        }
+    });
 }
 
 function FoodItemsInit() {
@@ -66,7 +110,7 @@ function FoodItemsInit() {
                     '                <form>' +
                     '                    <div class="input-group" style="margin-top:12px;">' +
                     '                        <span class="input-group-addon">商品名</span>' +
-                    '                        <input type="text" class="form-control" placeholder="' + data[i].foodList[j].foodName + '">' +
+                    '                        <input id="food-name" type="text" class="form-control" placeholder="' + data[i].foodList[j].foodName + '">' +
                     '                        <span class="input-group-btn">' +
                     '                            <button class="btn btn-default" type="reset">' +
                     '                                <span class="glyphicon glyphicon-refresh"></span>' +
@@ -78,7 +122,7 @@ function FoodItemsInit() {
                     '                <form>' +
                     '                    <div class="input-group" style="margin-top:12px;">' +
                     '                        <span class="input-group-addon">价格</span>' +
-                    '                        <input type="text" class="form-control" placeholder="' + data[i].foodList[j].price + '">' +
+                    '                        <input id="food-price" type="text" class="form-control" placeholder="' + data[i].foodList[j].price + '">' +
                     '                        <span class="input-group-btn">' +
                     '                            <button class="btn btn-default" type="reset">' +
                     '                                <span class="glyphicon glyphicon-refresh"></span>' +
@@ -90,7 +134,7 @@ function FoodItemsInit() {
                     '                <form>' +
                     '                    <div class="input-group" style="margin-top:12px;">' +
                     '                        <span class="input-group-addon">类别</span>' +
-                    '                        <input type="text" class="form-control" placeholder="' + data[i].foodList[j].shopFoodType + '">' +
+                    '                        <input id="food-type" type="text" class="form-control" placeholder="' + data[i].foodList[j].shopFoodType + '">' +
                     '                        <span class="input-group-btn">' +
                     '                            <button class="btn btn-default" type="reset">' +
                     '                                <span class="glyphicon glyphicon-refresh"></span>' +
@@ -107,7 +151,7 @@ function FoodItemsInit() {
                     '                            <button type="reset" class="btn btn-default">' +
                     '                                <span class="glyphicon glyphicon-refresh"></span>' +
                     '                            </button>' +
-                    '                            <button type="button" class="btn btn-default" onclick="UpdateFoodItem(this);">' +
+                    '                            <button type="button" class="btn btn-default" onclick="UpdateFoodItem(this);" data-food=\''+JSON.stringify(data[i].foodList[j])+'\'>' +
                     '                                <span class="glyphicon glyphicon-ok"></span>' +
                     '                            </button>' +
                     '                       </div>' +
