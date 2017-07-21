@@ -20,6 +20,7 @@ function OpenOrder(orderid) {
             '    <td>' + foodList[i].foodPrice + '</td>' +
             '</tr>');
     }
+    $('#field-order-foodList').show();
 }
 
 function PrintOrders(orders) {
@@ -37,29 +38,35 @@ function PrintOrders(orders) {
     }
 }
 
-$.getJSON('/manager/shop/order/view/day',{shopId:localStorage.shopId},PrintOrders)
+// $.getJSON('../api/admin-store-order.json',PrintOrders);
+$.getJSON('/manager/shop/order/view/day',{
+    "shopId": localStorage.shopId
+},PrintOrders);
 
 
 
 
 
 
-
-var OrderTemp = {};
-
-function UpdateOrder(order) {
-        $('#order-' + order.status + '-list > table > tbody').append(
-            '<tr style="cursor: pointer;" onclick="OpenOrder(' + order.id + ')">' +
-            '    <th scope="row">' + order.id + '</th>' +
-            '    <td>' + order.username + '</td>' +
-            '    <td>' + order.address + '</td>' +
-            '    <td>' + order.phoneNum + '</td>' +
-            '    <td>' + order.generateTime + '</td>' +
-            '</tr>');
-        window.orderlistJSON.push(order);
+function viewNewOrder(){
+    $('.sub-menu').hide();
+    $('#sub-menu-order').show();
 }
 
-function UpdateOrderPopup() {
+function UpdateOrder(order) {
+    $('#order-' + order.status + '-list > table > tbody').append(
+        '<tr style="cursor: pointer;" onclick="OpenOrder(' + order.id + ')">' +
+        '    <th scope="row">' + order.id + '</th>' +
+        '    <td>' + order.username + '</td>' +
+        '    <td>' + order.address + '</td>' +
+        '    <td>' + order.phoneNum + '</td>' +
+        '    <td>' + order.generateTime + '</td>' +
+        '</tr>');
+    window.orderlistJSON.push(order);
+    console.log(JSON.stringify(order));
+}
+
+function UpdateOrderPopup(order) {
     var MessageModal =
         '<div id="message-modal-temp" class="modal fade in" tabindex="-1" style="display: block;">'+
         '    <div class="modal-dialog modal-sm">'+
@@ -68,10 +75,10 @@ function UpdateOrderPopup() {
         '                <button type="button" class="close" data-dismiss="modal">'+
         '                    <span aria-hidden="true">×</span>'+
         '                </button>'+
-        '                <h4 class="modal-title" id="myLargeModalLabel"><b>有新的订单, 是否同步？</b></h4>'+
+        '                <h4 class="modal-title" id="myLargeModalLabel"><b>有新的订单</b></h4>'+
         '            </div>'+
         '            <div class="modal-body text-center">'+
-        '                <div class="btn btn-default" data-dismiss="modal" onclick="UpdateOrder(window.OrderTemp)">同步新订单</div>'+
+        '                <div class="btn btn-default" data-dismiss="modal" onclick="viewNewOrder()">查看订单</div>'+
         '            </div>'+
         '        </div>'+
         '    </div>'+
@@ -79,6 +86,7 @@ function UpdateOrderPopup() {
 
     $('#message-modal-temp').remove();
     $(MessageModal).modal('show');
+    UpdateOrder(order);
 }
 
 var sock = new WebSocket("ws:localhost:8080/manager/shop/getorder");
@@ -87,14 +95,12 @@ if(sock==undefined) alert('error initiating websocket');
 
 sock.onopen = function (e) {
     console.log(e);
-    sendMessage("abc");
+    sendMessage("web socket open");
 };
 
 sock.onmessage = function (e) {
     console.log(e);
-    window.OrderTemp = e.data;
-    UpdateOrder(e.data);
-
+    UpdateOrderPopup(JSON.parse(e.data));
 };
 
 sock.onerror = function (e) {
@@ -112,8 +118,10 @@ function sendMessage(message) {
 
 /*  only for testing
 
+ $.getJSON('../api/admin-store-order-new.json',function (data) {
+ OrderTemp = data;
+ })
 
+ setTimeout(UpdateOrderPopup,3000);
 
-setTimeout(UpdateOrderPopup,3000);
-
-*/
+ */

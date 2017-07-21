@@ -53,7 +53,7 @@
     <select id="findFoodByFoodId" parameterType="int" resultMap="shopFood">
         select id,food_name,shop_food_type,shop_id,price,old_price,monthly_counts,food_img,info,description,grade
         from shop_food
-        where id = #{id}
+        where shop_food_type = #{id}
     </select>
 
     <select id="findShopGoodsById" parameterType="int" resultMap="goodsList">

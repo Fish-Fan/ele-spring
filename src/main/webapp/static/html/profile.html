@@ -1,7 +1,5 @@
 <script>
-    $.getJSON("api/status.json",function(data){
-        if(data.status!=1) loadWindow('login.html')
-    })
+    if(localStorage.userid==undefined) loadWindow('login.html')
 </script>
 
 <header class="mui-bar mui-bar-nav" style='background-image: linear-gradient(90deg,#0af,#0085ff);'>
@@ -200,15 +198,15 @@
         })
 
         $('#bind-user-tel').on('tap',function(){
-            mui.prompt('text','deftext','title',['true','false'],null,'div')
+            mui.prompt('text','电话号码','title',['true','false'],null,'div')
         })
 
         $('#bind-user-qq').on('tap',function(){
-            mui.prompt('text','deftext','title',['true','false'],null,'div')
+            mui.prompt('text','QQ号码','title',['true','false'],null,'div')
         })
 
         $('#bind-user-email').on('tap',function(){
-            mui.prompt('text','deftext','title',['true','false'],null,'div')
+            mui.prompt('text','电子邮箱地址','title',['true','false'],null,'div')
         })
 
         $("#newUsernameInput").blur(function () {

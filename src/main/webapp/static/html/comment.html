@@ -181,7 +181,7 @@
 
 
 
-            var WebRoot = "http://localhost:8080";
+//            var WebRoot = "";
 
             var WebUploaderInit = function (token) {
                 var uploader = WebUploader.create({
@@ -228,7 +228,7 @@
                 // 文件上传成功，给item添加成功class, 用样式标记上传成功。
                 uploader.on( 'uploadSuccess', function( file, response ) {
                     $( '#'+file.id ).addClass('upload-state-done');
-                    $.post(WebRoot + '/user/reward/uploadimg',{
+                    $.post('/user/reward/uploadimg',{
                         "key": 'http://oleco2u3s.bkt.clouddn.com/' + response.key + "?imageView2/1/w/320/h/480",
                         "orderId": orderJSON.id
                     },function (data) {

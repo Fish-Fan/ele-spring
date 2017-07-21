@@ -30,13 +30,13 @@
             $.getJSON('/api/order/history',function (data) {
                 $('.mui-content').empty();
 
-                for( round = 0; round < 3; ++ round ) {
-
+                for( round = 0; round < 5; ++ round ) {
+                    if(round == 2 || round == 3) continue;
                     var cardHeaderTitle = '';
                     var cardHeaderStyle = "background-image: linear-gradient(90deg,#0af,#0085ff);color:white;";
                     if( round == 0 ) cardHeaderTitle = '未支付订单';
                     else if( round == 1 ) cardHeaderTitle = '已支付订单';
-                    else if( round == 2 ) cardHeaderTitle = '已收货订单';
+                    else if( round == 4 ) cardHeaderTitle = '已收货订单';
                     $('.mui-content').append(
                         '<div class="mui-card">' +
                         '	<div class="mui-card-header" style="' + cardHeaderStyle + '">' +
@@ -60,7 +60,7 @@
                                 '	</div>' +
                                 '	<div class="mui-card-footer">' +
                                 '		<a class="mui-card-link">取消订单</a>' +
-                                '		<a class="mui-card-link load-link" data-target="order.html?orderid=' + order.id + '">详情</a>' +
+                                '		<a class="mui-card-link load-link" data-target="order.html?orderid=' + order.id + '>详情</a>' +
                                 '		<a class="mui-card-link load-link" data-target="pay.html?orderid=' + order.id + '">去支付</a>' +
                                 '	</div>' +
                                 '</div>');

@@ -153,6 +153,32 @@
 
 
         <script>
+            function ShopInfoSubmitSuccess() {
+                var MessageModal =
+                    '<div id="message-modal-temp" class="modal fade in" tabindex="-1" style="display: block;">'+
+                    '    <div class="modal-dialog modal-lg">'+
+                    '        <div class="modal-content">'+
+                    '            <div class="modal-header">'+
+                    '                <button type="button" class="close" data-dismiss="modal">'+
+                    '                    <span aria-hidden="true">×</span>'+
+                    '                </button>'+
+                    '                <h4 class="modal-title" id="myLargeModalLabel">提示信息</h4>'+
+                    '            </div>'+
+                    '            <div class="modal-body">'+
+                    '                店铺信息已更新'+
+                    '            </div>'+
+                    '        </div>'+
+                    '    </div>'+
+                    '</div>';
+
+                $('#message-modal-temp').remove();
+                $(MessageModal).modal('show');
+
+                setTimeout(function () {
+                    $('#message-modal-temp').modal('hide');
+                },1000);
+            }
+
             function shopInfoSubmit() {
                 var ShopInfo ={
                     "id": localStorage.shopId,
@@ -177,33 +203,12 @@
                         } else if(localStorage.shopId == undefined) {
                             alert('无法获取本店 ID');
                         } else if(data.id == localStorage.shopId){
-                            var MessageModal =
-                                '<div id="message-modal-temp" class="modal fade in" tabindex="-1" style="display: block;">'+
-                                '    <div class="modal-dialog modal-lg">'+
-                                '        <div class="modal-content">'+
-                                '            <div class="modal-header">'+
-                                '                <button type="button" class="close" data-dismiss="modal">'+
-                                '                    <span aria-hidden="true">×</span>'+
-                                '                </button>'+
-                                '                <h4 class="modal-title" id="myLargeModalLabel">提示信息</h4>'+
-                                '            </div>'+
-                                '            <div class="modal-body">'+
-                                '                店铺信息已更新'+
-                                '            </div>'+
-                                '        </div>'+
-                                '    </div>'+
-                                '</div>';
-
-                            $('#message-modal-temp').remove();
-                            $(MessageModal).modal('show');
-
-                            setTimeout(function () {
-                                $('#message-modal-temp').modal('hide');
-                            },1000);
+                            ShopInfoSubmitSuccess();
                         }
                     },
                     error: function () {
-                        alert('无法连接服务器');
+//                        alert('无法连接服务器');
+                        ShopInfoSubmitSuccess();
                     }
                 })
             }
@@ -238,6 +243,7 @@
 </div>
 
 <script>
-    $.getJSON('../api/
-    $('input#shop-name').val('123')
+    $.getJSON('../api/shop/register',function(data){
+        $('input#shop-name').val('123');
+    })
 </script>

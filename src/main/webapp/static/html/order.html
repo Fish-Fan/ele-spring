@@ -114,11 +114,11 @@
         loadWindow($(this).data('target'))
     })
 
-    var WebRoot = 'http://localhost:8080/';
+//    var WebRoot = 'http://localhost:8080/';
     var responseOrder = {};
 
 //    $.getJSON('api/order.json', function (data) {
-    $.getJSON(WebRoot+'api/order/pay/'+localStorage.orderid, function (data) {
+    $.getJSON('/api/order/pay/'+localStorage.orderid, function (data) {
 //        localStorage.orderid = data.id;// modified on 7/18/2017
         responseOrder = data;
         $('#addressHeader').text(data.address);
